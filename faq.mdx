@@ -1,0 +1,89 @@
+---
+title: "FAQ"
+description: "Questions that come up often."
+---
+
+# FAQ
+
+## Why ACH only?
+
+Card processing for behavioral health balances often costs 3-4% per
+transaction. On a $200 copay, that's $6-8 of margin gone before the
+practice sees a dollar. ACH costs a tiny fraction of that and clears in
+1-3 business days — fast enough for healthcare cash flow, dramatically
+cheaper than cards.
+
+We may add card support as an opt-in for practices that need it. ACH-first
+is a deliberate default, not a limitation.
+
+## Do patients need a Veridian account?
+
+No. The patient flow has no account, no signup, no portal, no app. They
+get a link, they pay, they get a receipt. That's the whole experience.
+
+## Do you store the patient's bank credentials?
+
+No. The patient logs into their bank through our bank-connection partner's
+secure flow. Veridian never sees the username, password, or any other
+credentials. We receive a tokenized reference that lets us initiate a
+single transfer.
+
+## What happens if the patient's bank reverses the payment?
+
+Rarely, an ACH transfer is returned after initial settlement (insufficient
+funds, account closed, etc.). Veridian fires a
+`session.payment.reversed` webhook to your server. Your handler reverses
+the payment on the invoice and surfaces the account in your follow-up
+workflow.
+
+## Can I run Veridian without signing a BAA?
+
+You can use sandbox with no BAA — sandbox never touches real money or real
+PHI. Production requires a signed BAA before live keys are issued. This is
+non-negotiable; it's how HIPAA works.
+
+## What's the minimum and maximum payment amount?
+
+Minimums and maximums are set per-practice based on your underwriting
+profile. Reasonable defaults are $5 minimum and $10,000 maximum per
+session. Practices needing higher limits work with our team directly.
+
+## How long does a session URL stay valid?
+
+The default is 30 minutes from first open. You can configure this per
+practice. Sessions that haven't been opened yet remain valid until you
+cancel them or your retention policy purges them.
+
+## Can a single patient pay multiple invoices at once?
+
+Today, sessions are 1:1 with invoices. Multi-invoice sessions are on the
+roadmap — let us know if you need this.
+
+## Where is patient data stored?
+
+In the United States, in HIPAA-aligned infrastructure provided by our
+sub-processors. The current sub-processor list is available to practices
+on request through their account contact.
+
+## Can I export my data?
+
+Yes. From the dashboard you can export sessions, payments, webhook
+history, and audit log for your practice. The export is yours; you don't
+need our permission to use it elsewhere.
+
+## How do I contact support?
+
+[support@veridianhp.com](mailto:support@veridianhp.com) for general support.
+[security@veridianhp.com](mailto:security@veridianhp.com) for security
+reports. Both are read by the Veridian team directly.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Walk the full sandbox flow in 15 minutes.
+  </Card>
+  <Card title="Security" icon="shield-check" href="/security/overview">
+    Our security posture in detail.
+  </Card>
+</CardGroup>

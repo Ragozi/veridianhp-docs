@@ -1,0 +1,113 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Veridian Health Partners",
+  "logo": {
+    "light": "/logo/veridian-shield.jpg",
+    "dark": "/logo/veridian-shield.jpg",
+    "href": "https://veridianhp.com"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#2DD4BF",
+    "light": "#5DEFE0",
+    "dark": "#0E9994",
+    "anchors": {
+      "from": "#2DD4BF",
+      "to": "#0E9994"
+    },
+    "background": {
+      "light": "#FFFFFF",
+      "dark": "#0B1F3A"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Contact",
+      "url": "https://veridianhp.com/contact"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Request Access",
+    "url": "https://veridianhp.com/request-access"
+  },
+  "anchors": [
+    {
+      "name": "API Reference",
+      "icon": "code",
+      "url": "api"
+    },
+    {
+      "name": "Security",
+      "icon": "shield-check",
+      "url": "security"
+    },
+    {
+      "name": "Status",
+      "icon": "signal-stream",
+      "url": "https://status.veridianhp.com"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "concepts"
+      ]
+    },
+    {
+      "group": "Veridian Bridge",
+      "pages": [
+        "bridge/overview",
+        "bridge/payment-flow",
+        "bridge/integration",
+        "bridge/branding"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api/introduction",
+        "api/authentication",
+        "api/sessions",
+        "api/webhooks",
+        "api/errors",
+        "api/rate-limits"
+      ]
+    },
+    {
+      "group": "Security & Compliance",
+      "pages": [
+        "security/overview",
+        "security/hipaa",
+        "security/data-handling",
+        "security/incident-response"
+      ]
+    },
+    {
+      "group": "Support",
+      "pages": [
+        "troubleshooting",
+        "faq",
+        "changelog"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "website": "https://veridianhp.com"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
+  "search": {
+    "prompt": "Search the Veridian docs"
+  },
+  "modeToggle": {
+    "default": "light"
+  },
+  "metadata": {
+    "og:site_name": "Veridian Health Partners Docs"
+  }
+}

@@ -1,0 +1,112 @@
+---
+title: "Errors"
+description: "HTTP status codes, error codes, and how to handle them."
+---
+
+# Errors
+
+The Veridian API returns errors in a consistent envelope:
+
+```json
+{
+  "error": {
+    "code": "session_not_found",
+    "message": "No session with that id.",
+    "requestId": "req_01HZX9ABCDEF"
+  }
+}
+```
+
+Always include the `requestId` when contacting support — it lets us trace
+the exact path of your request through our system in seconds.
+
+## HTTP status codes
+
+| Code | Meaning                                                          |
+| ---- | ---------------------------------------------------------------- |
+| 200  | OK — request succeeded.                                          |
+| 201  | Created — a resource was created (sessions, keys).               |
+| 204  | No Content — succeeded, nothing to return.                       |
+| 400  | Bad Request — your request is malformed. Don't retry as-is.      |
+| 401  | Unauthorized — missing, malformed, or revoked API key.           |
+| 403  | Forbidden — key is valid but lacks permission for this action.   |
+| 404  | Not Found — the referenced resource doesn't exist.               |
+| 409  | Conflict — request conflicts with current state.                 |
+| 422  | Unprocessable — request is well-formed but semantically wrong.   |
+| 429  | Too Many Requests — slow down. Respect `Retry-After`.            |
+| 500  | Internal — Veridian's problem. Safe to retry with backoff.       |
+| 503  | Service Unavailable — temporary. Safe to retry with backoff.     |
+
+## Error codes
+
+Codes are stable strings, safe to match on. Messages are human-readable and
+may change.
+
+### Authentication
+
+| Code                       | Status | Meaning                                        |
+| -------------------------- | ------ | ---------------------------------------------- |
+| `missing_authorization`    | 401    | No `Authorization` header.                     |
+| `malformed_authorization`  | 401    | Header present but not a valid bearer token.   |
+| `invalid_api_key`          | 401    | Key not recognized.                            |
+| `revoked_api_key`          | 401    | Key was revoked. Issue a new one.              |
+| `environment_mismatch`     | 401    | Sandbox key on production host, or vice versa. |
+
+### Validation
+
+| Code                       | Status | Meaning                                        |
+| -------------------------- | ------ | ---------------------------------------------- |
+| `missing_field`            | 400    | A required field is missing. See `field`.      |
+| `invalid_field`            | 400    | A field's value is malformed. See `field`.     |
+| `amount_too_small`         | 422    | Amount below the minimum.                      |
+| `amount_too_large`         | 422    | Amount above the per-session limit.            |
+| `unsupported_currency`     | 422    | Currency is not USD.                           |
+
+### Sessions
+
+| Code                          | Status | Meaning                                     |
+| ----------------------------- | ------ | ------------------------------------------- |
+| `session_not_found`           | 404    | No session with that id (for this practice).|
+| `session_already_terminal`    | 409    | Tried to cancel a terminal session.         |
+| `session_expired`             | 410    | The session passed its expiry.              |
+| `invoice_already_paid`        | 409    | A previous session for this invoice succeeded.|
+
+### Webhooks
+
+| Code                          | Status | Meaning                                     |
+| ----------------------------- | ------ | ------------------------------------------- |
+| `endpoint_url_invalid`        | 400    | Endpoint URL must be HTTPS.                 |
+| `endpoint_unreachable`        | 422    | We could not reach the endpoint during validation.|
+
+### Rate limiting
+
+| Code                       | Status | Meaning                                     |
+| -------------------------- | ------ | ------------------------------------------- |
+| `rate_limited`             | 429    | Per-key rate limit exceeded. See `Retry-After`.|
+
+### Server
+
+| Code                       | Status | Meaning                                        |
+| -------------------------- | ------ | ---------------------------------------------- |
+| `internal_error`           | 500    | Unexpected error on our side.                  |
+| `service_unavailable`      | 503    | Temporary capacity or maintenance.             |
+
+## Retry guidance
+
+A simple rule that won't get you into trouble:
+
+- **2xx:** done, move on.
+- **4xx (other than 408, 429):** your bug, do not retry.
+- **408, 429, 5xx:** retry with exponential backoff and jitter, give up after
+  a sane cap (e.g. 6 attempts over 5 minutes).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Rate limits" icon="gauge-high" href="/api/rate-limits">
+    Limits, headers, and backoff patterns.
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+    Common errors in practice and how to fix them.
+  </Card>
+</CardGroup>

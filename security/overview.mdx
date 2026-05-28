@@ -1,0 +1,87 @@
+---
+title: "Security overview"
+description: "How Veridian protects patient data and your integration."
+---
+
+# Security overview
+
+Veridian operates as a Business Associate under HIPAA and is designed
+from the ground up for healthcare data. This page is the public summary of
+our security posture. For evidence-level detail (control matrices, audit
+reports, penetration test summaries), Veridian customers and prospects can
+request our security package through their account contact.
+
+## What we protect
+
+- **Protected Health Information (PHI):** Patient identifiers, visit
+  references, and any other data covered under HIPAA.
+- **Payment instrument data:** Bank account references handled through our
+  PCI- and bank-compliant payment partners. Veridian itself never sees raw
+  bank credentials.
+- **Practice credentials:** API keys, webhook signing secrets, dashboard
+  access.
+
+## How we protect it
+
+### Encryption
+
+- **In transit:** TLS 1.2+ on every connection, including internal services.
+- **At rest:** AES-256-GCM field-level encryption on PHI fields. Database
+  storage volumes are additionally encrypted at the platform level.
+- **Key management:** Encryption keys are versioned to support rotation
+  without service interruption.
+
+### Access controls
+
+- **Least privilege.** Engineers do not have routine access to production
+  PHI. Break-glass access requires approval, expires automatically, and is
+  fully audited.
+- **Multi-factor authentication** is required for every Veridian team member
+  with access to any production system.
+- **Per-key scoping** on the API side means a compromised key affects only
+  one practice, never the platform.
+
+### Audit logging
+
+Every meaningful action — API requests, dashboard logins, internal access to
+practice data — is recorded in a **tamper-evident, hash-chained audit log**.
+Any modification to a past record breaks the chain and is detected.
+
+Practices can view and export their own audit log from the dashboard.
+
+### Monitoring and detection
+
+- Anomaly detection on authentication, API usage, and payment patterns.
+- 24/7 alerting on integrity, availability, and security events.
+- Quarterly security reviews of monitoring effectiveness.
+
+## How we contain incidents
+
+We maintain a documented [Incident Response](/security/incident-response)
+process covering detection, triage, containment, eradication, recovery, and
+post-incident review. For incidents that may involve PHI, we follow the
+HIPAA Breach Notification Rule (45 CFR Subpart D) timelines.
+
+## How we test ourselves
+
+- **Continuous automated testing** on every code change before it can ship.
+- **Periodic penetration testing** by qualified third parties.
+- **Vendor security reviews** before any subprocessor handles PHI.
+
+## Business Associate Agreement
+
+Every practice using Veridian for production signs a **Business Associate
+Agreement (BAA)** before any live PHI flows. The BAA covers our obligations
+under HIPAA, our breach notification commitments, and our subprocessor
+arrangements. Request a draft through your account contact.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="HIPAA" icon="user-shield" href="/security/hipaa">
+    Our HIPAA posture in more detail.
+  </Card>
+  <Card title="Data handling" icon="database" href="/security/data-handling">
+    What data Veridian collects, retains, and deletes.
+  </Card>
+</CardGroup>

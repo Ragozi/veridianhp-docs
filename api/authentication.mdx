@@ -1,0 +1,95 @@
+---
+title: "Authentication"
+description: "API key issuance, scopes, rotation, and revocation."
+---
+
+# Authentication
+
+The Veridian API uses API keys. Each request must carry a key in the
+`Authorization` header.
+
+```http
+Authorization: Bearer vbk_sb_xxxxxxxxxxxxxxxxxxxxxx
+```
+
+## Key formats
+
+| Prefix     | Environment | Capability       |
+| ---------- | ----------- | ---------------- |
+| `vbk_sb_`  | Sandbox     | Test only        |
+| `vbk_live_`| Production  | Real money moves |
+
+Sandbox keys are safe to use in development. Production keys must be treated
+like database credentials — never commit them, never log them, never email
+them, never paste them into chat.
+
+## How keys are issued
+
+From the [Veridian dashboard](https://app.veridianhp.com), open
+**Settings → API keys** and click **Create key**. You'll be shown the full key
+**exactly once**. After that, only a fingerprint is stored — Veridian cannot
+recover a lost key. Lose it, revoke it, issue a new one.
+
+Each key is associated with a single practice. There is no concept of
+"organization-wide" keys.
+
+## Scopes (coming soon)
+
+Today, all keys are full-access for the issuing practice. Scoped keys
+(read-only, sessions-only, webhooks-only) are on the near roadmap. Until
+then, practice your principle of least privilege at the deploy boundary:
+production keys live only on production servers, never on developer laptops.
+
+## Rotation
+
+Recommended cadence: **rotate every 90 days**, or immediately on any of:
+
+- A team member with access to the key leaves
+- The key may have been exposed (logs, a screenshot, a public commit)
+- An anomaly appears in your audit log (see your dashboard)
+
+To rotate without downtime:
+
+1. Create a new key in the dashboard.
+2. Deploy the new key to your environment.
+3. Confirm traffic is flowing on the new key (the dashboard shows
+   per-key usage).
+4. Revoke the old key.
+
+## Revocation
+
+Revoking a key takes effect within seconds. Revoked keys return `401
+unauthorized` on the next request and cannot be reactivated.
+
+Revocation is **immediate and irreversible**. If you revoked the wrong key,
+issue a new one — you cannot un-revoke.
+
+## What gets logged
+
+Every authenticated request appends a row to your practice's audit log:
+
+- Timestamp
+- API key fingerprint (not the key itself)
+- Endpoint and HTTP method
+- Outcome (success / specific failure)
+- Request ID (so you can correlate with your own logs)
+
+Audit logs are tamper-evident — we use a hash-chain so any modification is
+detectable. See [Security overview](/security/overview).
+
+## What's never logged
+
+- The full API key (only a fingerprint)
+- Patient PHI in audit metadata
+- Request or response bodies in detail (only endpoint and outcome)
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Sessions" icon="layer-group" href="/api/sessions">
+    The core endpoint family.
+  </Card>
+  <Card title="Errors" icon="triangle-exclamation" href="/api/errors">
+    Auth error codes and recovery patterns.
+  </Card>
+</CardGroup>

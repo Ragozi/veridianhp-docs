@@ -1,0 +1,30 @@
+Veridian Health Partners Documentation
+
+Copyright (c) 2026 Halo Labs AI, LLC. All rights reserved.
+
+This documentation is provided as reference material for Veridian Health
+Partners customers, partners, and prospective integrators evaluating the
+Veridian platform.
+
+You MAY:
+- View this documentation at https://docs.veridianhp.com or via the
+  GitHub repository.
+- Use code samples included in this documentation in your own
+  integration with the Veridian platform.
+- Quote short excerpts in technical articles, blog posts, or internal
+  documents, provided you credit Veridian Health Partners.
+
+You MAY NOT, without prior written permission from Halo Labs AI, LLC:
+- Redistribute this documentation, in whole or in substantial part, on
+  any other website or in any other publication.
+- Use the Veridian name, logo, or marks except in factual reference to
+  the platform.
+- Translate, fork, or relicense this documentation.
+- Use this documentation to train machine learning models other than
+  those owned and operated by Halo Labs AI, LLC.
+
+For licensing inquiries, contact: legal@veridianhp.com
+
+THIS DOCUMENTATION IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.

@@ -1,0 +1,72 @@
+---
+title: "Bridge overview"
+description: "How the Veridian Bridge patient payment flow works end-to-end."
+---
+
+# Veridian Bridge
+
+Veridian Bridge is the patient-facing payment flow. It is the single most
+important product surface in the Veridian platform — the page your patients
+actually touch.
+
+The Bridge is hosted by Veridian, branded for your practice, and engineered for
+one thing: **getting a patient from "I owe my therapist money" to "I paid"
+in under sixty seconds, on their phone, without an account.**
+
+## What the patient sees
+
+1. They receive a text or email with a single link.
+2. The link opens to your practice's branded payment page showing exactly
+   what they owe and what it's for.
+3. They tap "Pay with bank" and are guided through connecting their bank in
+   a familiar, secure flow.
+4. They confirm the payment amount.
+5. They see a confirmation page and get a receipt by email.
+
+The whole flow takes most patients under a minute. There is no account
+signup, no portal, no app to install.
+
+## What the practice gets
+
+- **Faster collections.** Practices typically see A/R days drop by 30–50%.
+- **Lower processing costs.** ACH at a fraction of card processing fees.
+- **Fewer staff hours.** No more chasing balances by phone.
+- **EHR-friendly.** Webhooks notify your system the moment payment clears.
+- **Audit trail.** Every payment, every action, fully logged for your records.
+
+## What Veridian handles
+
+Veridian takes on the parts of the flow that are expensive to build and
+risky to maintain:
+
+- **Patient experience.** Mobile-optimized, accessibility-tested, branded.
+- **Bank connection.** Through industry-standard, HIPAA-compliant partners.
+- **Payment processing.** ACH rails, settlement, retries on bank failures.
+- **PHI protection.** Encrypted at rest, audited access, BAA-covered.
+- **Compliance.** HIPAA-aligned controls, audit logs, breach procedures.
+
+Your practice never handles card numbers, never stores bank credentials, and
+never sees the patient's bank login — Veridian's processors do that under their
+own PCI and bank compliance regimes.
+
+## What your integration does
+
+In the simplest model, your integration is two API calls and one webhook:
+
+1. When you generate an invoice → `POST /sessions` to mint a payment link
+2. Send the link to the patient (your existing SMS or email pipeline)
+3. When the payment clears → Veridian webhooks you → mark the invoice paid
+
+That's it. The whole integration is typically less than 200 lines of code on
+your side. See [Integration](/bridge/integration) for the detailed walkthrough.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Payment flow" icon="route" href="/bridge/payment-flow">
+    A diagram of the complete patient journey through the Bridge.
+  </Card>
+  <Card title="Integration guide" icon="plug" href="/bridge/integration">
+    From "we have an account" to "we're collecting payments" — step by step.
+  </Card>
+</CardGroup>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <linearGradient id="vh-grad-fill" x1="6" y1="6" x2="42" y2="42">
+      <stop offset="0%" stop-color="#5DEFE0" />
+      <stop offset="55%" stop-color="#2DD4BF" />
+      <stop offset="100%" stop-color="#0E9994" />
+    </linearGradient>
+    <linearGradient id="vh-grad-stroke" x1="6" y1="6" x2="42" y2="42">
+      <stop offset="0%" stop-color="#7FF1E2" />
+      <stop offset="100%" stop-color="#0E9994" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M24 4 L42 12 L42 26 C42 35 34 42 24 44 C14 42 6 35 6 26 L6 12 Z"
+    fill="url(#vh-grad-fill)"
+    stroke="url(#vh-grad-stroke)"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M16 22 L22 30 L34 16"
+    stroke="#ffffff"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+</svg>

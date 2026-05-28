@@ -1,0 +1,78 @@
+---
+title: "HIPAA"
+description: "How Veridian operates as a HIPAA Business Associate."
+---
+
+# HIPAA
+
+Veridian processes Protected Health Information (PHI) on behalf of covered
+entities (practices). That makes Veridian a **Business Associate** under
+HIPAA. We operate accordingly.
+
+## What this means in practice
+
+- We sign a **Business Associate Agreement (BAA)** with every practice
+  before live PHI flows.
+- We implement administrative, physical, and technical safeguards aligned
+  with the HIPAA Security Rule (45 CFR Part 164, Subpart C).
+- We follow the HIPAA Breach Notification Rule (45 CFR Subpart D) for any
+  incident that could constitute a breach of unsecured PHI.
+- We flow down BAA obligations to any subprocessor that touches PHI.
+
+## What data is treated as PHI
+
+For Veridian's flow, PHI includes:
+
+- Patient first and last name when tied to a visit, invoice, or payment
+- Practice-supplied identifiers linking the patient to clinical care
+- Anything the practice transmits to Veridian in the patient or metadata
+  fields of a session
+
+What we **do not collect**:
+
+- Diagnosis codes
+- Procedure codes
+- Clinical notes or any treatment detail
+- Insurance member identifiers
+
+By design, Veridian needs only enough information to display a friendly
+Bridge page and reconcile a payment. Less data, less risk.
+
+## The minimum-necessary principle
+
+The HIPAA minimum-necessary rule requires that PHI use and disclosure be
+limited to what's needed for the task. Veridian's API surface is built
+around this principle:
+
+- The session creation endpoint requires only patient name plus your invoice
+  identifier — nothing more.
+- API responses do not echo PHI you did not provide.
+- Audit logs record events without copying PHI into log metadata.
+- Internal dashboards mask PHI by default; reveal requires per-action
+  authorization and audit.
+
+## Patients and their rights
+
+Patients have rights under HIPAA to access, amend, and receive an accounting
+of disclosures of their PHI. Because Veridian is a Business Associate, those
+rights are exercised through the practice (the covered entity), not directly
+with Veridian. Practices should route patient requests through their normal
+HIPAA workflow; Veridian supplies the data the practice needs to respond.
+
+## Sub-processors
+
+Veridian uses a small number of sub-processors for hosting, payment
+processing, and bank connectivity. Each sub-processor that touches PHI has a
+signed BAA with Veridian. The current sub-processor list is available to
+practices on request through their account contact.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Data handling" icon="database" href="/security/data-handling">
+    What we collect, retain, and delete.
+  </Card>
+  <Card title="Incident response" icon="bell" href="/security/incident-response">
+    What happens if something goes wrong.
+  </Card>
+</CardGroup>

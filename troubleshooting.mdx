@@ -1,0 +1,84 @@
+---
+title: "Troubleshooting"
+description: "Common issues and how to resolve them quickly."
+---
+
+# Troubleshooting
+
+The fastest path to a fix is usually:
+
+1. Check the [error code](/api/errors) — most errors are self-explanatory.
+2. Grab the `requestId` from the response and include it in any support
+   message. That single value lets us locate the exact request in seconds.
+
+If you're still stuck, browse below by symptom.
+
+## "I'm getting 401 on every request"
+
+- **Verify the key prefix matches the host.** `vbk_sb_...` only works on
+  the sandbox host; `vbk_live_...` only works on production. The error
+  code `environment_mismatch` confirms this.
+- **Confirm the key isn't revoked.** Revoked keys cannot be reactivated.
+  Issue a new one from the dashboard.
+- **Check the header format.** It must be exactly `Authorization: Bearer
+  <key>`. Some HTTP clients drop bearer schemes — verify the request that
+  actually hit the wire.
+
+## "Webhook signature verification keeps failing"
+
+- **Use the raw request body, byte-for-byte.** Most failures are caused by
+  JSON parsing followed by re-serialization, which subtly changes the bytes.
+- **Verify your endpoint secret matches the one shown in the dashboard for
+  that specific endpoint.** Each endpoint has its own secret.
+- **Check the timestamp tolerance.** Reject signatures more than 5 minutes
+  off your server clock, but make sure your server clock is correct.
+
+## "I created a session but the hosted URL 404s"
+
+- **Confirm you used the right environment.** Sandbox `hostedUrl` opens on
+  `pay.sandbox.veridianhp.com`; production opens on `pay.veridianhp.com`.
+  Mixing them gives 404.
+- **Check the session hasn't expired.** Hosted URLs expire after the
+  configured TTL (default 30 minutes from first open).
+
+## "The patient finished paying but I never got a webhook"
+
+- **Confirm your endpoint is reachable.** The dashboard shows delivery
+  attempts and any failures. Endpoints that return 5xx or time out are
+  retried with backoff.
+- **Check your endpoint isn't returning 200 on requests it didn't
+  durably process.** If you 200 a request before recording it, Veridian
+  marks the event delivered and won't retry.
+- **Look at the dashboard webhook log** — if delivery succeeded, the event
+  reached your server. The issue is downstream.
+
+## "I'm getting 429 even though my traffic is normal"
+
+- **Check that you're using a per-environment key.** A single key used by
+  multiple practices or environments shares one bucket.
+- **Confirm you're not polling `/status` on a timer.** Use webhooks
+  instead.
+- **Contact support** if your legitimate workload exceeds the published
+  limits — we can adjust per-practice.
+
+## "The hosted page looks wrong on a patient's phone"
+
+- **Verify your logo upload.** Mintlify-quality PNG or SVG at the size
+  shown in the dashboard.
+- **Try the page on a different network.** Some captive networks proxy
+  HTTPS and break the bank-connection flow.
+- **Confirm the patient is on a supported browser.** We support the last
+  two versions of Safari, Chrome, Edge, and Firefox on iOS, Android, and
+  desktop.
+
+## "I revoked the wrong key"
+
+There's no un-revoke. Issue a new key, deploy it, move on. The fingerprint
+of the revoked key stays in your audit log so you have a record of which key
+did what before it was revoked.
+
+## Still stuck?
+
+Email [support@veridianhp.com](mailto:support@veridianhp.com) with the
+`requestId` (if you have one) and a short description. The Veridian team
+sees every support email — there is no tier-1 filter.
