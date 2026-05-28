@@ -1,0 +1,103 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Veridian Health Partners",
+  "description": "Patient payment infrastructure for behavioral and mental health practices. Veridian Bridge, API reference, and security documentation.",
+  "colors": {
+    "primary": "#2DD4BF",
+    "light": "#5DEFE0",
+    "dark": "#0E9994"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/veridian-shield.jpg",
+    "dark": "/logo/veridian-shield.jpg",
+    "href": "https://veridianhp.com"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "icon": "play",
+        "pages": [
+          "introduction",
+          "quickstart",
+          "concepts"
+        ]
+      },
+      {
+        "group": "Veridian Bridge",
+        "icon": "bridge",
+        "pages": [
+          "bridge/overview",
+          "bridge/payment-flow",
+          "bridge/integration",
+          "bridge/branding"
+        ]
+      },
+      {
+        "group": "API reference",
+        "icon": "code",
+        "pages": [
+          "api/introduction",
+          "api/authentication",
+          "api/sessions",
+          "api/webhooks",
+          "api/errors",
+          "api/rate-limits"
+        ]
+      },
+      {
+        "group": "Security & compliance",
+        "icon": "shield-check",
+        "pages": [
+          "security/overview",
+          "security/hipaa",
+          "security/data-handling",
+          "security/incident-response"
+        ]
+      },
+      {
+        "group": "Support",
+        "icon": "life-ring",
+        "pages": [
+          "troubleshooting",
+          "faq",
+          "changelog"
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Website",
+          "href": "https://veridianhp.com",
+          "icon": "globe"
+        },
+        {
+          "anchor": "Status",
+          "href": "https://status.veridianhp.com",
+          "icon": "signal-stream"
+        }
+      ]
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Contact",
+        "href": "https://veridianhp.com/contact"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Request access",
+      "href": "https://veridianhp.com/request-access"
+    }
+  },
+  "footer": {
+    "socials": {
+      "website": "https://veridianhp.com"
+    }
+  }
+}
