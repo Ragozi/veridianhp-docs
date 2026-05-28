@@ -47,3 +47,5 @@ suggestion link.
 See [LICENSE](./LICENSE). All rights reserved. Documentation is provided as
 reference material for Veridian customers and partners; redistribution
 requires written permission.
+
+<!-- build trigger: 2026-05-28 13:42 CDT, post Mintlify GitHub App install -->
