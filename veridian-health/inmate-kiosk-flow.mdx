@@ -1,0 +1,137 @@
+---
+title: "Inmate kiosk flow"
+description: "The inmate-facing intake experience — photo capture, questionnaire, and session completion."
+---
+
+# Inmate kiosk flow
+
+<Note>
+  **Early-stage documentation.** Kiosk UX details, timing estimates, and
+  validation rules are subject to change during MVP development.
+</Note>
+
+The **inmate kiosk** is the inmate-facing surface of Veridian Health. It
+runs on **facility-controlled devices** — tablets or workstations in a
+designated assessment area — never on inmate personal phones.
+
+The kiosk guides inmates through a structured MSK and posture intake:
+four photos, a tailored questionnaire, and session completion. No account
+signup is required.
+
+## Prerequisites
+
+Before an inmate reaches the kiosk:
+
+1. **Referral created** — jail medical staff identify an inmate who needs MSK
+   triage and create a referral in Veridian Health
+2. **Escort** — custody staff bring the inmate to the kiosk location per
+   facility policy
+3. **Session initiated** — medical or custody staff confirm the session is
+   active on the device (exact initiation flow may vary by jail configuration)
+
+## Kiosk journey
+
+<Steps>
+  <Step title="Welcome and orientation">
+    The kiosk displays a simple welcome screen explaining what the inmate
+    will do: take four photos and answer questions about their pain or
+    mobility concern. Instructions are written for a general audience —
+    no medical jargon.
+  </Step>
+
+  <Step title="Four-photo capture">
+    The inmate follows on-screen positioning guides to capture four images:
+
+    | Photo | Purpose |
+    | --- | --- |
+    | **Front** | Anterior posture, shoulder level, weight distribution |
+    | **Back** | Posterior posture, spinal alignment, scapular position |
+    | **Left** | Lateral profile, sagittal alignment |
+    | **Right** | Lateral profile (opposite side) |
+
+    The interface provides real-time feedback when a photo is unusable
+    (poor lighting, out of frame, motion blur) and prompts a retake before
+    advancing.
+  </Step>
+
+  <Step title="Tailored questionnaire">
+    After photos, the inmate completes a dynamic questionnaire. Initial
+    questions cover:
+
+    - Chief complaint and pain location
+    - Onset and duration
+    - Pain severity and aggravating/relieving factors
+    - Injury history relevant to the complaint
+    - Current mobility and weight-bearing status
+
+    Follow-up questions adapt based on earlier answers — a knee complaint
+    triggers different paths than low back pain.
+  </Step>
+
+  <Step title="Review and submit">
+    The inmate reviews a summary of their photos and answers, confirms
+    accuracy, and submits. The session moves to **processing** on the
+    platform core.
+  </Step>
+
+  <Step title="Completion">
+    The kiosk displays a confirmation that the assessment was submitted.
+    The inmate is escorted back per facility protocol. Results are **not**
+    shown on the kiosk — medical staff review recommendations through
+    the facility workflow.
+  </Step>
+</Steps>
+
+## Design principles
+
+The kiosk is built for correctional environments:
+
+- **Facility-controlled hardware only.** No BYOD, no inmate personal devices.
+- **Minimal literacy burden.** Visual guides, short prompts, progress indicators.
+- **Custody-compatible.** Sessions designed to complete in 10–20 minutes under line-of-sight monitoring.
+- **No clinical output on device.** Recommendations flow to authorized staff, not the inmate screen (configurable per jail policy in future releases).
+
+## Staff involvement during kiosk sessions
+
+| Role | Typical involvement |
+| --- | --- |
+| **Medical staff** | Creates referral, may initiate session, reviews output after |
+| **Custody staff** | Escorts inmate, monitors session, returns inmate to housing |
+| **Administrator** | Configures kiosk locations and device assignments |
+
+Custody presence and monitoring follow each jail's existing healthcare escort policies. Veridian Health does not replace custody protocols.
+
+## Error and edge cases
+
+| Situation | Kiosk behavior |
+| --- | --- |
+| Photo quality too low | Prompt retake with guidance |
+| Inmate cannot hold a position safely | Allow skip with reason captured; flag for staff review |
+| Session timeout | Save progress where possible; staff can restart or cancel |
+| Network interruption | Display reconnect prompt; do not submit partial data without confirmation |
+
+## Data captured at the kiosk
+
+Each kiosk session produces:
+
+- Four assessment images (encrypted at capture and in transit)
+- Questionnaire responses (structured fields)
+- Session metadata (timestamps, device ID, referral link)
+- Any skip/exception flags from the photo or questionnaire flow
+
+See [Data model & privacy](/veridian-health/data-model-privacy) for retention,
+access controls, and PHI handling.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-health/provider-dashboard">
+    What happens after the kiosk session is submitted.
+  </Card>
+  <Card title="Data model & privacy" icon="database" href="/veridian-health/data-model-privacy">
+    Full data inventory and privacy controls.
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+    Common kiosk and photo capture issues.
+  </Card>
+</CardGroup>

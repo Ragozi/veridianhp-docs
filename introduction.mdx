@@ -1,72 +1,72 @@
 ---
 title: "Welcome"
-description: "Veridian Health Partners builds healthcare infrastructure for correctional settings."
+description: "Veridian Health Partners — corrections-focused healthcare infrastructure at veridianhp.com."
 ---
 
 # Veridian Health Partners
 
-Veridian Health Partners builds technology that brings quality healthcare
-into jails and correctional settings — where access is limited, compliance is
-non-negotiable, and the people who need care often have the fewest options.
+<Note>
+  **Early-stage documentation.** This site is actively maintained as we build
+  Veridian Health. Content, workflows, and technical details will evolve as
+  the product matures. Last major update: July 2026.
+</Note>
 
-Everything lives under **[veridianhp.com](https://veridianhp.com)** — the
-home for Veridian Health, future products like Veridian Billing, and
-facility onboarding.
+Veridian Health Partners builds healthcare technology for **jails and
+correctional facilities** — environments where specialist access is limited,
+compliance is mandatory, and musculoskeletal complaints often go unaddressed.
 
-We operate as a **product family** under one roof. Each product solves a
-distinct problem; shared security, compliance, and infrastructure run across
-all of them.
+Our current focus is **Veridian Health**: a corrections-focused **posture and
+musculoskeletal triage platform** with two primary surfaces:
 
-## Our products
+- **Inmate kiosk** — facility-controlled intake where inmates complete guided
+  photo capture and a tailored questionnaire
+- **Provider dashboard** — where licensed PTs review cases and deliver
+  PT-driven recommendations
 
-<CardGroup cols={2}>
-  <Card title="Veridian Health" icon="heart-pulse" href="/veridian-health/overview">
-    **MVP in development.** AI-assisted PT assessments for inmates — four
-    guided photos, a tailored questionnaire, and PT-driven recommendations.
-  </Card>
-  <Card title="Veridian Billing" icon="receipt" href="/veridian-billing/overview">
-    **Future product.** Medical billing and coding infrastructure. No timeline
-    yet — current focus is delivering the Veridian Health MVP.
-  </Card>
-</CardGroup>
+Everything is packaged under **[veridianhp.com](https://veridianhp.com)**,
+which will serve as the hub for Veridian Health and future products as they
+launch.
 
-## Why correctional healthcare
+## Product status
 
-Inmates have the same right to healthcare as anyone else. In practice,
-delivering it inside a jail is hard:
+| Product | Status | Description |
+| --- | --- | --- |
+| **Veridian Health** | Active development | Posture and MSK triage — inmate kiosk + provider dashboard |
+| **Veridian Billing** | On hold | Medical billing and coding — deprioritized; placeholder only |
 
-- **Specialist access is scarce.** Physical therapy and other specialty care
-  often require transport, security escorts, and scheduling jails can't
-  sustain.
-- **Staffing gaps persist.** On-site clinical teams are stretched thin; PT
-  coverage is frequently deferred entirely.
-- **Compliance burden is high.** PHI, custody rules, consent workflows, and
-  audit requirements add friction to every clinical interaction.
+## Why we exist
 
-Veridian Health Partners exists to remove that friction — starting with
-physical therapy.
+Jails face a consistent gap in musculoskeletal care:
+
+- On-site physical therapy is rare; nursing staff handle MSK complaints without specialist support
+- Off-site referrals require transport, security escorts, and scheduling jails cannot scale
+- Without structured triage, treatable conditions become chronic and documentation suffers
+
+Veridian Health closes that gap with a workflow designed specifically for
+custody settings — not a generic telehealth tool adapted after the fact.
 
 ## Who these docs are for
 
 | Audience | Start here |
 | --- | --- |
-| **Jail healthcare staff** — administrators, medical units | [For facilities](/veridian-health/for-facilities) |
-| **Licensed PTs** — Veridian network + jail approval | [For providers](/veridian-health/for-providers) |
-| **Compliance and security reviewers** | [Security overview](/security/overview) |
+| **Internal team** | [Veridian Health overview](/veridian-health/overview) |
+| **Facility partners (current and future)** | [Inmate kiosk flow](/veridian-health/inmate-kiosk-flow) |
+| **Licensed PTs** | [Provider dashboard](/veridian-health/provider-dashboard) |
+| **Compliance and security reviewers** | [Data model & privacy](/veridian-health/data-model-privacy) |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Veridian Health overview" icon="play" href="/veridian-health/overview">
-    The MVP — photos, questionnaire, PT-driven recommendations.
+  <Card title="Veridian Health" icon="heart-pulse" href="/veridian-health/overview">
+    Platform overview — posture and MSK triage for corrections.
   </Card>
-  <Card title="How it works" icon="route" href="/veridian-health/how-it-works">
-    The end-to-end assessment flow.
+  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-health/inmate-kiosk-flow">
+    The inmate-facing intake experience end to end.
   </Card>
-  <Card title="Security & HIPAA" icon="shield-check" href="/security/overview">
-    How we protect patient data across all Veridian products.
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-health/provider-dashboard">
+    How PTs review cases and deliver recommendations.
   </Card>
-  <Card title="Request access" icon="envelope" href="https://veridianhp.com/request-access">
-    Join the early-access program for Veridian Health.
+  <Card title="Future roadmap" icon="map" href="/veridian-health/future-roadmap">
+    Planned capabilities including API expansion.
   </Card>
 </CardGroup>

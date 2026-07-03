@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Veridian Health Partners",
-  "description": "Healthcare infrastructure for jails and correctional settings. Veridian Health delivers AI-assisted PT assessments with PT-driven recommendations. Additional products at veridianhp.com.",
+  "description": "Corrections-focused posture and musculoskeletal triage for jails. Veridian Health — inmate kiosk and provider dashboard. Documentation at veridianhp.com.",
   "colors": {
     "primary": "#2DD4BF",
     "light": "#5DEFE0",
@@ -28,10 +28,10 @@
         "icon": "heart-pulse",
         "pages": [
           "veridian-health/overview",
-          "veridian-health/how-it-works",
-          "veridian-health/for-facilities",
-          "veridian-health/for-providers",
-          "veridian-health/quickstart"
+          "veridian-health/inmate-kiosk-flow",
+          "veridian-health/provider-dashboard",
+          "veridian-health/data-model-privacy",
+          "veridian-health/future-roadmap"
         ]
       },
       {

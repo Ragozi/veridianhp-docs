@@ -1,27 +1,29 @@
 # Veridian Health Partners — Public Documentation
 
-This repository contains the public-facing documentation for
-[Veridian Health Partners](https://veridianhp.com), published at
-[docs.veridianhp.com](https://docs.veridianhp.com) via Mintlify.
+Early-stage documentation for [Veridian Health Partners](https://veridianhp.com),
+published at [docs.veridianhp.com](https://docs.veridianhp.com) via Mintlify.
 
 ## Structure
 
 ```
-introduction.mdx              Company hub — product family overview
-veridian-health/*.mdx           Veridian Health (PT consults for inmates)
-veridian-billing/overview.mdx   Veridian Billing (coming soon)
-security/*.mdx                  Shared security & HIPAA (all products)
-troubleshooting.mdx, faq.mdx, changelog.mdx
-docs.json                       Mintlify site configuration
-logo/                           Brand assets
+introduction.mdx                        Company hub (VeridianHP)
+veridian-health/
+  overview.mdx                          Platform overview
+  inmate-kiosk-flow.mdx                 Inmate-facing intake
+  provider-dashboard.mdx                PT case review workflow
+  data-model-privacy.mdx                Data entities and PHI controls
+  future-roadmap.mdx                    Planned features + API expansion
+veridian-billing/overview.mdx           On hold (placeholder)
+security/*.mdx                          Shared compliance docs
+docs.json                               Mintlify navigation
 ```
 
 ## Products
 
-| Product | Status | Docs |
-| --- | --- | --- |
-| **Veridian Health** | MVP in development | `/veridian-health/*` |
-| **Veridian Billing** | Future (no timeline) | `/veridian-billing/overview` |
+| Product | Status |
+| --- | --- |
+| **Veridian Health** | Active development — inmate kiosk + provider dashboard |
+| **Veridian Billing** | On hold |
 
 ## Local preview
 
@@ -29,14 +31,6 @@ logo/                           Brand assets
 npx mintlify dev
 ```
 
-Mintlify renders the site locally at http://localhost:3000.
-
 ## Contributing
 
-Spotted an error, unclear section, or missing topic? Email
-[docs@veridianhp.com](mailto:docs@veridianhp.com) or open a PR.
-
-## License
-
-See [LICENSE](./LICENSE). Documentation is provided as reference material
-for Veridian customers and partners.
+Email [docs@veridianhp.com](mailto:docs@veridianhp.com) or open a PR.
