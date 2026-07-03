@@ -7,68 +7,65 @@ description: "Questions that come up often about Veridian Health Partners."
 
 ## What is Veridian Health Partners?
 
-Veridian Health Partners is the company. We build healthcare infrastructure
-for correctional settings. **Veridian Health** (PT consults for inmates) is
-our first product. **Veridian Billing** (medical billing and coding API) is
-on the roadmap.
+Veridian Health Partners is the company behind
+[veridianhp.com](https://veridianhp.com). We build healthcare infrastructure
+for jails and correctional settings. **Veridian Health** (AI-assisted PT
+assessments) is our current focus. **Veridian Billing** is a future product
+with no timeline yet.
 
 ## Who can use Veridian Health?
 
-Correctional facilities — county jails, state prisons, detention centers —
-that need scalable physical therapy access for inmates. Licensed PTs who
-want to deliver care in correctional settings can join our provider network.
+Any jail that purchases the product. County jails, regional detention
+centers, and other correctional facilities with inmate healthcare programs.
+
+## How does the assessment work?
+
+The inmate completes **four guided photos** (front, back, left, right) and a
+**tailored questionnaire** on a facility-controlled device. Veridian Health
+runs AI-assisted analysis and returns **PT-driven recommendations** — exercise
+guidance, activity modifications, red-flag alerts, and follow-up suggestions.
+
+## Is this a live video consult with a PT?
+
+Not in the MVP. The first release is AI-assisted assessment and
+recommendations. Live PT consults are a future capability.
 
 ## Do inmates need their own accounts?
 
-No. Inmates participate in consults on facility-controlled devices, escorted
-and monitored per facility policy. There is no inmate-facing app or account
-signup.
+No. Inmates complete assessments on facility-controlled devices, escorted
+and monitored per jail policy. There is no inmate account signup.
 
-## Is this telehealth?
+## How do providers get involved?
 
-Yes. Veridian Health delivers PT consults via secure telehealth on
-facility hardware. It is not a replacement for all in-person care — cases
-requiring hands-on intervention are referred for on-site evaluation.
-
-## What specialties beyond PT are planned?
-
-Veridian Health launches with physical therapy. Additional specialties
-(behavioral health, other consult types) may follow based on facility demand
-and regulatory review. Veridian Billing will address revenue cycle separately.
+Licensed PTs enroll in **Veridian's provider network** (credentialing,
+training, background screening). Each **jail must separately approve**
+providers before they participate in that facility's workflow. Both steps are
+required.
 
 ## Can we run Veridian Health without signing a BAA?
 
-Pilot and sandbox environments use synthetic or de-identified data — no BAA
-required. Production use with real inmate PHI requires a signed BAA before
-go-live. This is non-negotiable under HIPAA.
+Pilot environments use synthetic or de-identified data — no BAA required.
+Production use with real inmate PHI requires a signed BAA before go-live.
 
 ## What devices do we need?
 
-Facility-owned tablets or workstations in a designated consult location.
-Inmate personal phones and devices are not supported. Our team provides a
-setup checklist during onboarding.
+Facility-owned tablets or workstations with a camera in a designated
+assessment location. Inmate personal phones are not supported.
 
-## How are providers credentialed?
+## What about the photos — is that PHI?
 
-Licensed PTs complete licensure verification, malpractice coverage
-confirmation, background screening, and platform orientation before
-accepting consults.
+Yes. Assessment images and questionnaire responses are treated as PHI and
+handled under HIPAA. See [data handling](/security/data-handling).
 
 ## Where is patient data stored?
 
 In the United States, in HIPAA-aligned infrastructure. The sub-processor
-list is available to facilities on request.
-
-## Can we export our data?
-
-Yes. Facilities can export consult records, audit logs, and account data
-from the dashboard at any time. Export is also available during offboarding.
+list is available to jails on request.
 
 ## When will Veridian Billing be available?
 
-Veridian Billing is in planning, sequenced after Veridian Health reaches
-production. See the [Veridian Billing overview](/veridian-billing/overview)
-and [changelog](/changelog) for updates.
+There is no timeline. All current focus is on the Veridian Health MVP.
+See [Veridian Billing overview](/veridian-billing/overview).
 
 ## How do I contact support?
 
@@ -84,6 +81,6 @@ feedback.
     What we're building and why.
   </Card>
   <Card title="Quickstart" icon="rocket" href="/veridian-health/quickstart">
-    From access request to first consult.
+    From access request to first assessment.
   </Card>
 </CardGroup>

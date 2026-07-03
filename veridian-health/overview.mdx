@@ -1,88 +1,83 @@
 ---
 title: "Overview"
-description: "Physical therapy consults for inmates — what Veridian Health is and who it serves."
+description: "AI-assisted physical therapy assessments for inmates — what Veridian Health is and who it serves."
 ---
 
 # Veridian Health
 
-Veridian Health connects inmates in correctional facilities with licensed
-physical therapists through a secure, facility-integrated consult platform.
-
-Our first focus is **physical therapy** — one of the most deferred specialty
-services in custody settings. Inmates with musculoskeletal injuries, chronic
-pain, post-surgical needs, and mobility limitations often wait months for
-on-site PT or never receive it at all. Veridian Health closes that gap with
-remote consults that fit inside existing facility workflows.
+Veridian Health gives jails a scalable way to deliver **physical therapy
+guidance** to inmates without on-site PT staff or off-site transport. The
+MVP is an **AI-assisted assessment**: the inmate captures four guided photos
+and completes a tailored questionnaire; the platform produces **PT-driven
+recommendations** the facility medical team can act on.
 
 ## The problem
 
-Correctional healthcare operates under constraints that community clinics don't:
+Jail healthcare operates under constraints community clinics don't face:
 
-- **Transport and security** make every off-site specialist visit expensive
-  and slow to schedule.
-- **On-site PT staffing** is inconsistent — many facilities rely on
-  contract rotation or have no PT coverage at all.
-- **Documentation and handoffs** between custody staff, nursing, and
-  external providers create gaps in continuity of care.
+- **On-site PT is rare.** Most jails have no dedicated physical therapist;
+  musculoskeletal complaints pile up in nursing queues.
+- **Transport is expensive.** Off-site specialist visits require security
+  escorts, scheduling, and liability jails can't scale.
 - **Inmates can't self-refer.** Access depends entirely on facility
-  processes, making friction in those processes a direct barrier to care.
+  workflow — any friction is a direct barrier to care.
+- **Documentation gaps.** Without structured assessment, complaints get
+  treated symptomatically and chronic conditions worsen.
 
-The result: treatable conditions become chronic, functional decline
-accelerates, and facilities absorb higher long-term medical and legal risk.
+## What Veridian Health provides (MVP)
 
-## What Veridian Health provides
+The first release focuses on one workflow, done well:
 
-Veridian Health is a platform — not a staffing agency — that gives facilities
-and providers the tools to deliver PT consults inside the facility:
+1. **Guided photo capture** — four images (left, right, front, back) taken
+   on a facility-controlled device with on-screen guidance for consistent
+   positioning.
+2. **Tailored questionnaire** — dynamic questions based on the inmate's
+   chief complaint, injury history, pain location, and mobility status.
+3. **AI-assisted analysis** — the platform evaluates photos and responses
+   against PT clinical frameworks.
+4. **PT-driven recommendations** — structured output including assessment
+   summary, exercise and mobility guidance adapted for the custody
+   environment, red-flag alerts, and follow-up suggestions.
 
-- **Secure telehealth consults** between inmates and licensed physical
-  therapists, conducted on facility-controlled devices or designated
-  endpoints.
-- **Structured intake and scheduling** so medical unit staff can refer,
-  queue, and track consults without ad-hoc phone calls or fax workflows.
-- **Clinical documentation** that produces visit notes, treatment
-  recommendations, and follow-up plans facilities can act on.
-- **Compliance by default** — HIPAA-aligned PHI handling, audit trails, and
-  role-based access designed for correctional environments.
+<Note>
+  The MVP is **assessment and recommendations**, not live video consults.
+  Live PT sessions and deeper EHR integration are on the roadmap after the
+  core workflow is proven in production jails.
+</Note>
 
 ## Who it's for
 
-**Correctional facilities** — county jails, state prisons, and detention
-centers that need scalable PT access without expanding on-site headcount or
-transport budgets.
+**Jails** — any correctional facility that purchases Veridian Health. County
+jails, regional detention centers, and other custody settings with inmate
+healthcare programs.
 
-**Licensed physical therapists** — clinicians who want to deliver care in
-correctional settings through a purpose-built platform, not improvised
-video calls and unsecured email.
+**Approved providers** — licensed physical therapists enrolled in Veridian's
+provider network **and approved by the purchasing jail system** before they
+can review cases or contribute to clinical oversight.
 
-**Inmates (patients)** — individuals who receive timely PT assessment and
-guidance as part of their facility healthcare program.
+**Inmates (patients)** — individuals referred by facility medical staff who
+complete the assessment and receive PT-driven care guidance.
 
-## What we're building first
+## What the facility gets
 
-Veridian Health launches with a focused scope:
-
-1. **Facility onboarding** — staff roles, inmate enrollment, device setup
-2. **Consult scheduling and intake** — referral → queue → session
-3. **Live PT consult** — assessment, exercise guidance, care planning
-4. **Documentation and follow-up** — visit notes, recommendations, re-referral
-
-Additional specialties and deeper EHR integrations come after PT is
-proven in production.
+- Faster PT assessment without adding headcount
+- Structured recommendations nursing and medical staff can implement
+- Audit trail of every assessment, photo, and recommendation
+- HIPAA-aligned handling of inmate health data
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="How it works" icon="route" href="/veridian-health/how-it-works">
-    The full consult journey from referral to follow-up.
+    The full assessment flow — referral to recommendations.
   </Card>
   <Card title="For facilities" icon="building" href="/veridian-health/for-facilities">
-    Onboarding, operations, and day-to-day workflow for facility staff.
+    Onboarding and day-to-day operations for jail staff.
   </Card>
   <Card title="For providers" icon="user-doctor" href="/veridian-health/for-providers">
-    How licensed PTs deliver consults on the platform.
+    Provider enrollment and jail approval requirements.
   </Card>
   <Card title="Quickstart" icon="rocket" href="/veridian-health/quickstart">
-    Get oriented with Veridian Health in your first session.
+    From access request to your first inmate assessment.
   </Card>
 </CardGroup>

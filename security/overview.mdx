@@ -17,8 +17,8 @@ through their account contact.
 ## What we protect
 
 - **Protected Health Information (PHI):** Inmate/patient identifiers,
-  clinical consult data, visit notes, referral information, and any other
-  data covered under HIPAA.
+  assessment images, questionnaire responses, PT-driven recommendations,
+  referral information, and any other data covered under HIPAA.
 - **Facility credentials:** Admin accounts, staff access tokens, API keys
   (when applicable), and webhook signing secrets.
 - **Provider credentials:** Licensed clinician accounts, licensure records,
@@ -53,12 +53,12 @@ documentation access, admin configuration changes — is recorded in a
 tamper-evident audit log. Facilities can export logs for compliance review
 and accreditation documentation.
 
-### Telehealth security
+### Assessment image security
 
-Veridian Health consults run over encrypted connections on
-facility-controlled infrastructure. We do not use consumer-grade video
-tools. Session recordings, if enabled by facility policy, follow the same
-encryption and retention rules as all other PHI.
+Veridian Health assessment photos are captured on facility-controlled
+devices, transmitted over encrypted connections, and stored with the same
+field-level encryption as all other PHI. Images are never processed on
+inmate personal devices or consumer-grade apps.
 
 ## Correctional-specific considerations
 

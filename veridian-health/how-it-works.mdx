@@ -1,57 +1,77 @@
 ---
 title: "How it works"
-description: "The end-to-end Veridian Health consult flow — from referral to follow-up."
+description: "The Veridian Health assessment flow — four photos, questionnaire, PT-driven recommendations."
 ---
 
 # How it works
 
-Veridian Health fits into the facility's existing healthcare workflow. No
-inmate leaves custody. No provider drives to the facility. The consult
-happens on-site, on a secure connection, with documentation that stays in
-the clinical record.
+Veridian Health fits into a jail's existing healthcare workflow. The inmate
+never leaves custody. No live appointment is required for the MVP. Medical
+staff refer an inmate, the inmate completes a guided self-assessment on a
+facility device, and the platform returns PT-driven recommendations.
 
-## The consult journey
+## The assessment journey
 
 <Steps>
   <Step title="Referral">
-    Facility medical staff identifies an inmate who needs PT — post-injury,
-    chronic pain, post-surgical recovery, mobility limitation, or similar.
-    They create a referral in Veridian Health with the minimum clinical
-    context needed for the consult.
+    Jail medical staff identify an inmate who would benefit from PT
+    assessment — musculoskeletal pain, post-injury recovery, mobility
+    limitation, or similar. They create a referral in Veridian Health with
+    the minimum clinical context needed.
   </Step>
 
-  <Step title="Scheduling">
-    The referral enters the consult queue. A licensed PT accepts or is
-    assigned based on availability and licensure. The facility receives a
-    scheduled session time and prepares the inmate and consult room/device.
+  <Step title="Inmate preparation">
+    Custody escorts the inmate to a facility-controlled device (tablet or
+    workstation) in a designated assessment location. Staff confirm the
+    session is active and the inmate can begin. Sessions are monitored per
+    jail policy.
   </Step>
 
-  <Step title="Pre-consult intake">
-    Before the session, relevant intake information is captured — chief
-    complaint, injury history, current medications, mobility status, and
-    any facility-specific constraints (e.g., weight-bearing restrictions,
-    housing unit limitations).
+  <Step title="Four-photo capture">
+    The inmate follows on-screen guidance to capture four images:
+
+    - **Front**
+    - **Back**
+    - **Left**
+    - **Right**
+
+    The interface provides positioning prompts so photos are consistent
+    enough for analysis — posture, visible asymmetry, and gross movement
+    patterns the AI evaluates against PT clinical frameworks.
   </Step>
 
-  <Step title="Live consult">
-    The inmate joins the session on a facility-controlled device. The PT
-    conducts a remote assessment: history, functional evaluation, exercise
-    demonstration, and patient education. Sessions are conducted over an
-    encrypted connection; no consumer-grade video tools.
+  <Step title="Tailored questionnaire">
+    After photos, the inmate completes a dynamic questionnaire. Questions
+    adapt based on earlier answers — chief complaint, pain location and
+    severity, injury history, current medications, weight-bearing status,
+    and facility-specific constraints (housing unit, equipment access).
   </Step>
 
-  <Step title="Documentation">
-    The PT completes a structured visit note — assessment findings,
-    treatment recommendations, home/exercise program guidance adapted for
-    the custody environment, and follow-up plan. The note is available to
-    authorized facility staff immediately.
+  <Step title="AI analysis">
+    Veridian Health processes the four images and questionnaire responses
+    through an AI-assisted analysis engine built on **PT-driven clinical
+    logic** — not generic health advice. The system identifies likely
+    musculoskeletal patterns, flags red-flag presentations, and maps
+    findings to actionable recommendations.
   </Step>
 
-  <Step title="Follow-up">
-    Depending on the plan, the inmate may receive additional consults,
-    on-site exercise guidance from nursing or custody staff (using PT
-    instructions), or a referral for in-person evaluation if the case
-    requires hands-on intervention beyond telehealth scope.
+  <Step title="Recommendations delivered">
+    Authorized medical staff receive a structured output:
+
+    - Assessment summary
+    - Exercise and mobility guidance adapted for the custody environment
+    - Activity modifications and precautions
+    - Red-flag alerts requiring in-person evaluation
+    - Follow-up and re-assessment suggestions
+
+    Recommendations are available in the dashboard as soon as processing
+    completes.
+  </Step>
+
+  <Step title="Facility action">
+    Medical staff review the output, communicate guidance to the inmate and
+    relevant custody or nursing staff, update the health record per jail
+    protocol, and schedule a re-assessment or in-person referral if indicated.
   </Step>
 </Steps>
 
@@ -59,53 +79,47 @@ the clinical record.
 
 | Role | Responsibility |
 | --- | --- |
-| **Facility administrator** | Org setup, user provisioning, policy configuration |
-| **Medical unit staff** | Referrals, scheduling coordination, inmate preparation |
-| **Custody staff** | Escort to consult location, monitor session as required |
-| **Inmate (patient)** | Participates in consult; receives exercise and care guidance |
-| **Licensed PT** | Conducts assessment, documents visit, recommends follow-up |
-| **Veridian Health platform** | Scheduling, secure video, documentation, audit trail |
+| **Jail administrator** | Org setup, user provisioning, provider approval |
+| **Medical staff** | Referrals, review recommendations, clinical follow-up |
+| **Custody staff** | Escort to assessment device, session monitoring |
+| **Inmate (patient)** | Completes photos and questionnaire |
+| **Approved PT (provider network)** | Enrolled in Veridian; jail-approved for oversight/review as configured |
+| **Veridian Health platform** | Photo capture, questionnaire, AI analysis, recommendations, audit trail |
 
-## What stays at the facility
+## What stays at the jail
 
-Veridian Health is designed so facilities retain control:
-
-- **Devices and physical environment** — consults run on facility hardware
-  in designated spaces, not on personal inmate phones.
-- **Access decisions** — who gets referred, when they're escorted, and how
-  sessions are monitored follow facility policy.
-- **Clinical record ownership** — visit documentation is available to the
-  facility's authorized staff; Veridian operates as a Business Associate.
+- **Device control** — assessments run on facility hardware, not inmate personal phones.
+- **Access decisions** — who gets referred and when they're escorted follow jail policy.
+- **Provider approval** — the jail decides which Veridian-enrolled PTs are authorized for their system.
+- **Clinical judgment** — AI recommendations support staff; medical personnel retain final care decisions.
 
 ## What Veridian handles
 
-- Secure, HIPAA-aligned telehealth infrastructure
-- Provider credentialing and licensure verification
-- Session scheduling, reminders, and queue management
-- Structured clinical documentation templates
-- Audit logging of all platform access and actions
+- Guided photo capture and questionnaire UX
+- AI-assisted analysis with PT-driven recommendation logic
+- Secure storage and HIPAA-aligned handling of images and health data
+- Provider network enrollment and credentialing infrastructure
+- Audit logging of all assessments and access
 
 ## Scope boundaries
 
-Telehealth PT has limits. Veridian Health is built to recognize them:
+Veridian Health MVP has clear limits:
 
-- **Hands-on manual therapy** requires in-person care — the platform
-  surfaces this in documentation and supports referral for on-site follow-up.
-- **Emergency conditions** are out of scope — facility medical staff handle
-  acute presentations through existing emergency protocols.
-- **Behavioral crises during sessions** follow facility escalation procedures;
-  the platform does not replace custody or mental health response teams.
+- **Not a diagnosis.** Output is PT-driven guidance for facility staff, not a substitute for hands-on clinical examination.
+- **Red flags escalate.** Presentations suggesting fracture, cauda equina, infection, or other emergencies trigger alerts — facility staff follow existing acute-care protocols.
+- **Hands-on care still required.** Manual therapy, injections, and procedures needing direct contact are out of scope; recommendations include in-person referral when appropriate.
+- **No live consult in MVP.** Video or synchronous PT sessions are a future capability.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="For facilities" icon="building" href="/veridian-health/for-facilities">
-    Operational details for facility staff and administrators.
+    Operational details for jail staff and administrators.
   </Card>
   <Card title="For providers" icon="user-doctor" href="/veridian-health/for-providers">
-    Clinical workflow for licensed PTs on the platform.
+    Enrollment, jail approval, and provider network requirements.
   </Card>
-  <Card title="HIPAA in corrections" icon="shield-check" href="/security/hipaa">
-    How we handle PHI in custody settings.
+  <Card title="HIPAA" icon="shield-check" href="/security/hipaa">
+    How we handle inmate health data and images.
   </Card>
 </CardGroup>

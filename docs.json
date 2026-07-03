@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Veridian Health Partners",
-  "description": "Healthcare infrastructure for correctional settings. Veridian Health delivers physical therapy consults to inmates; Veridian Billing and additional products coming soon.",
+  "description": "Healthcare infrastructure for jails and correctional settings. Veridian Health delivers AI-assisted PT assessments with PT-driven recommendations. Additional products at veridianhp.com.",
   "colors": {
     "primary": "#2DD4BF",
     "light": "#5DEFE0",

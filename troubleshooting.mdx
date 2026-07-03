@@ -5,99 +5,95 @@ description: "Common issues with Veridian Health and how to resolve them."
 
 # Troubleshooting
 
-Most issues fall into a few categories: access and accounts, consult device
-setup, live session problems, and documentation. Start with the symptom that
-matches your situation.
+Most issues fall into a few categories: access and accounts, assessment
+device setup, photo capture, and recommendations. Start with the symptom
+that matches your situation.
 
 ## Access and accounts
 
 **I can't log in to the dashboard.**
 - Confirm you're using the email address provisioned during onboarding.
 - Reset your password from the login page.
-- If your account was recently created, allow up to 15 minutes for
-  provisioning to complete.
 - Contact [support@veridianhp.com](mailto:support@veridianhp.com) if the
   issue persists.
 
-**A staff member can't see consult notes.**
-- Check their role assignment — clinical notes require medical staff or
-  administrator access, not custody-only roles.
-- Administrators can adjust roles in **Settings → Users**.
+**A staff member can't see recommendations.**
+- Check their role — clinical output requires medical staff or administrator
+  access.
+- Administrators adjust roles in **Settings → Users**.
 
-**Our facility isn't showing in the provider queue.**
-- Confirm onboarding is complete: BAA signed, org provisioned, at least one
-  consult endpoint configured.
-- Contact your Veridian account contact if setup shows complete but the
-  facility isn't visible.
+**A provider isn't showing as approved for our jail.**
+- Providers must be enrolled in Veridian's network **and** approved by your
+  jail administrator. Check **Settings → Providers** for approval status.
 
-## Consult device setup
+## Assessment device setup
 
-**The consult device can't connect to Veridian Health.**
-- Verify outbound HTTPS (port 443) is allowed on the facility network.
-- Confirm the device meets the setup checklist provided during onboarding.
-- Try the device on a different network segment to isolate firewall rules.
-- Run a test session with Veridian support before scheduling inmate consults.
+**The device can't connect to Veridian Health.**
+- Verify outbound HTTPS (port 443) is allowed on the jail network.
+- Confirm the device meets the setup checklist from onboarding.
+- Run a test assessment with Veridian support before scheduling inmates.
 
-**Audio or video quality is poor during sessions.**
-- Check network bandwidth at the consult location — telehealth requires
-  stable connectivity.
-- Close other applications on the consult device.
-- Ensure the device camera and microphone permissions are granted to the
-  browser or app.
-- If quality remains poor, document the issue and reschedule rather than
-  conducting an incomplete assessment.
+**The camera isn't working.**
+- Grant camera permissions to the browser or app on the facility device.
+- Confirm no other application is using the camera.
+- Test with the device's native camera app to isolate hardware vs. software.
 
-## Live session issues
+## Photo capture issues
 
-**The provider didn't join at the scheduled time.**
-- Check the session status in the dashboard — the provider may have been
-  reassigned or the session rescheduled.
+**Photos are rejected or flagged as low quality.**
+- Ensure adequate lighting in the assessment location.
+- Follow on-screen positioning prompts — all four angles (front, back, left,
+  right) must be clearly visible.
+- Have custody staff confirm the inmate can hold positions safely per jail
+  policy.
+- Retake individual photos using the in-app retry option.
+
+**The inmate can't complete all four photos.**
+- Document mobility limitations in the referral; some positions may need
+  modification.
+- If the inmate cannot safely complete capture, cancel the assessment and
+  refer for in-person evaluation.
+
+**Questionnaire won't advance.**
+- Check for required fields marked in the UI.
+- Confirm network connectivity hasn't dropped mid-session.
+- If stuck, cancel and restart the assessment; partial data may not process.
+
+## Recommendations
+
+**Recommendations haven't appeared after completion.**
+- Processing typically completes within minutes. Check the assessment status
+  in the dashboard.
+- If status shows "processing" for more than 30 minutes, contact support
+  with the assessment ID.
+
+**Recommendations include a red-flag alert.**
+- This is expected behavior for certain presentations. Follow your jail's
+  acute-care protocol — do not rely on the platform for emergency response.
+
+**We need to amend or re-run an assessment.**
 - Contact [support@veridianhp.com](mailto:support@veridianhp.com) with the
-  session ID for immediate escalation.
-
-**The session disconnected mid-consult.**
-- Rejoin from the same device if the session is still active.
-- If rejoin fails, the provider should complete documentation for the
-  partial session and schedule a follow-up if needed.
-- Report recurring disconnections — they often indicate network issues at
-  the consult endpoint.
-
-**An inmate couldn't participate due to custody constraints.**
-- Cancel or reschedule the session in the dashboard.
-- Document the reason so the referral can be re-queued appropriately.
-
-## Documentation
-
-**A visit note is missing after a completed session.**
-- Providers must complete documentation before session closure. Check if
-  the session status is still "in progress."
-- If the session shows complete but no note is visible, contact support
-  with the session ID.
-
-**We need to amend a visit note.**
-- Contact [support@veridianhp.com](mailto:support@veridianhp.com) with the
-  session ID and requested amendment. Amendments are logged in the audit
-  trail per HIPAA requirements.
+  assessment ID. Re-assessments can be initiated from the dashboard when
+  clinically appropriate.
 
 ## Still stuck?
 
 Email [support@veridianhp.com](mailto:support@veridianhp.com) with:
 
-- Your facility name
-- Session or referral ID (if applicable)
-- A short description of the issue and what you've already tried
+- Your jail name
+- Assessment or referral ID (if applicable)
+- A short description of the issue
 
-The Veridian team responds during business hours (US Central). For
-security concerns, email [security@veridianhp.com](mailto:security@veridianhp.com)
-directly.
+For security concerns, email
+[security@veridianhp.com](mailto:security@veridianhp.com) directly.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Quickstart" icon="rocket" href="/veridian-health/quickstart">
-    Setup checklist for your first consult.
+    Setup checklist for your first assessment.
   </Card>
   <Card title="FAQ" icon="circle-question" href="/faq">
-    Common questions from facility and provider teams.
+    Common questions from jail and provider teams.
   </Card>
 </CardGroup>

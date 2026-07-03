@@ -20,8 +20,8 @@ logo/                           Brand assets
 
 | Product | Status | Docs |
 | --- | --- | --- |
-| **Veridian Health** | In development | `/veridian-health/*` |
-| **Veridian Billing** | Coming soon | `/veridian-billing/overview` |
+| **Veridian Health** | MVP in development | `/veridian-health/*` |
+| **Veridian Billing** | Future (no timeline) | `/veridian-billing/overview` |
 
 ## Local preview
 

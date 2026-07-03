@@ -1,77 +1,57 @@
 ---
 title: "Overview"
-description: "Medical billing and coding infrastructure — coming soon from Veridian Health Partners."
+description: "Medical billing and coding infrastructure — a future Veridian Health Partners product."
 ---
 
 # Veridian Billing
 
 <Note>
-  **Coming soon.** Veridian Billing is on the roadmap after Veridian Health
-  reaches production with correctional PT consults. This page will expand as
-  the product takes shape.
+  **Future product — no timeline.** Veridian Billing is planned as a second
+  product under [veridianhp.com](https://veridianhp.com). All current
+  engineering focus is on delivering the **Veridian Health MVP** (AI-assisted
+  PT assessments for inmates). This page will expand when billing development
+  begins.
 </Note>
 
 Veridian Billing will provide **medical billing and coding infrastructure**
-for correctional and community health programs — the API-first billing layer
-that Veridian Health Partners is building as its second product.
+for correctional and community health programs — packaged alongside Veridian
+Health and future products from Veridian Health Partners.
 
 ## What we're planning
 
-Veridian Billing is intended to solve a different problem than Veridian
-Health:
-
-| | Veridian Health | Veridian Billing |
+| | Veridian Health (now) | Veridian Billing (future) |
 | --- | --- | --- |
-| **Focus** | Clinical access (PT consults) | Revenue cycle (claims, coding) |
-| **Primary users** | Facilities, clinicians, inmates | Billing teams, integrators, EHR vendors |
-| **Core value** | Get inmates PT care inside the facility | Submit accurate claims without building billing infra |
+| **Focus** | AI-assisted PT assessments | Revenue cycle (claims, coding) |
+| **Primary users** | Jails, medical staff, inmates | Billing teams, integrators |
+| **Status** | MVP in development | Not yet scheduled |
 
-Planned capabilities include:
+Planned capabilities when development starts:
 
-- **Coding and claim generation** — translate clinical encounters into
-  billable claims with appropriate CPT/ICD codes
-- **API-first integration** — embed billing into facility systems, EHRs,
-  and third-party workflows
-- **Compliance-aware processing** — HIPAA-aligned PHI handling, audit trails,
-  and payer-specific rule support
-- **Webhook-driven events** — real-time claim status, denials, and remittance
-  notifications
-
-## Why it comes second
-
-Veridian Health Partners is sequencing products deliberately:
-
-1. **Veridian Health** — prove clinical delivery in correctional settings
-   (PT first)
-2. **Veridian Billing** — monetize and operationalize the revenue cycle
-   once clinical workflows are established
-
-Clinical data generated through Veridian Health will eventually feed Veridian
-Billing, giving facilities an integrated path from consult to claim.
+- Coding and claim generation from clinical encounters
+- API-first integration with facility systems
+- HIPAA-aligned processing and audit trails
+- Webhook-driven claim status events
 
 ## Shared infrastructure
 
-Veridian Billing will share the same foundation as Veridian Health:
+Veridian Billing will share the Veridian Health Partners foundation:
 
 - HIPAA-aligned security and BAA framework
-- Unified Veridian Health Partners account and admin experience
-- Common audit logging and incident response procedures
+- Unified account experience at [veridianhp.com](https://veridianhp.com)
+- Common audit logging and incident response
 
 See [Security overview](/security/overview) for our current compliance posture.
 
 ## Stay updated
 
-- Watch the [changelog](/changelog) for Veridian Billing announcements
-- [Request access](https://veridianhp.com/request-access) and note your
-  interest in billing — we'll prioritize early partners when development begins
-- Email [docs@veridianhp.com](mailto:docs@veridianhp.com) with integration
-  questions or API requirements you'd like us to consider
+Watch the [changelog](/changelog) for announcements. For now, see
+[Veridian Health](/veridian-health/overview) for what we're building today.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Veridian Health" icon="heart-pulse" href="/veridian-health/overview">
-    Our current product — PT consults for inmates.
+    Our current focus — PT assessments for inmates.
   </Card>
   <Card title="Veridian Health Partners" icon="building" href="/introduction">
     Company overview and product family.
