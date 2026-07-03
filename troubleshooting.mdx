@@ -1,84 +1,103 @@
 ---
 title: "Troubleshooting"
-description: "Common issues and how to resolve them quickly."
+description: "Common issues with Veridian Health and how to resolve them."
 ---
 
 # Troubleshooting
 
-The fastest path to a fix is usually:
+Most issues fall into a few categories: access and accounts, consult device
+setup, live session problems, and documentation. Start with the symptom that
+matches your situation.
 
-1. Check the [error code](/api/errors) — most errors are self-explanatory.
-2. Grab the `requestId` from the response and include it in any support
-   message. That single value lets us locate the exact request in seconds.
+## Access and accounts
 
-If you're still stuck, browse below by symptom.
+**I can't log in to the dashboard.**
+- Confirm you're using the email address provisioned during onboarding.
+- Reset your password from the login page.
+- If your account was recently created, allow up to 15 minutes for
+  provisioning to complete.
+- Contact [support@veridianhp.com](mailto:support@veridianhp.com) if the
+  issue persists.
 
-## "I'm getting 401 on every request"
+**A staff member can't see consult notes.**
+- Check their role assignment — clinical notes require medical staff or
+  administrator access, not custody-only roles.
+- Administrators can adjust roles in **Settings → Users**.
 
-- **Verify the key prefix matches the host.** `vbk_sb_...` only works on
-  the sandbox host; `vbk_live_...` only works on production. The error
-  code `environment_mismatch` confirms this.
-- **Confirm the key isn't revoked.** Revoked keys cannot be reactivated.
-  Issue a new one from the dashboard.
-- **Check the header format.** It must be exactly `Authorization: Bearer
-  <key>`. Some HTTP clients drop bearer schemes — verify the request that
-  actually hit the wire.
+**Our facility isn't showing in the provider queue.**
+- Confirm onboarding is complete: BAA signed, org provisioned, at least one
+  consult endpoint configured.
+- Contact your Veridian account contact if setup shows complete but the
+  facility isn't visible.
 
-## "Webhook signature verification keeps failing"
+## Consult device setup
 
-- **Use the raw request body, byte-for-byte.** Most failures are caused by
-  JSON parsing followed by re-serialization, which subtly changes the bytes.
-- **Verify your endpoint secret matches the one shown in the dashboard for
-  that specific endpoint.** Each endpoint has its own secret.
-- **Check the timestamp tolerance.** Reject signatures more than 5 minutes
-  off your server clock, but make sure your server clock is correct.
+**The consult device can't connect to Veridian Health.**
+- Verify outbound HTTPS (port 443) is allowed on the facility network.
+- Confirm the device meets the setup checklist provided during onboarding.
+- Try the device on a different network segment to isolate firewall rules.
+- Run a test session with Veridian support before scheduling inmate consults.
 
-## "I created a session but the hosted URL 404s"
+**Audio or video quality is poor during sessions.**
+- Check network bandwidth at the consult location — telehealth requires
+  stable connectivity.
+- Close other applications on the consult device.
+- Ensure the device camera and microphone permissions are granted to the
+  browser or app.
+- If quality remains poor, document the issue and reschedule rather than
+  conducting an incomplete assessment.
 
-- **Confirm you used the right environment.** Sandbox `hostedUrl` opens on
-  `pay.sandbox.veridianhp.com`; production opens on `pay.veridianhp.com`.
-  Mixing them gives 404.
-- **Check the session hasn't expired.** Hosted URLs expire after the
-  configured TTL (default 30 minutes from first open).
+## Live session issues
 
-## "The patient finished paying but I never got a webhook"
+**The provider didn't join at the scheduled time.**
+- Check the session status in the dashboard — the provider may have been
+  reassigned or the session rescheduled.
+- Contact [support@veridianhp.com](mailto:support@veridianhp.com) with the
+  session ID for immediate escalation.
 
-- **Confirm your endpoint is reachable.** The dashboard shows delivery
-  attempts and any failures. Endpoints that return 5xx or time out are
-  retried with backoff.
-- **Check your endpoint isn't returning 200 on requests it didn't
-  durably process.** If you 200 a request before recording it, Veridian
-  marks the event delivered and won't retry.
-- **Look at the dashboard webhook log** — if delivery succeeded, the event
-  reached your server. The issue is downstream.
+**The session disconnected mid-consult.**
+- Rejoin from the same device if the session is still active.
+- If rejoin fails, the provider should complete documentation for the
+  partial session and schedule a follow-up if needed.
+- Report recurring disconnections — they often indicate network issues at
+  the consult endpoint.
 
-## "I'm getting 429 even though my traffic is normal"
+**An inmate couldn't participate due to custody constraints.**
+- Cancel or reschedule the session in the dashboard.
+- Document the reason so the referral can be re-queued appropriately.
 
-- **Check that you're using a per-environment key.** A single key used by
-  multiple practices or environments shares one bucket.
-- **Confirm you're not polling `/status` on a timer.** Use webhooks
-  instead.
-- **Contact support** if your legitimate workload exceeds the published
-  limits — we can adjust per-practice.
+## Documentation
 
-## "The hosted page looks wrong on a patient's phone"
+**A visit note is missing after a completed session.**
+- Providers must complete documentation before session closure. Check if
+  the session status is still "in progress."
+- If the session shows complete but no note is visible, contact support
+  with the session ID.
 
-- **Verify your logo upload.** Mintlify-quality PNG or SVG at the size
-  shown in the dashboard.
-- **Try the page on a different network.** Some captive networks proxy
-  HTTPS and break the bank-connection flow.
-- **Confirm the patient is on a supported browser.** We support the last
-  two versions of Safari, Chrome, Edge, and Firefox on iOS, Android, and
-  desktop.
-
-## "I revoked the wrong key"
-
-There's no un-revoke. Issue a new key, deploy it, move on. The fingerprint
-of the revoked key stays in your audit log so you have a record of which key
-did what before it was revoked.
+**We need to amend a visit note.**
+- Contact [support@veridianhp.com](mailto:support@veridianhp.com) with the
+  session ID and requested amendment. Amendments are logged in the audit
+  trail per HIPAA requirements.
 
 ## Still stuck?
 
-Email [support@veridianhp.com](mailto:support@veridianhp.com) with the
-`requestId` (if you have one) and a short description. The Veridian team
-sees every support email — there is no tier-1 filter.
+Email [support@veridianhp.com](mailto:support@veridianhp.com) with:
+
+- Your facility name
+- Session or referral ID (if applicable)
+- A short description of the issue and what you've already tried
+
+The Veridian team responds during business hours (US Central). For
+security concerns, email [security@veridianhp.com](mailto:security@veridianhp.com)
+directly.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/veridian-health/quickstart">
+    Setup checklist for your first consult.
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/faq">
+    Common questions from facility and provider teams.
+  </Card>
+</CardGroup>

@@ -1,31 +1,35 @@
 ---
 title: "Security overview"
-description: "How Veridian protects patient data and your integration."
+description: "How Veridian Health Partners protects patient data across all products."
 ---
 
 # Security overview
 
-Veridian operates as a Business Associate under HIPAA and is designed
-from the ground up for healthcare data. This page is the public summary of
-our security posture. For evidence-level detail (control matrices, audit
-reports, penetration test summaries), Veridian customers and prospects can
-request our security package through their account contact.
+Veridian Health Partners operates as a **Business Associate** under HIPAA
+and is designed from the ground up for healthcare data in correctional
+settings. This page is the public summary of our security posture across
+all products — starting with Veridian Health.
+
+For evidence-level detail (control matrices, audit reports, penetration
+test summaries), customers and prospects can request our security package
+through their account contact.
 
 ## What we protect
 
-- **Protected Health Information (PHI):** Patient identifiers, visit
-  references, and any other data covered under HIPAA.
-- **Payment instrument data:** Bank account references handled through our
-  PCI- and bank-compliant payment partners. Veridian itself never sees raw
-  bank credentials.
-- **Practice credentials:** API keys, webhook signing secrets, dashboard
-  access.
+- **Protected Health Information (PHI):** Inmate/patient identifiers,
+  clinical consult data, visit notes, referral information, and any other
+  data covered under HIPAA.
+- **Facility credentials:** Admin accounts, staff access tokens, API keys
+  (when applicable), and webhook signing secrets.
+- **Provider credentials:** Licensed clinician accounts, licensure records,
+  and session access.
 
 ## How we protect it
 
 ### Encryption
 
-- **In transit:** TLS 1.2+ on every connection, including internal services.
+- **In transit:** TLS 1.2+ on every connection, including internal services
+  and telehealth sessions.
 - **At rest:** AES-256-GCM field-level encryption on PHI fields. Database
   storage volumes are additionally encrypted at the platform level.
 - **Key management:** Encryption keys are versioned to support rotation
@@ -38,50 +42,54 @@ request our security package through their account contact.
   fully audited.
 - **Multi-factor authentication** is required for every Veridian team member
   with access to any production system.
-- **Per-key scoping** on the API side means a compromised key affects only
-  one practice, never the platform.
+- **Role-based access** in product dashboards — facility administrators,
+  medical staff, custody staff, and providers see only what their role
+  requires.
 
 ### Audit logging
 
-Every meaningful action — API requests, dashboard logins, internal access to
-practice data — is recorded in a **tamper-evident, hash-chained audit log**.
-Any modification to a past record breaks the chain and is detected.
+Every significant action — referral creation, session start/end,
+documentation access, admin configuration changes — is recorded in a
+tamper-evident audit log. Facilities can export logs for compliance review
+and accreditation documentation.
 
-Practices can view and export their own audit log from the dashboard.
+### Telehealth security
 
-### Monitoring and detection
+Veridian Health consults run over encrypted connections on
+facility-controlled infrastructure. We do not use consumer-grade video
+tools. Session recordings, if enabled by facility policy, follow the same
+encryption and retention rules as all other PHI.
 
-- Anomaly detection on authentication, API usage, and payment patterns.
-- 24/7 alerting on integrity, availability, and security events.
-- Quarterly security reviews of monitoring effectiveness.
+## Correctional-specific considerations
 
-## How we contain incidents
+Healthcare in custody settings adds constraints beyond standard HIPAA:
 
-We maintain a documented [Incident Response](/security/incident-response)
-process covering detection, triage, containment, eradication, recovery, and
-post-incident review. For incidents that may involve PHI, we follow the
-HIPAA Breach Notification Rule (45 CFR Subpart D) timelines.
+- **Custody staff access** is limited to logistics (scheduling, escort) —
+  not clinical notes unless explicitly authorized.
+- **Device control** — consults run on facility hardware, not inmate personal
+  devices, reducing data exfiltration risk.
+- **Minimum necessary** — we collect only the PHI required for the consult
+  and documentation, not full medical records by default.
 
-## How we test ourselves
+## Compliance posture
 
-- **Continuous automated testing** on every code change before it can ship.
-- **Periodic penetration testing** by qualified third parties.
-- **Vendor security reviews** before any subprocessor handles PHI.
+Every facility using Veridian Health for production signs a **Business
+Associate Agreement (BAA)** before live PHI flows. Provider partners operate
+under platform agreements that flow down HIPAA obligations.
 
-## Business Associate Agreement
-
-Every practice using Veridian for production signs a **Business Associate
-Agreement (BAA)** before any live PHI flows. The BAA covers our obligations
-under HIPAA, our breach notification commitments, and our subprocessor
-arrangements. Request a draft through your account contact.
+Sub-processors that touch PHI each hold a signed BAA with Veridian Health
+Partners. The current sub-processor list is available to customers on request.
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="HIPAA" icon="user-shield" href="/security/hipaa">
-    Our HIPAA posture in more detail.
+  <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
+    How we operate as a Business Associate in correctional healthcare.
   </Card>
   <Card title="Data handling" icon="database" href="/security/data-handling">
-    What data Veridian collects, retains, and deletes.
+    What we collect, retain, and delete.
+  </Card>
+  <Card title="Incident response" icon="bell" href="/security/incident-response">
+    What happens if something goes wrong.
   </Card>
 </CardGroup>

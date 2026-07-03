@@ -1,33 +1,40 @@
 ---
 title: "Changelog"
-description: "What's new in the Veridian API and Bridge."
+description: "What's new across Veridian Health Partners products."
 ---
 
 # Changelog
 
-We follow additive versioning: new fields and endpoints are added
-non-breaking. Anything that could break an existing integration is announced
-in advance with a migration path.
+We document public-facing product and documentation changes here. Internal
+platform improvements, security patches, and infrastructure work happen
+continuously and are summarized in our security package on request.
 
-<Update label="Sandbox launch" description="2026-05-28">
-  Initial public documentation. Sandbox available for early-access partners.
+<Update label="Documentation pivot" description="2026-07-03">
+  Rebuilt public documentation to reflect the Veridian Health Partners
+  product family and our correctional healthcare focus.
 
-  **Available today:**
-  - `POST /api/practice/sessions` — create payment session
-  - `GET /api/practice/sessions/:id/status` — check status
-  - `GET /api/practice/sessions` — list sessions
-  - `POST /api/practice/sessions/:id/cancel` — cancel pending session
-  - Webhook events: `session.created`, `session.opened`,
-    `session.payment.processing`, `session.payment.succeeded`,
-    `session.payment.failed`, `session.payment.reversed`,
-    `session.cancelled`, `session.expired`
-  - Hosted Bridge with practice branding
-  - Audit log with hash-chain integrity verification
-  - Per-key rate limiting and revocation
+  **Structure:**
+  - Company hub at [Introduction](/introduction)
+  - [Veridian Health](/veridian-health/overview) — PT consults for inmates (in development)
+  - [Veridian Billing](/veridian-billing/overview) — medical billing and coding (coming soon)
+  - Shared [Security & compliance](/security/overview) across all products
+
+  **Retired:**
+  - Veridian Bridge payment documentation (previous product direction)
+  - Payment API reference (`/api/*`, `/bridge/*`)
+
+  **Veridian Health docs added:**
+  - Overview, how it works, for facilities, for providers, quickstart
+</Update>
+
+<Update label="Initial scaffold" description="2026-05-28">
+  Initial Mintlify site published. Early documentation covered a patient
+  payment product (Veridian Bridge) for behavioral health practices. That
+  content has been superseded by the correctional healthcare pivot above.
 </Update>
 
 <Note>
-  This changelog covers public-facing API and Bridge changes. Internal
-  platform improvements, security patches, and infrastructure work happen
-  continuously and are summarized in our security package on request.
+  Subscribe to updates by watching this repository or checking back at
+  [docs.veridianhp.com](https://docs.veridianhp.com). Veridian Billing
+  API changelog entries will appear here when that product enters development.
 </Note>

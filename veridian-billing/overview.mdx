@@ -1,0 +1,79 @@
+---
+title: "Overview"
+description: "Medical billing and coding infrastructure — coming soon from Veridian Health Partners."
+---
+
+# Veridian Billing
+
+<Note>
+  **Coming soon.** Veridian Billing is on the roadmap after Veridian Health
+  reaches production with correctional PT consults. This page will expand as
+  the product takes shape.
+</Note>
+
+Veridian Billing will provide **medical billing and coding infrastructure**
+for correctional and community health programs — the API-first billing layer
+that Veridian Health Partners is building as its second product.
+
+## What we're planning
+
+Veridian Billing is intended to solve a different problem than Veridian
+Health:
+
+| | Veridian Health | Veridian Billing |
+| --- | --- | --- |
+| **Focus** | Clinical access (PT consults) | Revenue cycle (claims, coding) |
+| **Primary users** | Facilities, clinicians, inmates | Billing teams, integrators, EHR vendors |
+| **Core value** | Get inmates PT care inside the facility | Submit accurate claims without building billing infra |
+
+Planned capabilities include:
+
+- **Coding and claim generation** — translate clinical encounters into
+  billable claims with appropriate CPT/ICD codes
+- **API-first integration** — embed billing into facility systems, EHRs,
+  and third-party workflows
+- **Compliance-aware processing** — HIPAA-aligned PHI handling, audit trails,
+  and payer-specific rule support
+- **Webhook-driven events** — real-time claim status, denials, and remittance
+  notifications
+
+## Why it comes second
+
+Veridian Health Partners is sequencing products deliberately:
+
+1. **Veridian Health** — prove clinical delivery in correctional settings
+   (PT first)
+2. **Veridian Billing** — monetize and operationalize the revenue cycle
+   once clinical workflows are established
+
+Clinical data generated through Veridian Health will eventually feed Veridian
+Billing, giving facilities an integrated path from consult to claim.
+
+## Shared infrastructure
+
+Veridian Billing will share the same foundation as Veridian Health:
+
+- HIPAA-aligned security and BAA framework
+- Unified Veridian Health Partners account and admin experience
+- Common audit logging and incident response procedures
+
+See [Security overview](/security/overview) for our current compliance posture.
+
+## Stay updated
+
+- Watch the [changelog](/changelog) for Veridian Billing announcements
+- [Request access](https://veridianhp.com/request-access) and note your
+  interest in billing — we'll prioritize early partners when development begins
+- Email [docs@veridianhp.com](mailto:docs@veridianhp.com) with integration
+  questions or API requirements you'd like us to consider
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Veridian Health" icon="heart-pulse" href="/veridian-health/overview">
+    Our current product — PT consults for inmates.
+  </Card>
+  <Card title="Veridian Health Partners" icon="building" href="/introduction">
+    Company overview and product family.
+  </Card>
+</CardGroup>

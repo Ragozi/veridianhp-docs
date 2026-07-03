@@ -1,17 +1,18 @@
 ---
 title: "HIPAA"
-description: "How Veridian operates as a HIPAA Business Associate."
+description: "How Veridian Health Partners operates as a HIPAA Business Associate in correctional settings."
 ---
 
 # HIPAA
 
-Veridian processes Protected Health Information (PHI) on behalf of covered
-entities (practices). That makes Veridian a **Business Associate** under
-HIPAA. We operate accordingly.
+Veridian Health Partners processes Protected Health Information (PHI) on
+behalf of covered entities — correctional facilities and their healthcare
+programs. That makes Veridian a **Business Associate** under HIPAA. We
+operate accordingly across all products, starting with Veridian Health.
 
 ## What this means in practice
 
-- We sign a **Business Associate Agreement (BAA)** with every practice
+- We sign a **Business Associate Agreement (BAA)** with every facility
   before live PHI flows.
 - We implement administrative, physical, and technical safeguards aligned
   with the HIPAA Security Rule (45 CFR Part 164, Subpart C).
@@ -21,50 +22,50 @@ HIPAA. We operate accordingly.
 
 ## What data is treated as PHI
 
-For Veridian's flow, PHI includes:
+For Veridian Health, PHI includes:
 
-- Patient first and last name when tied to a visit, invoice, or payment
-- Practice-supplied identifiers linking the patient to clinical care
-- Anything the practice transmits to Veridian in the patient or metadata
-  fields of a session
+- Inmate/patient identifiers tied to a consult or referral
+- Clinical intake information — chief complaint, history, medications,
+  functional status
+- Visit notes, assessment findings, and treatment recommendations
+- Session metadata linking a patient to a clinical encounter
+- Audio/video from consult sessions, if recorded per facility policy
 
-What we **do not collect**:
+What we **do not collect by default**:
 
-- Diagnosis codes
-- Procedure codes
-- Clinical notes or any treatment detail
-- Insurance member identifiers
+- Full incarceration records or criminal history
+- Unrelated medical records from outside the Veridian platform
+- Custody or disciplinary information unless clinically relevant and
+  provided by facility staff in the referral
 
-By design, Veridian needs only enough information to display a friendly
-Bridge page and reconcile a payment. Less data, less risk.
-
-## The minimum-necessary principle
+## Minimum necessary in corrections
 
 The HIPAA minimum-necessary rule requires that PHI use and disclosure be
-limited to what's needed for the task. Veridian's API surface is built
-around this principle:
+limited to what's needed for the task. Veridian Health is built around
+this principle:
 
-- The session creation endpoint requires only patient name plus your invoice
-  identifier — nothing more.
-- API responses do not echo PHI you did not provide.
+- Referrals require only the clinical context needed for a PT assessment —
+  not the inmate's full chart.
+- Role-based access ensures custody staff see scheduling logistics, not
+  clinical notes, unless explicitly authorized.
 - Audit logs record events without copying PHI into log metadata.
 - Internal dashboards mask PHI by default; reveal requires per-action
   authorization and audit.
 
 ## Patients and their rights
 
-Patients have rights under HIPAA to access, amend, and receive an accounting
-of disclosures of their PHI. Because Veridian is a Business Associate, those
-rights are exercised through the practice (the covered entity), not directly
-with Veridian. Practices should route patient requests through their normal
-HIPAA workflow; Veridian supplies the data the practice needs to respond.
+Inmates retain HIPAA rights to access, amend, and receive an accounting of
+disclosures of their PHI. Because Veridian is a Business Associate, those
+rights are exercised through the facility (the covered entity), not directly
+with Veridian. Facilities should route patient requests through their normal
+HIPAA workflow; Veridian supplies the data the facility needs to respond.
 
 ## Sub-processors
 
-Veridian uses a small number of sub-processors for hosting, payment
-processing, and bank connectivity. Each sub-processor that touches PHI has a
-signed BAA with Veridian. The current sub-processor list is available to
-practices on request through their account contact.
+Veridian uses a small number of sub-processors for hosting, telehealth
+infrastructure, and communications. Each sub-processor that touches PHI has
+a signed BAA with Veridian Health Partners. The current sub-processor list
+is available to facilities on request through their account contact.
 
 ## What's next
 

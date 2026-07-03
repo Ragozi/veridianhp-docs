@@ -1,0 +1,143 @@
+---
+title: "For facilities"
+description: "Onboarding, operations, and day-to-day workflow for correctional facility staff."
+---
+
+# For facilities
+
+This page covers what correctional facility staff — administrators, medical
+units, and operations teams — need to know to bring Veridian Health online
+and run it day to day.
+
+## What you get
+
+Veridian Health gives your facility access to licensed physical therapists
+without adding on-site headcount or coordinating off-site transport for every
+consult. Your medical unit refers inmates who need PT; our platform connects
+them to a credentialed provider for a secure remote consult, with
+documentation your team can act on immediately.
+
+## Onboarding
+
+<Steps>
+  <Step title="Request access">
+    Submit a [request access](https://veridianhp.com/request-access) form.
+    Our team schedules an intro call to understand your facility type,
+    approximate population, current PT coverage, and compliance requirements.
+  </Step>
+
+  <Step title="Execute agreements">
+    Before any PHI flows, your facility signs a **Business Associate
+    Agreement (BAA)** with Veridian Health Partners. We provide a standard
+    BAA aligned with HIPAA requirements; legal teams can review and redline
+    as needed.
+  </Step>
+
+  <Step title="Configure your organization">
+    A Veridian administrator provisions your facility: organization profile,
+    user accounts, role assignments, and consult location/device settings.
+  </Step>
+
+  <Step title="Set up consult endpoints">
+    Designate one or more secure locations with facility-controlled devices
+    (tablets or workstations) for inmate consults. Devices must meet your
+    facility's network and security policies; our team provides a setup
+    checklist.
+  </Step>
+
+  <Step title="Train your staff">
+    Medical unit and custody staff receive orientation on the referral
+    workflow, inmate preparation, session monitoring, and post-consult
+    documentation access. Training materials are provided in-platform.
+  </Step>
+
+  <Step title="Pilot and expand">
+    Most facilities start with a pilot cohort — a defined housing unit or
+    referral type — before rolling out facility-wide. We support you through
+    the pilot review before general availability.
+  </Step>
+</Steps>
+
+## Staff roles
+
+| Role | Access | Typical actions |
+| --- | --- | --- |
+| **Administrator** | Full org settings | User management, policy config, reporting |
+| **Medical staff** | Referrals, scheduling, notes | Create referrals, view consult notes |
+| **Custody staff** | Session logistics (optional) | View scheduled sessions, escort coordination |
+| **Read-only / audit** | Reports and logs | Compliance review, no clinical actions |
+
+Role assignments follow least-privilege: custody staff see only what they
+need for escort and monitoring; clinical notes are restricted to authorized
+medical personnel.
+
+## Day-to-day workflow
+
+### Creating a referral
+
+Medical staff identify an inmate who would benefit from PT and submit a
+referral through the Veridian Health dashboard. The referral includes:
+
+- Inmate identifier (per your facility's naming convention)
+- Chief complaint and relevant history
+- Urgency level
+- Any constraints (housing unit, mobility, security level)
+
+Veridian Health collects the **minimum necessary** PHI for the consult. See
+[data handling](/security/data-handling) for details on what we store.
+
+### Preparing for a session
+
+When a consult is scheduled:
+
+1. Medical staff notify custody of the session time and location.
+2. The inmate is escorted to the designated consult device.
+3. Staff confirm the device is connected and the session link is active.
+4. Custody monitors the session per facility policy (line-of-sight,
+   duration limits, etc.).
+
+### After the consult
+
+The PT's visit note is available to authorized medical staff as soon as
+the session is completed. Notes include assessment findings, exercise and
+mobility recommendations adapted for the custody environment, and follow-up
+plan. Medical staff action items may include:
+
+- Scheduling a follow-up consult
+- Communicating exercise instructions to nursing or recreation staff
+- Referring for in-person evaluation if telehealth scope is insufficient
+- Updating the inmate's health record per facility protocol
+
+## Facility requirements
+
+| Requirement | Detail |
+| --- | --- |
+| **Network** | Stable internet at consult endpoints; outbound HTTPS required |
+| **Devices** | Facility-owned tablets or workstations; no inmate personal devices |
+| **Staffing** | Medical unit staff to create referrals; custody for escort as required |
+| **Policies** | Existing healthcare and telehealth policies; we align to yours |
+| **BAA** | Required before production use |
+
+## Reporting and audit
+
+Administrators can export consult activity, referral volumes, session
+completion rates, and audit logs from the dashboard. Audit logs cover user
+access, referral creation, session events, and documentation views — suitable
+for compliance review and accreditation documentation.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="How it works" icon="route" href="/veridian-health/how-it-works">
+    The full consult journey end to end.
+  </Card>
+  <Card title="Quickstart" icon="rocket" href="/veridian-health/quickstart">
+    Walk through your first consult setup.
+  </Card>
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    How we protect inmate health data.
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/faq">
+    Common questions from facility teams.
+  </Card>
+</CardGroup>

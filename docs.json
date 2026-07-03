@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Veridian Health Partners",
-  "description": "Patient payment infrastructure for behavioral and mental health practices. Veridian Bridge, API reference, and security documentation.",
+  "description": "Healthcare infrastructure for correctional settings. Veridian Health delivers physical therapy consults to inmates; Veridian Billing and additional products coming soon.",
   "colors": {
     "primary": "#2DD4BF",
     "light": "#5DEFE0",
@@ -17,34 +17,28 @@
   "navigation": {
     "groups": [
       {
-        "group": "Get started",
-        "icon": "play",
+        "group": "Veridian Health Partners",
+        "icon": "building",
         "pages": [
-          "introduction",
-          "quickstart",
-          "concepts"
+          "introduction"
         ]
       },
       {
-        "group": "Veridian Bridge",
-        "icon": "bridge",
+        "group": "Veridian Health",
+        "icon": "heart-pulse",
         "pages": [
-          "bridge/overview",
-          "bridge/payment-flow",
-          "bridge/integration",
-          "bridge/branding"
+          "veridian-health/overview",
+          "veridian-health/how-it-works",
+          "veridian-health/for-facilities",
+          "veridian-health/for-providers",
+          "veridian-health/quickstart"
         ]
       },
       {
-        "group": "API reference",
-        "icon": "code",
+        "group": "Veridian Billing",
+        "icon": "receipt",
         "pages": [
-          "api/introduction",
-          "api/authentication",
-          "api/sessions",
-          "api/webhooks",
-          "api/errors",
-          "api/rate-limits"
+          "veridian-billing/overview"
         ]
       },
       {
