@@ -1,0 +1,126 @@
+---
+title: "For evaluators"
+description: "One-page guide for jail leaders, PTs, IT, and compliance reviewers evaluating Veridian Motion."
+---
+
+# For evaluators
+
+This page is for **jail medical directors, physical therapists, custody
+leadership, IT, and compliance staff** deciding whether Veridian Motion fits
+your facility. It summarizes what the product does today, how it works, what it
+does **not** include, and where to read more.
+
+## What Veridian Motion is
+
+**Veridian Motion** is Veridian Health Partners' flagship **physical therapy
+platform** for correctional facilities. It connects:
+
+- An **inmate kiosk** — structured MSK intake (body map, complaint, four
+  posture photos)
+- A **provider dashboard** — licensed PT review, exercise planning, messaging,
+  and controlled release to the inmate
+
+AI assists PTs with **non-diagnostic triage support**. A licensed PT must
+**review and approve** everything before it reaches an inmate. The product
+does **not** diagnose.
+
+## Why facilities consider it
+
+Correctional settings see high volumes of musculoskeletal complaints — back,
+shoulder, knee, and posture-related issues — often with limited on-site PT
+time. Untreated or poorly triaged MSK problems can escalate into costlier
+outcomes: emergency transfers, prolonged disability, repeat sick calls, and
+in some cases litigation.
+
+Veridian Motion aims to improve **inmate wellbeing** through early, structured
+assessment and **PT-reviewed bodyweight exercise plans** delivered inside
+custody — without replacing in-person care when red flags warrant it.
+
+<Note>
+  Veridian Motion does **not** include medical billing, coding, EHR
+  integration, live video visits, or partner API connectivity in the current
+  release. Those capabilities may be considered in future phases.
+</Note>
+
+## How it works (summary)
+
+<Steps>
+  <Step title="Staff enroll the inmate">
+    An admin creates the account and receives an **inmate number + PIN** for
+    custody handoff.
+  </Step>
+
+  <Step title="Inmate completes kiosk intake">
+    Body map → complaint (optional voice-to-text) → four-view photos → submit.
+    The inmate sees **confirmation only** — no AI output.
+  </Step>
+
+  <Step title="Server processes the assessment">
+    AI triage support is generated server-side (multi-LLM router with failover).
+    Output appears in the staff dashboard only.
+  </Step>
+
+  <Step title="Admin assigns a PT">
+    New submissions sit in an **unassigned queue** until assigned.
+  </Step>
+
+  <Step title="PT reviews and releases">
+    Red flags first, then photos, AI observations, draft plan. PT edits the
+    plan, adds notes, marks **reviewed**. Approved content appears in the
+    inmate's **My plan / progress** view.
+  </Step>
+</Steps>
+
+Full detail: [Veridian Motion](/veridian-motion/product) and
+[Status and workflow](/veridian-motion/status-and-workflow).
+
+## What is not in scope today
+
+| Not included | Notes |
+| --- | --- |
+| Live video consults | Asynchronous workflow only |
+| EHR / EMR integration | No automated feed to external clinical systems |
+| Partner API | No public API for third-party connectivity yet |
+| Medical billing / coding | Separate product line discontinued; not part of Veridian Motion |
+| Self sign-up | Staff provision all accounts |
+| AI direct to inmate | PT-review gate on all clinical output |
+
+## Limitations (read before pilot)
+
+- **Not diagnostic** — AI provides triage support; PT retains clinical authority
+- **Not emergency response** — red flags prompt review; facility protocols govern urgent care
+- **Not HIPAA-certified** — HIPAA-aligned design; BAA required for production PHI
+- **Not CJIS-authorized or FedRAMP-authorized** — agency provides compliant hosting and MDM
+- **Limited offline** — submit and photo upload require network connectivity
+- **AI can be wrong** — models may miss or mischaracterize; PT review is mandatory
+
+## Security and privacy (summary)
+
+| Topic | Veridian Motion (app) | Agency / facility |
+| --- | --- | --- |
+| Staff MFA + RBAC | Yes | — |
+| Inmate PIN auth + RLS | Yes | — |
+| Private photos (5-min signed URLs) | Yes | — |
+| Audit log (no PHI in payload) | Yes | — |
+| Kiosk app hardening (CSP, no external nav) | Yes | MDM lockdown also required |
+| BAA execution | Design supports | Agency + Veridian sign |
+| CJIS / FedRAMP hosting | — | Agency chooses environment |
+
+See [Security overview](/security/overview) and
+[HIPAA](/security/hipaa).
+
+## Read next by role
+
+| Your role | Start here |
+| --- | --- |
+| **Medical director / administrator** | [Getting started](/veridian-motion/getting-started), [Provider dashboard](/veridian-motion/provider-dashboard) |
+| **Physical therapist** | [Provider dashboard](/veridian-motion/provider-dashboard), [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) |
+| **Custody (officer / warden)** | [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow), [Role permissions](/veridian-motion/role-permissions) |
+| **IT** | [Deployment and kiosk](/veridian-motion/deployment-and-kiosk), [Data model & privacy](/veridian-motion/data-model-privacy) |
+| **Compliance / legal** | [HIPAA](/security/hipaa), [Data handling](/security/data-handling), [Incident response](/security/incident-response) |
+
+## Contact
+
+- [Request access](https://veridianhp.com/request-access) — facility onboarding
+- [support@veridianhp.com](mailto:support@veridianhp.com) — general questions
+- [security@veridianhp.com](mailto:security@veridianhp.com) — security review

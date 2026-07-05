@@ -20,7 +20,8 @@
         "group": "Veridian Health Partners",
         "icon": "building",
         "pages": [
-          "introduction"
+          "introduction",
+          "veridian-motion/for-evaluators"
         ]
       },
       {
@@ -29,9 +30,13 @@
         "pages": [
           "veridian-motion/product",
           "veridian-motion/overview",
+          "veridian-motion/getting-started",
           "veridian-motion/inmate-kiosk-flow",
           "veridian-motion/provider-dashboard",
+          "veridian-motion/status-and-workflow",
+          "veridian-motion/messaging",
           "veridian-motion/roles-and-access",
+          "veridian-motion/role-permissions",
           "veridian-motion/ai-and-clinical-safety",
           "veridian-motion/data-model-privacy",
           "veridian-motion/deployment-and-kiosk"

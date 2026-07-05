@@ -5,11 +5,6 @@ description: "Authenticated inmate intake — body map, complaint, photos, and p
 
 # Inmate kiosk flow
 
-<Note>
-  **Early-stage documentation.** Inmates must sign in with credentials staff
-  provide. There is no self sign-up.
-</Note>
-
 The inmate kiosk is the inmate-facing surface of Veridian Motion on a
 **facility-controlled device**. Inmates authenticate with an **inmate number
 and PIN** provisioned at enrollment. Staff hand over the number and initial
@@ -38,8 +33,15 @@ PIN and may reset the PIN later.
 
   <Step title="Describe the complaint">
     The inmate describes what is going on in plain language — typed text, with
-    **voice-to-text** where the device and browser support it. Follow-up
-    questions may appear based on earlier answers.
+    **voice-to-text** where the device and browser support it.
+  </Step>
+
+  <Step title="Answer follow-up questions">
+    Based on body-map selections and the complaint, the app may present
+    **follow-up Q&A** — short questions to clarify onset, severity, or
+    movement limits. Required questions must be answered before continuing.
+    If the session resets due to idle timeout, the inmate must sign in again
+    and may need to restart intake.
   </Step>
 
   <Step title="Capture four posture photos">
@@ -83,6 +85,26 @@ Immediately after submission the inmate sees **confirmation** and
 red flags, or exercise plans. Track progress under **My plan / progress**;
 approved plan content appears only after status reaches **Reviewed**.
 
+## Multiple submissions
+
+An enrolled inmate may complete **more than one assessment** over time. Each
+submission appears separately in **My plan / progress** with its own status.
+A new submission does not replace a prior **Reviewed** plan unless the PT
+updates care through a new review cycle.
+
+## What inmates see after review
+
+When status is **Reviewed**, the inmate may view:
+
+- **Approved exercise plan** — bodyweight exercises with images or video from
+  the exercise-media library (reps, sets, and plain-language instructions as
+  the PT approved)
+- **PT notes** marked **shared with inmate** — only notes the PT explicitly
+  released; other clinical notes remain staff-only
+
+AI observations, hypotheses, and red-flag alerts are **never** shown on the
+kiosk.
+
 ## What inmates cannot do on the kiosk
 
 - Self-create an account
@@ -120,6 +142,12 @@ session requires.
 ## What's next
 
 <CardGroup cols={2}>
+  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
+    Status labels and who acts when.
+  </Card>
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Secure follow-up with the care team.
+  </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
     What happens after the inmate submits.
   </Card>

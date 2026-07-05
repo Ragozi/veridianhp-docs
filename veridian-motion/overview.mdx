@@ -5,11 +5,9 @@ description: "Technical scope, MVP features, and architecture for Veridian Motio
 
 # Platform overview
 
-<Note>
-  **Early-stage documentation.** For product vision and the end-to-end case
-  flow, start with [Veridian Motion](/veridian-motion/product). This page
-  covers technical scope and MVP features as built.
-</Note>
+For product vision, facility impact, and end-to-end case flow, start with
+[Veridian Motion](/veridian-motion/product). This page covers technical scope
+and MVP features as built.
 
 Veridian Motion is Veridian Health Partners' **flagship physical therapy
 platform** for correctional facilities — a posture and musculoskeletal (MSK)
@@ -36,6 +34,8 @@ is an **installable PWA** hardened for facility kiosk use.
   labeled non-diagnostic until a PT reviews.
 - **Not a replacement for in-person care.** Red flags and clinical judgment
   may require hands-on evaluation through existing facility protocols.
+- **Not live video, EHR, or API connectivity.** The current release is
+  asynchronous kiosk + dashboard only. Integration features may come later.
 - **Not a certified compliance package.** The app implements HIPAA-aligned
   design controls; certification, CJIS hosting, and FedRAMP authorization
   are agency responsibilities. See [Security overview](/security/overview).
@@ -96,8 +96,14 @@ and security functions as configured.
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
     Roster, review, messaging, export.
   </Card>
-  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    Five roles, MFA, provisioning.
+  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
+    Facility rollout checklist.
+  </Card>
+  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
+    Status map and handoffs.
+  </Card>
+  <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
+    Permission matrix by role.
   </Card>
   <Card title="Deployment and kiosk" icon="lock" href="/veridian-motion/deployment-and-kiosk">
     PWA install and kiosk hardening.

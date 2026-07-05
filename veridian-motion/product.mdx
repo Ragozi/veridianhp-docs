@@ -35,6 +35,21 @@ The product is designed for **custody constraints**: no external links, no
 self sign-up, append-only messaging inside the app, and kiosk hardening paired
 with agency MDM.
 
+## Facility impact
+
+Veridian Motion targets **early MSK triage and PT-guided movement care** inside
+the facility. By giving inmates a structured path to report complaints and
+receive **PT-reviewed bodyweight plans**, facilities may reduce untreated pain,
+avoidable escalations, and downstream costs tied to emergency care, chronic
+disability, and litigation — while keeping clinical authority with licensed
+staff on site.
+
+<Note>
+  Veridian Motion is a **clinical workflow product**, not a billing system or
+  EHR. Live video, EHR integration, and partner API connectivity are **not** in
+  the current release.
+</Note>
+
 ## Built for physical therapists
 
 Veridian Motion is a **PT product first**. The dashboard is where clinical
@@ -122,14 +137,27 @@ PWA, USWDS-aligned UI), backed by **Supabase** via Lovable Cloud.
 | **IT admin (`it_admin`)** | Security settings and technical administration |
 | **Inmate** | Kiosk intake and post-review plan access only |
 
-See [Roles and access](/veridian-motion/roles-and-access) for provisioning and
-MFA requirements.
+See [Roles and access](/veridian-motion/roles-and-access) for MFA and
+provisioning. For a full permission matrix, see
+[Role permissions](/veridian-motion/role-permissions).
 
 ## Documentation map
 
 <CardGroup cols={2}>
+  <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
+    One-page guide for jail leaders, PTs, IT, and compliance.
+  </Card>
+  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
+    Facility rollout checklist.
+  </Card>
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
     Technical scope, MVP features, and what the product is not.
+  </Card>
+  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
+    Status map and handoffs.
+  </Card>
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Secure internal messaging rules.
   </Card>
   <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
     Step-by-step authenticated intake.
