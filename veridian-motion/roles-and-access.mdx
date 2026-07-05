@@ -1,0 +1,90 @@
+---
+title: "Roles and access"
+description: "Five staff roles, MFA requirements, provisioning, and break-glass MFA reset."
+---
+
+# Roles and access
+
+Veridian Motion uses **role-based access control (RBAC)** backed by Supabase
+Auth and **Row-Level Security (RLS)** on every table. Staff roles are granted
+**only by an admin** — there is no self-service role elevation.
+
+## Staff roles
+
+| Role | ID | Typical access |
+| --- | --- | --- |
+| **Physical Therapist** | `pt` | Assigned assessments, review, notes, plan release, messaging |
+| **Administrator** | `admin` | Enrollment, assignment, role grant/revoke, MFA reset, full roster |
+| **Officer** | `officer` | Operational access as configured (scoped by policy) |
+| **Warden** | `warden` | Facility-level visibility as configured |
+| **IT Admin** | `it_admin` | Security settings, compliance views, technical administration |
+
+Exact permissions per role follow least-privilege defaults in the application.
+Officers and wardens see only what their role requires for custody and
+oversight — not necessarily full clinical notes.
+
+<Note>
+  Inmate access is separate: inmates authenticate with **inmate number +
+  PIN**, not staff roles. Inmates see only their own submissions and
+  reviewed/shared content.
+</Note>
+
+## Staff authentication
+
+All staff accounts require:
+
+1. **Email + password** (minimum password rules enforced by Supabase Auth)
+2. **TOTP MFA** — authenticator app; six-digit code at `/mfa` after password
+
+MFA is mandatory for dashboard access. There is no staff access without
+completing MFA enrollment.
+
+## Role provisioning
+
+Admins manage roles at **`/staff` (Staff & Roles)**:
+
+- **Grant** — assign a role to a staff email account
+- **Revoke** — remove a role; access ends on next session
+- View current role assignments and MFA status
+
+Role changes are recorded in the **append-only audit log**.
+
+## Break-glass MFA reset
+
+If a staff member loses their authenticator device, an **admin** may
+**reset MFA** for that account. After reset, the user must enroll MFA again
+at next sign-in. MFA resets are audit-logged.
+
+## Inmate credentials
+
+| Action | Who | Result |
+| --- | --- | --- |
+| **Enroll patient** | Admin (or authorized role) | Inmate number + initial PIN returned to staff |
+| **Reset inmate PIN** | Authorized staff from patient record | New PIN shown once for handoff to inmate |
+| **Sign in** | Inmate at kiosk | Access to own submissions only |
+
+Inmates cannot change their PIN without staff assistance.
+
+## What the app enforces vs. agency provides
+
+| Control | Enforced by Veridian Motion | Provided by agency |
+| --- | --- | --- |
+| Role-based UI and API access | Yes | — |
+| RLS on database tables | Yes | — |
+| Staff MFA | Yes | — |
+| Audit log of sensitive actions | Yes | — |
+| CJIS / FedRAMP hosting environment | — | Yes |
+| MDM device lockdown | — | Yes |
+| Personnel screening / background checks | — | Yes |
+| Physical kiosk supervision | — | Yes |
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Day-to-day clinical workflow.
+  </Card>
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    Compliance posture and honest framing.
+  </Card>
+</CardGroup>

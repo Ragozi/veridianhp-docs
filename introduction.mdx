@@ -1,72 +1,80 @@
 ---
 title: "Welcome"
-description: "Veridian Health Partners — corrections-focused healthcare infrastructure at veridianhp.com."
+description: "Veridian Health Partners builds Veridian Motion for correctional musculoskeletal triage."
 ---
 
 # Veridian Health Partners
 
 <Note>
-  **Early-stage documentation.** This site is actively maintained as we build
-  Veridian Health. Content, workflows, and technical details will evolve as
-  the product matures. Last major update: July 2026.
+  **Early-stage documentation.** This site describes Veridian Motion as built
+  today. Workflows and policies may change as the product matures.
 </Note>
 
-Veridian Health Partners builds healthcare technology for **jails and
-correctional facilities** — environments where specialist access is limited,
-compliance is mandatory, and musculoskeletal complaints often go unaddressed.
+**Veridian Health Partners** is the company. **Veridian Motion** is our
+product — a posture and musculoskeletal triage platform for correctional
+facilities, delivered as a web application with an inmate kiosk and a
+provider dashboard.
 
-Our current focus is **Veridian Health**: a corrections-focused **posture and
-musculoskeletal triage platform** with two primary surfaces:
-
-- **Inmate kiosk** — facility-controlled intake where inmates complete guided
-  photo capture and a tailored questionnaire
-- **Provider dashboard** — where licensed PTs review cases and deliver
-  PT-driven recommendations
-
-Everything is packaged under **[veridianhp.com](https://veridianhp.com)**,
-which will serve as the hub for Veridian Health and future products as they
-launch.
+Veridian Motion helps jails give inmates a structured way to report MSK
+complaints and share posture photos, while on-staff physical therapists
+review AI-assisted triage support and release **PT-reviewed recommendations**
+when ready. The product does not provide a diagnosis; clinical authority
+stays with the licensed PT.
 
 ## Product status
 
 | Product | Status | Description |
 | --- | --- | --- |
-| **Veridian Health** | Active development | Posture and MSK triage — inmate kiosk + provider dashboard |
-| **Veridian Billing** | On hold | Medical billing and coding — deprioritized; placeholder only |
+| **Veridian Motion** | Active | Inmate kiosk + provider dashboard at [veridianhp.com](https://veridianhp.com) |
 
-## Why we exist
+## Stack at a glance
 
-Jails face a consistent gap in musculoskeletal care:
+- **Frontend:** TanStack Start (React 19), installable PWA, USWDS-aligned UI
+- **Backend:** Lovable Cloud (Supabase — Postgres, Auth, Storage)
+- **Server logic:** TanStack server functions
+- **AI:** Multi-provider router with automatic failover; all output is
+  non-diagnostic and PT-reviewed before inmate release
 
-- On-site physical therapy is rare; nursing staff handle MSK complaints without specialist support
-- Off-site referrals require transport, security escorts, and scheduling jails cannot scale
-- Without structured triage, treatable conditions become chronic and documentation suffers
+## Two surfaces
 
-Veridian Health closes that gap with a workflow designed specifically for
-custody settings — not a generic telehealth tool adapted after the fact.
+<CardGroup cols={2}>
+  <Card title="Inmate kiosk" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
+    Authenticated intake — body map, complaint, four posture photos, status
+    and approved plan after PT review.
+  </Card>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Roster, enrollment, assignment queue, assessment review, messaging, PDF
+    export.
+  </Card>
+</CardGroup>
+
+## Compliance posture
+
+Veridian Motion is designed with HIPAA-aligned controls, but **is not
+HIPAA-certified, CJIS-authorized, or FedRAMP-authorized**. The application
+enforces role-based access, audit logging, and data isolation; **hosting
+agencies** provide CJIS/FedRAMP/GovCloud environments, MDM kiosk lockdown,
+network controls, and personnel screening. See [Security overview](/security/overview).
 
 ## Who these docs are for
 
 | Audience | Start here |
 | --- | --- |
-| **Internal team** | [Veridian Health overview](/veridian-health/overview) |
-| **Facility partners (current and future)** | [Inmate kiosk flow](/veridian-health/inmate-kiosk-flow) |
-| **Licensed PTs** | [Provider dashboard](/veridian-health/provider-dashboard) |
-| **Compliance and security reviewers** | [Data model & privacy](/veridian-health/data-model-privacy) |
+| **Facility / agency staff** | [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow) |
+| **Physical therapists & clinical staff** | [Provider dashboard](/veridian-motion/provider-dashboard) |
+| **Administrators & IT** | [Roles and access](/veridian-motion/roles-and-access), [Deployment and kiosk](/veridian-motion/deployment-and-kiosk) |
+| **Compliance reviewers** | [Data model & privacy](/veridian-motion/data-model-privacy), [HIPAA](/security/hipaa) |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Veridian Health" icon="heart-pulse" href="/veridian-health/overview">
-    Platform overview — posture and MSK triage for corrections.
+  <Card title="Veridian Motion overview" icon="person-running" href="/veridian-motion/overview">
+    Product scope, users, and the PT-review gate.
   </Card>
-  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-health/inmate-kiosk-flow">
-    The inmate-facing intake experience end to end.
+  <Card title="AI and clinical safety" icon="brain" href="/veridian-motion/ai-and-clinical-safety">
+    Multi-LLM routing, non-diagnostic output, red flags.
   </Card>
-  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-health/provider-dashboard">
-    How PTs review cases and deliver recommendations.
-  </Card>
-  <Card title="Future roadmap" icon="map" href="/veridian-health/future-roadmap">
-    Planned capabilities including API expansion.
+  <Card title="Request access" icon="envelope" href="https://veridianhp.com/request-access">
+    Contact Veridian Health Partners.
   </Card>
 </CardGroup>

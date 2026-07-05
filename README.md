@@ -1,29 +1,29 @@
 # Veridian Health Partners — Public Documentation
 
-Early-stage documentation for [Veridian Health Partners](https://veridianhp.com),
+Documentation for [Veridian Health Partners](https://veridianhp.com),
 published at [docs.veridianhp.com](https://docs.veridianhp.com) via Mintlify.
 
 ## Structure
 
 ```
 introduction.mdx                        Company hub (VeridianHP)
-veridian-health/
-  overview.mdx                          Platform overview
-  inmate-kiosk-flow.mdx                 Inmate-facing intake
-  provider-dashboard.mdx                PT case review workflow
-  data-model-privacy.mdx                Data entities and PHI controls
-  future-roadmap.mdx                    Planned features + API expansion
-veridian-billing/overview.mdx           On hold (placeholder)
-security/*.mdx                          Shared compliance docs
+veridian-motion/
+  overview.mdx                          Product overview
+  inmate-kiosk-flow.mdx                 Authenticated inmate intake
+  provider-dashboard.mdx                Staff roster, review, messaging
+  roles-and-access.mdx                  Five roles, MFA, provisioning
+  ai-and-clinical-safety.mdx            Multi-LLM router, PT-review gate
+  data-model-privacy.mdx                Entities, PHI, RLS, signed URLs
+  deployment-and-kiosk.mdx              PWA install, kiosk hardening, MDM
+security/*.mdx                          Compliance (enforced vs agency-provided)
 docs.json                               Mintlify navigation
 ```
 
-## Products
+## Product
 
 | Product | Status |
 | --- | --- |
-| **Veridian Health** | Active development — inmate kiosk + provider dashboard |
-| **Veridian Billing** | On hold |
+| **Veridian Motion** | Active — inmate kiosk + provider dashboard at [veridianhp.com](https://veridianhp.com) |
 
 ## Local preview
 

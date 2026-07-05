@@ -1,87 +1,119 @@
 ---
 title: "Troubleshooting"
-description: "Common issues with Veridian Health and how to resolve them."
+description: "Common issues with Veridian Motion and how to resolve them."
 ---
 
 # Troubleshooting
 
-Most issues fall into a few categories: access and accounts, inmate kiosk
-setup, photo capture, and provider dashboard. Start with the symptom that
-matches your situation.
+Most issues fall into a few categories: inmate PIN login, staff MFA access,
+kiosk setup, photo capture, provider dashboard workflow, and messaging. Start
+with the symptom that matches your situation.
 
-## Access and accounts
+## Inmate kiosk — login and session
+
+**The inmate can't log in (number or PIN rejected).**
+- Confirm the patient was enrolled and the number + PIN were handed to custody
+  staff correctly.
+- Check for typos — inmate numbers and PINs are case-sensitive where applicable.
+- Ask an **admin** or enrolling staff member to **reset the PIN** from the
+  provider dashboard.
+- After several failed attempts, wait for any lockout period to expire or
+  contact [support@veridianhp.com](mailto:support@veridianhp.com).
+
+**The session reset unexpectedly mid-intake.**
+- Locked kiosks use **idle auto-reset** to clear inmate state. Have the inmate
+  log in again and restart if needed.
+- Inmate session state is in-memory only — a reset clears unsaved progress.
+
+**The inmate sees only confirmation, not an exercise plan.**
+- This is expected until a PT marks the submission **Reviewed** and releases
+  the plan. Check status under **My plan / progress** (Received → Awaiting
+  assignment → Under review → Reviewed).
+
+## Staff dashboard — login and MFA
 
 **I can't log in to the dashboard.**
-- Confirm you're using the email address provisioned during onboarding.
+- Confirm you're using the email address provisioned by an administrator.
 - Reset your password from the login page.
-- Contact [support@veridianhp.com](mailto:support@veridianhp.com) if the
-  issue persists.
+- Ensure your **authenticator app** TOTP code is current (clock sync on your
+  device).
 
-**A staff member can't see recommendations.**
-- Check their role — clinical output requires medical staff or administrator
-  access.
-- Administrators adjust roles in **Settings → Users**.
+**MFA / authenticator isn't working.**
+- Re-sync time on your phone or hardware token.
+- If you've lost the device, an **admin** can perform a **break-glass MFA
+  reset** — you must re-enroll MFA on next login.
+- Contact [support@veridianhp.com](mailto:support@veridianhp.com) if admin
+  reset is unavailable.
 
-**A provider isn't showing as approved for our jail.**
-- Providers must be enrolled in Veridian's network **and** approved by your
-  jail administrator. Check **Settings → Providers** for approval status.
+**A staff member can't see cases or recommendations.**
+- Check their **role** (`pt`, `admin`, `officer`, `warden`, `it_admin`) —
+  clinical review requires `pt` (or admin) and **case assignment**.
+- PTs only see submissions assigned to them unless their role allows broader
+  access. See [Roles and access](/veridian-motion/roles-and-access).
 
-## Inmate kiosk setup
+## Kiosk setup and connectivity
 
-**The device can't connect to Veridian Health.**
-- Verify outbound HTTPS (port 443) is allowed on the jail network.
-- Confirm the device meets the setup checklist from onboarding.
+**The device can't connect to Veridian Motion.**
+- Verify outbound HTTPS (port 443) is allowed on the facility network.
+- Confirm the PWA is installed and pointed at the correct environment.
 - Run a test assessment with Veridian support before scheduling inmates.
 
+**External links or apps open from the kiosk.**
+- The app blocks external navigation; if links still open, verify **MDM**
+  lockdown on the device — app hardening is not a substitute for agency MDM.
+  See [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
+
+## Photo capture
+
 **The camera isn't working.**
-- Grant camera permissions to the browser or app on the facility device.
+- Grant camera permissions to the browser or installed PWA.
 - Confirm no other application is using the camera.
 - Test with the device's native camera app to isolate hardware vs. software.
 
-## Photo capture issues
-
-**Photos are rejected or flagged as low quality.**
+**Photos are rejected or hard to align.**
 - Ensure adequate lighting in the assessment location.
-- Follow on-screen positioning prompts — all four angles (front, back, left,
-  right) must be clearly visible.
-- Have custody staff confirm the inmate can hold positions safely per jail
-  policy.
-- Retake individual photos using the in-app retry option.
+- Follow on-screen **silhouette overlays** for all four views (front, back,
+  left, right).
+- Retake individual views using the in-app retry option.
+
+**Voice-to-text for the complaint isn't available.**
+- Voice input depends on browser and device support; typed complaint is always
+  available.
 
 **The inmate can't complete all four photos.**
-- Document mobility limitations in the referral; some positions may need
-  modification.
-- If the inmate cannot safely complete capture, cancel the assessment and
-  refer for in-person evaluation.
+- Document mobility limitations in the complaint text.
+- If capture isn't safe, cancel and refer for in-person evaluation per jail
+  policy.
 
-**Questionnaire won't advance.**
-- Check for required fields marked in the UI.
-- Confirm network connectivity hasn't dropped mid-session.
-- If stuck, cancel and restart the assessment; partial data may not process.
+## Provider dashboard workflow
 
-## Provider dashboard
+**A submission isn't appearing in my queue.**
+- New submissions land in the **unassigned** queue until an **admin** assigns
+  a PT.
+- Confirm AI processing completed — status should advance from **Received**.
 
-**Recommendations haven't appeared after completion.**
-- Processing typically completes within minutes. Check the assessment status
-  in the dashboard.
-- If status shows "processing" for more than 30 minutes, contact support
-  with the assessment ID.
+**I see red-flag alerts on a case.**
+- Review red flags **first** before approving any plan. Follow your facility's
+  acute-care protocol — the platform supports triage, not emergency response.
 
-**Recommendations include a red-flag alert.**
-- This is expected behavior for certain presentations. Follow your jail's
-  acute-care protocol — do not rely on the platform for emergency response.
+**PDF export or email failed.**
+- PDF export generates a plain assessment summary for allowlisted addresses
+  only.
+- Email to external addresses requires a **BAA-covered** provider configured
+  for your deployment. Contact your administrator or Veridian support.
 
-**We need to amend or re-run an assessment.**
-- Contact [support@veridianhp.com](mailto:support@veridianhp.com) with the
-  assessment ID. Re-assessments can be initiated from the dashboard when
-  clinically appropriate.
+**Secure messaging isn't delivering.**
+- Messaging is internal only (append-only, monitored, part of the medical
+  record). There is no external egress — inmates and staff both use in-app
+  threads.
 
 ## Still stuck?
 
 Email [support@veridianhp.com](mailto:support@veridianhp.com) with:
 
-- Your jail name
-- Assessment or referral ID (if applicable)
+- Your facility name
+- Submission or patient ID (if applicable)
+- Role and surface (kiosk vs. dashboard)
 - A short description of the issue
 
 For security concerns, email
@@ -90,10 +122,10 @@ For security concerns, email
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-health/inmate-kiosk-flow">
-    Kiosk setup checklist and common issues.
+  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
+    Full authenticated intake flow and statuses.
   </Card>
   <Card title="FAQ" icon="circle-question" href="/faq">
-    Common questions from jail and provider teams.
+    Common questions from facility and clinical teams.
   </Card>
 </CardGroup>

@@ -1,0 +1,132 @@
+---
+title: "Inmate kiosk flow"
+description: "Authenticated inmate intake — body map, complaint, photos, and post-review plan access."
+---
+
+# Inmate kiosk flow
+
+<Note>
+  **Early-stage documentation.** Inmates must sign in with credentials staff
+  provide. There is no self sign-up.
+</Note>
+
+The inmate kiosk is the inmate-facing surface of Veridian Motion on a
+**facility-controlled device**. Inmates authenticate with an **inmate number
+and PIN** provisioned at enrollment. Staff hand over the number and initial
+PIN and may reset the PIN later.
+
+<Warning>
+  Inmates **never** see un-reviewed AI findings or exercise plans. After
+  submit they see confirmation and safety guidance only. Approved content
+  appears in **My plan / progress** after a PT marks the assessment reviewed.
+</Warning>
+
+## Full flow
+
+<Steps>
+  <Step title="Sign in">
+    At `/inmate-login`, the inmate enters their **inmate number** and **PIN**
+    (4–12 digits). Staff create these at enrollment; inmates who lack a PIN
+    must ask staff.
+  </Step>
+
+  <Step title="Select what's hurting (body map)">
+    An accessible **body-map region selector** presents a tappable diagram
+    plus labeled toggle buttons (e.g., left shoulder, upper back, left knee).
+    The inmate selects the area(s) relevant to their complaint.
+  </Step>
+
+  <Step title="Describe the complaint">
+    The inmate describes what is going on in plain language — typed text, with
+    **voice-to-text** where the device and browser support it. Follow-up
+    questions may appear based on earlier answers.
+  </Step>
+
+  <Step title="Capture four posture photos">
+    Guided capture for **front, back, left, and right** views. On-screen
+    **silhouette overlays** help positioning. The interface prompts retakes when
+    a photo is unusable (lighting, framing, blur). Camera access requires staff
+    assistance if denied.
+  </Step>
+
+  <Step title="Submit">
+    The inmate reviews and submits. The assessment moves into staff workflow.
+    Processing runs on the server; AI output is **not** shown on the kiosk.
+  </Step>
+
+  <Step title="Confirmation (immediate)">
+    The inmate sees **submission confirmation** and **plain-language safety
+    guidance** — for example, to report worsening symptoms to custody staff.
+    This screen does not include AI observations, hypotheses, or exercise
+    prescriptions.
+  </Step>
+
+  <Step title="My plan / progress (ongoing)">
+    Inmates can return to view each submission's **status**:
+
+    - **Received**
+    - **Awaiting assignment**
+    - **Under review**
+    - **Reviewed**
+
+    After a PT marks an assessment **reviewed**, the inmate may see the
+    **approved exercise plan** (images/video from the exercise-media library)
+    and any **PT notes explicitly shared** with them. Until then, plan content
+    remains hidden.
+  </Step>
+</Steps>
+
+## After submit
+
+Immediately after submission the inmate sees **confirmation** and
+**plain-language safety guidance** only — not AI observations, hypotheses,
+red flags, or exercise plans. Track progress under **My plan / progress**;
+approved plan content appears only after status reaches **Reviewed**.
+
+## What inmates cannot do on the kiosk
+
+- Self-create an account
+- View AI findings, red flags, or draft plans before PT review
+- Open external websites, links, or messaging outside the app
+- Access other inmates' records
+
+## Locked kiosk behavior
+
+Veridian Motion applies **app-level hardening** for facility kiosks:
+
+- Blocked external navigation and links
+- Strict Content Security Policy (CSP)
+- Self-hosted fonts (no third-party font loads)
+- Idle **auto-reset** to clear inmate session state
+
+**Agency-provided** controls — MDM profile, device lockdown, network
+filtering, physical supervision — are required for true kiosk lockdown in
+custody. See [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
+
+## Staff involvement
+
+| Role | Typical action |
+| --- | --- |
+| **Admin / clinical staff** | Enroll inmate, hand over number + PIN, assign case to PT |
+| **Custody staff** | Escort to kiosk, monitor session, respond to safety concerns |
+| **PT** | Reviews in dashboard; releases plan when ready |
+
+## Session and privacy on device
+
+Inmate session state is held **in memory** — not in browser `localStorage`.
+No PII is persisted locally on the kiosk browser beyond what the active
+session requires.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    What happens after the inmate submits.
+  </Card>
+  <Card title="Data model & privacy" icon="database" href="/veridian-motion/data-model-privacy">
+    Photos, RLS, and signed URLs.
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+    Camera, PIN, and session issues.
+  </Card>
+</CardGroup>

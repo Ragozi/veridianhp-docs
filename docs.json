@@ -2,16 +2,16 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Veridian Health Partners",
-  "description": "Corrections-focused posture and musculoskeletal triage for jails. Veridian Health — inmate kiosk and provider dashboard. Documentation at veridianhp.com.",
+  "description": "Veridian Motion — posture and musculoskeletal triage for correctional facilities. Inmate kiosk and provider dashboard documentation.",
   "colors": {
-    "primary": "#2DD4BF",
-    "light": "#5DEFE0",
-    "dark": "#0E9994"
+    "primary": "#0560A3",
+    "light": "#68B7ED",
+    "dark": "#173A76"
   },
   "favicon": "/favicon.svg",
   "logo": {
-    "light": "/logo/veridian-shield.jpg",
-    "dark": "/logo/veridian-shield.jpg",
+    "light": "/logo/veridian-motion.png",
+    "dark": "/logo/veridian-motion.png",
     "href": "https://veridianhp.com"
   },
   "navigation": {
@@ -24,21 +24,16 @@
         ]
       },
       {
-        "group": "Veridian Health",
-        "icon": "heart-pulse",
+        "group": "Veridian Motion",
+        "icon": "person-running",
         "pages": [
-          "veridian-health/overview",
-          "veridian-health/inmate-kiosk-flow",
-          "veridian-health/provider-dashboard",
-          "veridian-health/data-model-privacy",
-          "veridian-health/future-roadmap"
-        ]
-      },
-      {
-        "group": "Veridian Billing",
-        "icon": "receipt",
-        "pages": [
-          "veridian-billing/overview"
+          "veridian-motion/overview",
+          "veridian-motion/inmate-kiosk-flow",
+          "veridian-motion/provider-dashboard",
+          "veridian-motion/roles-and-access",
+          "veridian-motion/ai-and-clinical-safety",
+          "veridian-motion/data-model-privacy",
+          "veridian-motion/deployment-and-kiosk"
         ]
       },
       {

@@ -1,79 +1,78 @@
 ---
 title: "HIPAA"
-description: "How Veridian Health Partners operates as a HIPAA Business Associate in correctional settings."
+description: "HIPAA-aligned design for Veridian Motion — not certification."
 ---
 
 # HIPAA
 
 Veridian Health Partners processes Protected Health Information (PHI) on
-behalf of covered entities — correctional facilities and their healthcare
-programs. That makes Veridian a **Business Associate** under HIPAA. We
-operate accordingly across all products, starting with Veridian Health.
+behalf of covered entities — correctional healthcare programs and their
+providers. Veridian operates as a **Business Associate** under HIPAA when a
+signed **BAA** is in place.
+
+<Warning>
+  **HIPAA-aligned design is not HIPAA certification.** Veridian Motion is
+  not certified under HIPAA. Compliance depends on BAAs, agency hosting
+  choices, and operational practices.
+</Warning>
 
 ## What this means in practice
 
-- We sign a **Business Associate Agreement (BAA)** with every facility
-  before live PHI flows.
-- We implement administrative, physical, and technical safeguards aligned
-  with the HIPAA Security Rule (45 CFR Part 164, Subpart C).
-- We follow the HIPAA Breach Notification Rule (45 CFR Subpart D) for any
-  incident that could constitute a breach of unsecured PHI.
-- We flow down BAA obligations to any subprocessor that touches PHI.
+- A **BAA** is required before production PHI flows
+- Administrative, physical, and technical safeguards align with the HIPAA
+  Security Rule intent (45 CFR Part 164, Subpart C)
+- Breach notification procedures follow the HIPAA Breach Notification Rule
+  (45 CFR Subpart D) when applicable
+- Subprocessors that touch PHI hold BAAs with Veridian Health Partners
 
-## What data is treated as PHI
+## PHI in Veridian Motion
 
-For Veridian Health, PHI includes:
+PHI includes, among other items:
 
-- Inmate/patient identifiers tied to a consult or referral
-- Clinical intake information — chief complaint, history, medications,
-  functional status
-- Assessment images (front, back, left, right) captured during the workflow
-- Questionnaire responses and AI-generated PT-driven recommendations
-- Session metadata linking a patient to a clinical assessment
+- Inmate identifiers and enrollment records
+- Assessment complaints, body-map selections, and Q&A
+- Posture photos
+- AI triage output, PT notes, and approved exercise plans
+- Internal messages between care team and inmate
 
-What we **do not collect by default**:
+Veridian Motion collects the **minimum necessary** for MSK triage workflow.
 
-- Full incarceration records or criminal history
-- Unrelated medical records from outside the Veridian platform
-- Custody or disciplinary information unless clinically relevant and
-  provided by facility staff in the referral
+## Minimum necessary
 
-## Minimum necessary in corrections
+- Inmates see only their own data; plans only after PT review; notes only if shared
+- Staff access is scoped by role and assignment (RLS)
+- Audit logs record actions without copying clinical content
 
-The HIPAA minimum-necessary rule requires that PHI use and disclosure be
-limited to what's needed for the task. Veridian Health is built around
-this principle:
+## Patient rights
 
-- Referrals require only the clinical context needed for a PT assessment —
-  not the inmate's full chart.
-- Role-based access ensures custody staff see scheduling logistics, not
-  clinical notes, unless explicitly authorized.
-- Audit logs record events without copying PHI into log metadata.
-- Internal dashboards mask PHI by default; reveal requires per-action
-  authorization and audit.
+Inmate HIPAA rights (access, amendment, accounting of disclosures) are
+exercised through the **covered entity / agency**, not directly with Veridian.
+Veridian supplies data to authorized agency staff to fulfill requests.
 
-## Patients and their rights
+## Corrections-specific note
 
-Inmates retain HIPAA rights to access, amend, and receive an accounting of
-disclosures of their PHI. Because Veridian is a Business Associate, those
-rights are exercised through the facility (the covered entity), not directly
-with Veridian. Facilities should route patient requests through their normal
-HIPAA workflow; Veridian supplies the data the facility needs to respond.
+HIPAA applies to covered healthcare functions in custody settings. **CJIS
+security policy**, **FedRAMP**, and **state corrections IT standards** are
+separate frameworks — **not built into Veridian Motion**. Agencies host and
+operate the product in environments that satisfy their obligations.
 
-## Sub-processors
+## Subprocessors
 
-Veridian uses a small number of sub-processors for hosting, AI analysis
-infrastructure, and communications. Each sub-processor that touches PHI has
-a signed BAA with Veridian Health Partners. The current sub-processor list
-is available to facilities on request through their account contact.
+PHI may be processed by subprocessors including:
+
+- Lovable Cloud / Supabase (database, auth, storage)
+- LLM providers (Anthropic, OpenAI, xAI, fallback gateway) — server-side only
+- Allowlisted email provider (when PDF email is enabled — BAA required)
+
+Current subprocessor list available to customers on request.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Data handling" icon="database" href="/security/data-handling">
-    What we collect, retain, and delete.
+    Retention and deletion.
   </Card>
-  <Card title="Incident response" icon="bell" href="/security/incident-response">
-    What happens if something goes wrong.
+  <Card title="Data model & privacy" icon="lock" href="/veridian-motion/data-model-privacy">
+    RLS and signed URLs.
   </Card>
 </CardGroup>

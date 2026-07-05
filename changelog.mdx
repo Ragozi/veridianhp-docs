@@ -10,28 +10,51 @@ description: "Documentation and product updates for Veridian Health Partners."
   changes**. Internal engineering progress is not listed here exhaustively.
 </Note>
 
+<Update label="Veridian Motion — product documentation" description="2026-07-05">
+  Renamed product from Veridian Health / PostureCare to **Veridian Motion**.
+  Removed discontinued Veridian Billing content. Documentation now reflects
+  the built product:
+
+  - [Overview](/veridian-motion/overview) — two surfaces, MVP scope, PT-review gate
+  - [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow) — PIN login, body map,
+    four-view capture, status-only until review
+  - [Provider dashboard](/veridian-motion/provider-dashboard) — roster, enrollment,
+    assignment queue, review workflow, PDF/email, messaging
+  - [Roles and access](/veridian-motion/roles-and-access) — five roles, staff MFA,
+    break-glass reset
+  - [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) — multi-LLM
+    router, non-diagnostic output, model transparency
+  - [Data model & privacy](/veridian-motion/data-model-privacy) — RLS, signed URLs,
+    audit log
+  - [Deployment and kiosk](/veridian-motion/deployment-and-kiosk) — PWA hardening vs
+    agency MDM
+
+  **Product highlights in this release:**
+  - Inmate **number + PIN** authentication (staff-provisioned, no self sign-up)
+  - Staff **email + password + TOTP MFA**
+  - **Multi-LLM router** (Claude → GPT → Grok → fallback gateway) with failover
+  - **Secure internal messaging** (append-only, monitored)
+  - **PWA / kiosk hardening** (CSP, no external nav, idle reset, self-hosted fonts)
+  - **USWDS-aligned** government UI redesign
+  - Honest compliance framing — HIPAA-aligned design, not certified; agency-provided
+    CJIS/FedRAMP/MDM
+</Update>
+
 <Update label="Docs restructure — kiosk & dashboard" description="2026-07-03">
-  Restructured Veridian Health documentation around product surfaces:
-
-  - [Overview](/veridian-health/overview) — posture and MSK triage platform
-  - [Inmate kiosk flow](/veridian-health/inmate-kiosk-flow) — inmate intake
-  - [Provider dashboard](/veridian-health/provider-dashboard) — PT workflow
-  - [Data model & privacy](/veridian-health/data-model-privacy) — entities and PHI
-  - [Future roadmap](/veridian-health/future-roadmap) — API expansion plans
-
-  Veridian Billing marked **on hold**. Early-stage documentation notes added
-  across all product pages.
+  Restructured documentation around product surfaces: inmate kiosk intake,
+  provider dashboard workflow, data model, and security pages. Early-stage
+  documentation notes added across product pages.
 </Update>
 
 <Update label="MVP workflow defined" description="2026-07-03">
   Documented AI-assisted assessment: four photos, tailored questionnaire,
-  PT-driven recommendations. Provider model: Veridian enrollment + per-jail
-  approval.
+  PT-driven recommendations. Provider enrollment and per-facility staff
+  provisioning.
 </Update>
 
 <Update label="Documentation pivot" description="2026-07-03">
-  Rebuilt site for Veridian Health Partners product family. Retired Veridian
-  Bridge payment content.
+  Rebuilt site for Veridian Health Partners. Retired Veridian Bridge payment
+  content.
 </Update>
 
 <Update label="Initial scaffold" description="2026-05-28">

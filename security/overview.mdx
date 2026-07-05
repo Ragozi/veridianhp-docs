@@ -1,95 +1,85 @@
 ---
 title: "Security overview"
-description: "How Veridian Health Partners protects patient data across all products."
+description: "Veridian Motion security posture — what the app enforces vs what agencies provide."
 ---
 
 # Security overview
 
-Veridian Health Partners operates as a **Business Associate** under HIPAA
-and is designed from the ground up for healthcare data in correctional
-settings. This page is the public summary of our security posture across
-all products — starting with Veridian Health.
+Veridian Health Partners designs **Veridian Motion** with healthcare and
+correctional use cases in mind. This page summarizes the **security posture**
+honestly — what the application implements and what **hosting agencies** must
+provide.
 
-For evidence-level detail (control matrices, audit reports, penetration
-test summaries), customers and prospects can request our security package
-through their account contact.
+<Warning>
+  Veridian Motion is **not HIPAA-certified**, **CJIS-authorized**, or
+  **FedRAMP-authorized**. HIPAA-aligned design ≠ certification. Agencies
+  choose hosting and operational controls to meet their obligations.
+</Warning>
 
-## What we protect
+## What Veridian Motion enforces
 
-- **Protected Health Information (PHI):** Inmate/patient identifiers,
-  assessment images, questionnaire responses, PT-driven recommendations,
-  referral information, and any other data covered under HIPAA.
-- **Facility credentials:** Admin accounts, staff access tokens, API keys
-  (when applicable), and webhook signing secrets.
-- **Provider credentials:** Licensed clinician accounts, licensure records,
-  and session access.
+### Access control
 
-## How we protect it
+- **Staff:** Email, password, mandatory TOTP MFA; role-based UI and API
+- **Inmates:** Inmate number + PIN; access limited to own data via RLS
+- **Roles:** `pt`, `admin`, `officer`, `warden`, `it_admin` — granted only by admin
 
-### Encryption
+### Data protection
 
-- **In transit:** TLS 1.2+ on every connection, including internal services
-  and telehealth sessions.
-- **At rest:** AES-256-GCM field-level encryption on PHI fields. Database
-  storage volumes are additionally encrypted at the platform level.
-- **Key management:** Encryption keys are versioned to support rotation
-  without service interruption.
+- **Row-Level Security** on every Postgres table
+- **Private photo storage** with five-minute signed URLs after authorization
+- **No PII in browser localStorage** for inmates; in-memory session on kiosk
+- **No PHI in application logs**; append-only audit log for sensitive actions
 
-### Access controls
+### Application hardening (kiosk)
 
-- **Least privilege.** Engineers do not have routine access to production
-  PHI. Break-glass access requires approval, expires automatically, and is
-  fully audited.
-- **Multi-factor authentication** is required for every Veridian team member
-  with access to any production system.
-- **Role-based access** in product dashboards — facility administrators,
-  medical staff, custody staff, and providers see only what their role
-  requires.
+- Blocked external navigation, strict CSP, self-hosted fonts, idle auto-reset
+- Internal messaging only — no external egress for inmate communications
 
-### Audit logging
+### Clinical safety gate
 
-Every significant action — referral creation, session start/end,
-documentation access, admin configuration changes — is recorded in a
-tamper-evident audit log. Facilities can export logs for compliance review
-and accreditation documentation.
+- AI output is **non-diagnostic** and **PT-reviewed** before inmate release
 
-### Assessment image security
+## What agencies / facilities must provide
 
-Veridian Health assessment photos are captured on facility-controlled
-devices, transmitted over encrypted connections, and stored with the same
-field-level encryption as all other PHI. Images are never processed on
-inmate personal devices or consumer-grade apps.
+| Requirement | Owner |
+| --- | --- |
+| BAA with health provider and PHI-touching vendors (email, etc.) | Agency + Veridian Health Partners |
+| CJIS-compliant or FedRAMP / GovCloud hosting (if required) | Agency |
+| MDM kiosk lockdown, device supervision | Agency IT + custody |
+| Network segmentation and firewall allowlists | Agency IT |
+| Personnel screening and security training | Agency |
+| Physical security of kiosk location | Agency |
 
-## Correctional-specific considerations
+## Encryption
 
-Healthcare in custody settings adds constraints beyond standard HIPAA:
+- **In transit:** TLS for all client and service connections
+- **At rest:** Supabase / cloud provider encryption for database and storage volumes
+- **Photos:** Private bucket; no public ACLs
 
-- **Custody staff access** is limited to logistics (scheduling, escort) —
-  not clinical notes unless explicitly authorized.
-- **Device control** — consults run on facility hardware, not inmate personal
-  devices, reducing data exfiltration risk.
-- **Minimum necessary** — we collect only the PHI required for the consult
-  and documentation, not full medical records by default.
+## Audit and monitoring
 
-## Compliance posture
+Sensitive actions write to an **append-only audit log** (enroll, assign, review,
+notes, roles, MFA reset, messages, email). Application logs exclude PHI.
 
-Every facility using Veridian Health for production signs a **Business
-Associate Agreement (BAA)** before live PHI flows. Provider partners operate
-under platform agreements that flow down HIPAA obligations.
+Agencies may export audit data for compliance review from the dashboard
+(`/audit`, `/compliance`, `/security` — role-scoped).
 
-Sub-processors that touch PHI each hold a signed BAA with Veridian Health
-Partners. The current sub-processor list is available to customers on request.
+## Incident response
+
+See [Incident response](/security/incident-response) for notification
+expectations when an incident may affect agency or inmate data.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
-    How we operate as a Business Associate in correctional healthcare.
+    Business Associate framing.
   </Card>
   <Card title="Data handling" icon="database" href="/security/data-handling">
-    What we collect, retain, and delete.
+    Collection and retention.
   </Card>
-  <Card title="Incident response" icon="bell" href="/security/incident-response">
-    What happens if something goes wrong.
+  <Card title="Data model & privacy" icon="lock" href="/veridian-motion/data-model-privacy">
+    RLS and entity detail.
   </Card>
 </CardGroup>

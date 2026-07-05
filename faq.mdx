@@ -1,12 +1,12 @@
 ---
 title: "FAQ"
-description: "Common questions about Veridian Health Partners and Veridian Health."
+description: "Common questions about Veridian Health Partners and Veridian Motion."
 ---
 
 # FAQ
 
 <Note>
-  **Early-stage documentation.** Answers reflect current product direction
+  **Early-stage documentation.** Answers reflect the product as built today
   and may be updated as the platform evolves.
 </Note>
 
@@ -14,63 +14,99 @@ description: "Common questions about Veridian Health Partners and Veridian Healt
 
 The company behind [veridianhp.com](https://veridianhp.com). We build
 healthcare technology for jails and correctional facilities. **Veridian
-Health** is our active product. **Veridian Billing** is on hold.
+Motion** is our active product (formerly Veridian Health / PostureCare).
 
-## What is Veridian Health?
+## What is Veridian Motion?
 
 A corrections-focused **posture and musculoskeletal triage platform** with
-two surfaces: an **inmate kiosk** (photo capture + questionnaire) and a
-**provider dashboard** (PT case review and recommendations).
+two authenticated surfaces: an **inmate kiosk** (body map, complaint,
+four-view photo capture) and a **provider dashboard** (PT assessment review,
+assignment, messaging, and plan release).
 
-## How does the inmate kiosk work?
+## How do inmates sign in?
 
-An inmate referred by medical staff completes four guided photos (front,
-back, left, right) and a tailored questionnaire on a facility-controlled
-device. See [Inmate kiosk flow](/veridian-health/inmate-kiosk-flow).
+Inmates do **not** self-register. Staff enroll each patient during intake and
+hand over an **inmate number** and **initial PIN**. The inmate uses those
+credentials on the facility kiosk. Staff can reset the PIN when needed. See
+[Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow).
+
+## Do inmates see AI results immediately after submit?
+
+No. After submit, the inmate sees only a **confirmation** and plain-language
+safety guidance. AI observations and exercise plans are **not** shown until a
+PT marks the case reviewed and explicitly releases content to the inmate. See
+[My plan / progress](/veridian-motion/inmate-kiosk-flow#after-submit).
+
+## How do staff sign in?
+
+Staff use **email, password, and TOTP MFA** (authenticator app). Roles are
+granted only by an administrator. See
+[Roles and access](/veridian-motion/roles-and-access).
+
+## What staff roles exist?
+
+Five roles: **pt**, **admin**, **officer**, **warden**, and **it_admin**.
+Each role has scoped access to roster, queue, review, messaging, and settings.
+Administrators provision roles and can perform a break-glass MFA reset.
 
 ## Is this a live video consult?
 
-Not in MVP. The first release is asynchronous — kiosk intake followed by
-provider dashboard review. Live consults are on the
-[roadmap](/veridian-health/future-roadmap).
+No. Veridian Motion is **asynchronous** — kiosk intake followed by provider
+dashboard review. Secure internal messaging supports follow-up within the app;
+there is no external messaging egress.
 
 ## How do providers get access?
 
-PTs enroll in Veridian's network (credentialing, training, screening) and
-must be **approved by each jail** separately. See
-[Provider dashboard](/veridian-health/provider-dashboard).
+PTs and other staff accounts are created by a facility **admin**. Clinical
+output requires appropriate role assignment and case assignment from the
+unassigned queue. See [Provider dashboard](/veridian-motion/provider-dashboard).
 
-## Who can purchase Veridian Health?
+## Who can purchase Veridian Motion?
 
-Any jail or correctional facility that buys into the product.
+Jails and correctional facilities that contract with Veridian Health Partners
+for the product.
 
-## Do inmates need accounts?
+## Is assessment data PHI?
 
-No. Inmates use facility-controlled kiosk devices under custody supervision.
+Yes. Complaints, photos, Q&A, notes, and messages are PHI. The application
+uses row-level security, signed photo URLs, and audit logging. See
+[Data model & privacy](/veridian-motion/data-model-privacy).
 
-## Is assessment photo data PHI?
+## Is Veridian Motion HIPAA-certified?
 
-Yes. Images and questionnaire responses are PHI, handled under HIPAA. See
-[Data model & privacy](/veridian-health/data-model-privacy).
+**No.** The product is designed with **HIPAA-aligned** controls (RLS, audit
+log, no PHI in app logs, PT-review gate). A **BAA** is required with the
+health provider and any vendor that touches PHI (such as email for PDF export).
+CJIS, FedRAMP, GovCloud hosting, MDM kiosk lockdown, and physical controls
+are **agency-provided**, not built into the app. See
+[Security overview](/security/overview).
 
-## What about Veridian Billing?
+## Does the app diagnose inmates?
 
-On hold — no active development. See
-[Veridian Billing overview](/veridian-billing/overview).
+No. AI output is **non-diagnostic triage support** — observations,
+hypotheses, red-flag alerts, and a draft exercise plan. A licensed PT retains
+clinical authority; nothing reaches the inmate until reviewed. See
+[AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+
+## Can inmates browse the web from the kiosk?
+
+No. The PWA is hardened for locked kiosks: blocked external navigation, strict
+CSP, self-hosted fonts, idle auto-reset. True device lockdown still requires
+facility **MDM**. See [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
 
 ## How do I contact the team?
 
-[support@veridianhp.com](mailto:support@veridianhp.com) — general support
-[security@veridianhp.com](mailto:security@veridianhp.com) — security reports
+[support@veridianhp.com](mailto:support@veridianhp.com) — general support  
+[security@veridianhp.com](mailto:security@veridianhp.com) — security reports  
 [docs@veridianhp.com](mailto:docs@veridianhp.com) — documentation feedback
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Veridian Health overview" icon="heart-pulse" href="/veridian-health/overview">
-    Platform overview and MVP scope.
+  <Card title="Veridian Motion overview" icon="person-running" href="/veridian-motion/overview">
+    Product scope, surfaces, and PT-review authority.
   </Card>
-  <Card title="Future roadmap" icon="map" href="/veridian-health/future-roadmap">
-    Planned features and API expansion.
+  <Card title="Roles and access" icon="user-shield" href="/veridian-motion/roles-and-access">
+    Staff MFA, role provisioning, and break-glass reset.
   </Card>
 </CardGroup>

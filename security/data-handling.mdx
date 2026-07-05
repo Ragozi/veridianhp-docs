@@ -1,83 +1,65 @@
 ---
 title: "Data handling"
-description: "What Veridian Health Partners collects, retains, and deletes."
+description: "What Veridian Motion collects, retains, and deletes."
 ---
 
 # Data handling
 
-This page is a plain-English summary of what data Veridian Health Partners
-collects across our products, where it lives, how long it's kept, and how
-it gets deleted. It covers Veridian Health today; Veridian Billing will
-follow the same principles when it launches.
+Plain-language summary of data in **Veridian Motion**. For entity detail and
+RLS, see [Data model & privacy](/veridian-motion/data-model-privacy).
 
 ## What we collect
 
-| Data type | Source | Why we need it |
+| Data | Source | Purpose |
 | --- | --- | --- |
-| Facility account info | Dashboard | Authentication, support, billing |
-| Staff user accounts | Dashboard | Role-based access, audit trail |
-| Inmate/patient identifiers | Facility referral | Link assessment to the correct individual |
-| Assessment images (4 photos) | Inmate capture on facility device | AI-assisted PT analysis |
-| Questionnaire responses | Inmate on facility device | Tailored clinical context for analysis |
-| PT-driven recommendations | Platform | Care guidance for facility medical staff |
-| Session metadata | Platform | Scheduling, audit, quality assurance |
-| Audit log entries | Platform | Tamper-evident record of actions |
-| Provider credentials | Provider onboarding | Licensure verification, compliance |
+| Patient / inmate record | Staff enrollment | Authentication, roster |
+| Inmate number + PIN hash | Staff enrollment | Kiosk sign-in |
+| Body-map selections | Inmate kiosk | Triage context |
+| Complaint text (and voice-to-text) | Inmate kiosk | Triage context |
+| Posture photos (4 views) | Inmate kiosk | PT review |
+| Q&A responses | Inmate kiosk | Triage context |
+| AI triage output | Server (multi-LLM) | PT review only until released |
+| Exercise plan + media refs | PT review | Care delivery after review |
+| PT notes | PT | Clinical record; optional inmate share |
+| Messages | Staff + inmate | Monitored internal record |
+| Staff accounts + roles | Admin | Dashboard access |
+| Audit events | Platform | Compliance (no PHI in payload) |
 
-## What we do not collect
+## What we do not collect in logs
 
-- Full medical records or external EHR exports (unless explicitly integrated
-  in a future release)
-- Criminal history, custody status, or disciplinary records (unless clinically
-  relevant and provided by facility staff)
-- Inmate personal device data — consults run on facility-controlled hardware
-- Payment card or bank account data (handled by Veridian Billing when available,
-  through compliant payment partners)
+- Clinical narrative in application logs
+- Raw photos in audit log entries
+- LLM prompts/responses in standard application logs
 
 ## Where data lives
 
-All Veridian production data is hosted in the **United States**. Sub-processors
-are US-based or operate under BAA-covered US data processing agreements.
+Production data is hosted in **United States** regions through Lovable Cloud /
+Supabase unless an agency deploys to a dedicated environment under contract.
 
 ## Retention
 
-| Data type | Default retention |
-| --- | --- |
-| Assessment records, images, and recommendations | Duration of facility relationship + 6 years |
-| Audit logs | 7 years |
-| Provider credentialing records | Duration of provider relationship + 6 years |
-| Pilot/sandbox test data | 90 days after pilot completion |
-
-Facilities may request custom retention schedules within HIPAA-permitted
-bounds. Shorter retention is supported; longer retention requires documented
-justification.
+Retention follows **agency agreement** and applicable health-record rules.
+Typical defaults align with multi-year clinical record retention. Agencies may
+request export before offboarding.
 
 ## Deletion
 
-When a facility ends its Veridian relationship:
+At contract end, agencies receive an **export window**, then Veridian Health
+Partners executes agreed **deletion procedures** for PHI in managed
+environments. Deletion certificates available on request.
 
-1. Export is available for 30 days — consult records, audit logs, and account
-   data in standard formats.
-2. After the export window, production PHI is **cryptographically erased**
-   from active systems within 90 days.
-3. Backups containing the facility's PHI expire on their normal rotation
-   cycle (maximum 90 days).
-4. A deletion certificate is provided on request.
+## Email and PDF
 
-## Data access requests
-
-Facilities can export their data at any time from the dashboard. Inmate
-access requests (HIPAA right of access) are routed through the facility;
-Veridian provides the underlying consult data to the facility's authorized
-staff to fulfill the request.
+Assessment PDFs sent to **allowlisted addresses** require a **BAA-covered
+email provider** before production use with real PHI.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
-    Our Business Associate obligations.
+    BAA and honest compliance framing.
   </Card>
   <Card title="Incident response" icon="bell" href="/security/incident-response">
-    What happens if something goes wrong.
+    Breach and incident procedures.
   </Card>
 </CardGroup>

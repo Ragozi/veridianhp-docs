@@ -1,92 +1,75 @@
 ---
 title: "Incident response"
-description: "How Veridian Health Partners detects, contains, and communicates security incidents."
+description: "How Veridian Health Partners handles security incidents affecting Veridian Motion."
 ---
 
 # Incident response
 
-Veridian Health Partners maintains a documented incident response process
-used for any event that could affect the security, integrity, or
-availability of facility or patient data. This page is the public summary;
-the full runbook is part of our internal security package.
+Veridian Health Partners maintains an incident response process for events
+that could affect the security, integrity, or availability of **Veridian
+Motion** data. This is a public summary; detailed runbooks are available to
+customers under agreement.
 
-## How we detect incidents
+## Detection
 
-- 24/7 automated monitoring on authentication, platform usage, assessment
-  processing, and infrastructure health.
-- Anomaly detection alerting on unusual access or error patterns.
-- Customer-reported issues through the dashboard or support email.
-- Bug bounty and responsible disclosure (see below).
+- Automated monitoring on authentication, API errors, and infrastructure health
+- Anomaly alerting on unusual access patterns
+- Customer reports via support channels
+- Responsible disclosure to [security@veridianhp.com](mailto:security@veridianhp.com)
 
 ## Severity levels
 
-| Level   | Examples                                                                |
-| ------- | ----------------------------------------------------------------------- |
-| **SEV-1** | Confirmed unauthorized access to PHI; production-wide outage.           |
-| **SEV-2** | Suspected PHI exposure; major degraded performance.                     |
-| **SEV-3** | Single-facility impact, no PHI exposure.                                |
-| **SEV-4** | Internal issue with no customer impact.                                 |
+| Level | Examples |
+| --- | --- |
+| **SEV-1** | Confirmed unauthorized PHI access; production-wide outage |
+| **SEV-2** | Suspected PHI exposure; major degraded performance |
+| **SEV-3** | Single-agency impact, no confirmed PHI exposure |
+| **SEV-4** | Internal issue, no customer impact |
 
-## Phases
+## Response phases
 
-Every incident moves through:
+1. **Detection** — alert or report received
+2. **Triage** — scope and severity confirmed
+3. **Containment** — revoke credentials, block access, isolate affected systems
+4. **Eradication** — remove root cause
+5. **Recovery** — restore service, verify integrity
+6. **Post-incident review** — root cause, corrective actions, customer summary
 
-1. **Detection** — automated alert or report received.
-2. **Triage** — on-call engineer confirms scope and severity.
-3. **Containment** — stop the bleeding (revoke credentials, isolate hosts,
-   block traffic).
-4. **Eradication** — remove the root cause.
-5. **Recovery** — restore service and verify integrity.
-6. **Post-incident review** — root cause, timeline, corrective actions,
-   shared with affected facilities.
+## Customer notification
 
-## Customer communication
+For **SEV-1 and SEV-2 incidents involving agency data**, Veridian notifies the
+agency contact on file as soon as useful information is available — typically
+within hours of containment, not after full investigation.
 
-For **SEV-1 and SEV-2 incidents that involve a facility's data**, Veridian
-notifies the affected facilities through the contact on file. Initial
-notification happens **as soon as Veridian has enough information to be
-useful** — typically within hours of containment, not after the full
-investigation is complete.
+Incidents that may constitute a **breach of unsecured PHI** under HIPAA follow
+Breach Notification Rule timelines (45 CFR § 164.410) for notifying the
+covered entity.
 
-For incidents that may constitute a breach of unsecured PHI under HIPAA,
-Veridian follows the timelines and content requirements of the HIPAA Breach
-Notification Rule (45 CFR § 164.410) for notifying the covered-entity
-facility.
+## Agency obligations
 
-## Facility obligations
+When notified, agencies should:
 
-When Veridian notifies a facility of an incident, the facility is expected
-to:
+- Acknowledge through support channels
+- Provide scope information from their side
+- Cooperate on patient notification if required
 
-- Acknowledge the notification through normal support channels.
-- Provide any information needed to assess scope on the facility side.
-- Cooperate on patient notification if it becomes necessary.
+## Testing
 
-## Drills
+Veridian runs periodic drills covering technical and communication paths.
 
-Veridian runs periodic incident response drills covering both technical and
-communication paths. Findings feed back into the runbook.
+## Reporting vulnerabilities
 
-## Reporting a vulnerability
-
-If you believe you've found a security issue in Veridian, please email
-[security@veridianhp.com](mailto:security@veridianhp.com). We commit to:
-
-- Acknowledging your report within one business day.
-- Keeping you informed as we triage and remediate.
-- Not pursuing legal action for good-faith research that respects user
-  privacy and avoids degrading service.
-
-Please do not test against real PHI. Use pilot or sandbox environments,
-which are available during onboarding.
+Email [security@veridianhp.com](mailto:security@veridianhp.com). We acknowledge
+within one business day. Do not test against production PHI; use pilot
+environments with synthetic data.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Security overview" icon="shield-check" href="/security/overview">
-    The broader picture of how Veridian protects data.
+    Full posture summary.
   </Card>
   <Card title="HIPAA" icon="user-shield" href="/security/hipaa">
-    Our role under HIPAA.
+    BAA and breach framing.
   </Card>
 </CardGroup>
