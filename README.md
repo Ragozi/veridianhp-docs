@@ -8,7 +8,8 @@ published at [docs.veridianhp.com](https://docs.veridianhp.com) via Mintlify.
 ```
 introduction.mdx                        Company hub (VeridianHP)
 veridian-motion/
-  overview.mdx                          Product overview
+  product.mdx                           Flagship PT product hub
+  overview.mdx                          Technical platform overview
   inmate-kiosk-flow.mdx                 Authenticated inmate intake
   provider-dashboard.mdx                Staff roster, review, messaging
   roles-and-access.mdx                  Five roles, MFA, provisioning
@@ -23,7 +24,7 @@ docs.json                               Mintlify navigation
 
 | Product | Status |
 | --- | --- |
-| **Veridian Motion** | Active — inmate kiosk + provider dashboard at [veridianhp.com](https://veridianhp.com) |
+| **Veridian Motion** | Flagship — active PT platform (inmate kiosk + provider dashboard) at [veridianhp.com](https://veridianhp.com) |
 
 ## Local preview
 

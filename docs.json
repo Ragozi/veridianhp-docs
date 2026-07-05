@@ -27,6 +27,7 @@
         "group": "Veridian Motion",
         "icon": "person-running",
         "pages": [
+          "veridian-motion/product",
           "veridian-motion/overview",
           "veridian-motion/inmate-kiosk-flow",
           "veridian-motion/provider-dashboard",
