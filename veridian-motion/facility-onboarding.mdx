@@ -1,0 +1,208 @@
+---
+title: "Facility onboarding & integration"
+description: "How facilities provision inmates, connect staff identity, and deploy Veridian Motion."
+---
+
+# Facility onboarding & integration
+
+Veridian Motion serves correctional facilities through two **distinct identity
+populations**, each handled differently. Staff are real named users; inmates
+are roster-provisioned kiosk users — not federated identities.
+
+<Tabs>
+  <Tab title="Staff">
+    **Physical therapists, administrators, officers, wardens, and IT admins** are
+    named users tied to the facility's workforce.
+
+    **Recommended:** Single sign-on via the agency's identity provider
+    (**SAML** or **OIDC** — Microsoft Entra ID, Google Workspace, Okta) with
+    multi-factor authentication, mapping IdP groups to Motion roles.
+
+    **Available today:** Local email + password accounts with **TOTP MFA**.
+    Roles are granted by an administrator.
+  </Tab>
+
+  <Tab title="Inmates">
+    Inmates are **not** federated identities. They are provisioned from the
+    facility roster and sign in with a **facility-issued number + PIN** on a
+    locked, **MDM-managed** kiosk.
+
+    Inmate onboarding is **roster provisioning**, not SSO.
+  </Tab>
+</Tabs>
+
+## Provisioning inmate accounts (roster)
+
+Facilities can connect their roster using one of four methods, from deepest
+integration to simplest:
+
+| Priority | Method | How it works | Best for |
+| --- | --- | --- | --- |
+| 1 | **JMS API integration** | Live sync with the facility's Jail Management System (e.g., Tyler, Spillman/Motorola Solutions, CentralSquare, Securus/JPay). New bookings auto-provision a patient + kiosk credential; releases auto-deactivate. | Large facilities; built per JMS vendor |
+| 2 | **Scheduled SFTP roster feed** | The facility drops a daily roster export (CSV or fixed-width) to an SFTP endpoint; Motion ingests and reconciles — adds new inmates, deactivates released. | Common corrections workflow |
+| 3 | **Manual CSV upload** | A facility admin uploads a roster CSV (inmate number, display name, housing/status) in the Motion admin UI; creates/updates patients and issues PINs. | **Recommended starting point for pilots** |
+| 4 | **One-by-one enrollment** | A staff member enrolls a single patient in the provider dashboard. | Testing and low volume only |
+
+<Note>
+  **CSV upload** is the recommended starting point for a pilot. **JMS API
+  integration** is the long-term goal for large facilities with automated
+  booking and release workflows.
+</Note>
+
+<Steps>
+  <Step title="JMS API integration">
+    Deepest integration — live sync with the facility JMS. New bookings
+    auto-provision patients and kiosk credentials; releases auto-deactivate
+    accounts. Implementation is scoped per JMS vendor.
+  </Step>
+
+  <Step title="Scheduled SFTP roster feed">
+    The facility exports a daily roster to a secured SFTP endpoint. Veridian
+    Motion ingests the file and reconciles adds, updates, and deactivations.
+  </Step>
+
+  <Step title="Manual CSV upload">
+    An admin uploads a roster CSV through the Motion admin UI. Suitable for
+    pilots and smaller facilities without automated feed infrastructure.
+  </Step>
+
+  <Step title="One-by-one enrollment">
+    Staff enroll individual patients from the [provider dashboard](/veridian-motion/provider-dashboard).
+    Available today; not scalable for full-facility rollout.
+  </Step>
+</Steps>
+
+## Credentials and PINs
+
+- Inmates authenticate with their **facility inmate number** and a **4–12 digit PIN**.
+- PINs are **unique per inmate**, auto-generated at provisioning and delivered
+  through the facility's existing channel (e.g., printed on intake paperwork),
+  or set by the inmate at **first kiosk use** after a staff-verified identity step.
+- Staff may **reset a PIN** from the patient record when credentials must be reissued.
+- **Never** use a facility-wide shared PIN.
+
+<Warning>
+  A **brute-force lockout** protects both inmate and staff logins. Repeated
+  failed attempts temporarily lock that identifier. Contact an administrator or
+  [support@veridianhp.com](mailto:support@veridianhp.com) if lockout persists.
+</Warning>
+
+## Staff access (SSO)
+
+Veridian Health Partners **recommends** agency **SAML or OIDC SSO** to the
+facility's identity provider, with **MFA enforced at the IdP**, and **group
+mapping** from IdP groups to Motion roles:
+
+| Motion role | Typical IdP group |
+| --- | --- |
+| `pt` | Clinical / physical therapy staff |
+| `admin` | Facility or health services administrators |
+| `officer` | Custody operations |
+| `warden` | Facility leadership |
+| `it_admin` | Agency IT / security |
+
+Where SSO is not available, staff use **local accounts with TOTP MFA**
+(available today). An **admin** grants roles at `/staff`. See
+[Roles and access](/veridian-motion/roles-and-access) and
+[Role permissions](/veridian-motion/role-permissions).
+
+## Multi-facility / tenancy
+
+<Warning>
+  Veridian Motion **isolates each facility's data**. When multiple facilities
+  are onboarded, staff only see their own facility's patients and assessments.
+  Strict isolation between facilities is enforced at the database level through
+  **row-level security (RLS)**.
+
+  **Multi-facility tenancy** capabilities are on the **roadmap** and will
+  expand as the platform matures.
+</Warning>
+
+## Deployment
+
+### Kiosks
+
+- Use **facility-issued tablets** locked to the Veridian Motion app through the
+  agency's **mobile device management (MDM)**.
+- No outside web browsing or external messaging from the kiosk.
+- **True device lockdown** is provided by the agency's MDM; the app provides
+  software-side hardening (blocked external navigation, strict CSP, self-hosted
+  fonts, idle auto-reset). See
+  [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
+
+### Hosting and compliance
+
+Veridian Motion is designed with **HIPAA-aligned** controls but is **not
+HIPAA-certified, CJIS-authorized, or FedRAMP-authorized**.
+
+| Requirement | Owner |
+| --- | --- |
+| Signed **BAA** with the covered entity | Agency + Veridian Health Partners |
+| **CJIS / FedRAMP / GovCloud** hosting (if required) | Agency |
+| Network segregation and firewall allowlists | Agency |
+| Personnel screening per security policy | Agency |
+| Data classification review | Agency |
+
+The agency provides hosting, network, and personnel controls per its security
+policy and the **data classification** of inmate health data. See
+[Security overview](/security/overview) and [HIPAA](/security/hipaa).
+
+## Onboarding runbook
+
+<Steps>
+  <Step title="Contract, BAA, and data-classification review">
+    Execute facility agreement and BAA. Confirm data classification and
+    **hosting decision** (including CJIS/FedRAMP/GovCloud requirements if
+    applicable).
+  </Step>
+
+  <Step title="Provision the facility tenant">
+    Veridian Health Partners provisions the facility tenant and baseline
+    configuration.
+  </Step>
+
+  <Step title="Connect staff identity">
+    Configure **SSO** (SAML/OIDC + IdP group mapping) or create **local accounts
+    with TOTP MFA**. Assign Motion roles (`pt`, `admin`, `officer`, `warden`,
+    `it_admin`).
+  </Step>
+
+  <Step title="Connect the roster">
+    Choose **JMS API**, **SFTP feed**, or **CSV upload**. Set sync cadence and
+    run an **initial import**. For pilots, start with CSV upload.
+  </Step>
+
+  <Step title="Provision kiosks">
+    Install the Veridian Motion PWA on facility tablets via **MDM**. Issue
+    inmate PINs through the facility's credential handoff process.
+  </Step>
+
+  <Step title="Train staff and launch pilot">
+    Train PTs on the [review workflow](/veridian-motion/provider-dashboard) and
+    [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) —
+    especially red-flag-first review and the PT-review gate. Launch a pilot
+    cohort before full-facility rollout.
+  </Step>
+
+  <Step title="Monitor">
+    Review the **audit log** and operational reporting. Route issues through
+    [Troubleshooting](/troubleshooting) and facility contacts.
+  </Step>
+</Steps>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
+    Shorter rollout checklist for first go-live.
+  </Card>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Enrollment, review, and day-to-day workflow.
+  </Card>
+  <Card title="Deployment and kiosk" icon="lock" href="/veridian-motion/deployment-and-kiosk">
+    PWA install, app hardening, and MDM split.
+  </Card>
+  <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
+    One-page guide for decision-makers.
+  </Card>
+</CardGroup>

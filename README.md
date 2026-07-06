@@ -14,6 +14,7 @@ veridian-motion/
   getting-started.mdx                   Facility rollout checklist
   inmate-kiosk-flow.mdx                 Authenticated inmate intake
   provider-dashboard.mdx                Staff roster, review, messaging
+  facility-onboarding.mdx               Roster provisioning, SSO, onboarding runbook
   status-and-workflow.mdx               Status map and handoffs
   messaging.mdx                         Secure internal messaging
   roles-and-access.mdx                  MFA and role provisioning
