@@ -5,122 +5,105 @@ description: "One-page guide for jail leaders, PTs, IT, and compliance reviewers
 
 # For evaluators
 
-This page is for **jail medical directors, physical therapists, custody
-leadership, IT, and compliance staff** deciding whether Veridian Motion fits
-your facility. It summarizes what the product does today, how it works, what it
-does **not** include, and where to read more.
+For **jail medical directors, physical therapists, IT, and compliance staff**
+evaluating Veridian Motion. This page reflects **what is built today** only.
+Planned items are on the [Roadmap](/veridian-motion/roadmap).
 
 ## What Veridian Motion is
 
-**Veridian Motion** is Veridian Health Partners' flagship **physical therapy
-platform** for correctional facilities. It connects:
+Veridian Health Partners' **flagship PT platform** for **correctional
+facilities**:
 
-- An **inmate kiosk** — structured MSK intake (body map, complaint, four
-  posture photos)
-- A **provider dashboard** — licensed PT review, exercise planning, messaging,
-  and controlled release to the inmate
+- **Patient portal (kiosk)** — body map, complaint, questionnaire, up to four
+  posture photos (Patient ID + PIN)
+- **Provider dashboard** — assignment queue, assessment review/**approve**, PT
+  notes, PDF export, secure messaging
 
-AI assists PTs with **non-diagnostic triage support**. A licensed PT must
-**review and approve** everything before it reaches an inmate. The product
-does **not** diagnose.
+AI produces **non-diagnostic**, **PT-reviewable** exercise plans (name / why /
+steps / dosage / cautions). A licensed PT **approves** before anything reaches
+the patient.
 
 ## Why facilities consider it
 
-Correctional settings see high volumes of musculoskeletal complaints — back,
-shoulder, knee, and posture-related issues — often with limited on-site PT
-time. Untreated or poorly triaged MSK problems can escalate into costlier
-outcomes: emergency transfers, prolonged disability, repeat sick calls, and
-in some cases litigation.
+Structured MSK triage and PT-approved movement care can improve **patient
+wellbeing** and reduce escalations that drive emergency care, chronic
+disability, and litigation costs — while keeping clinical authority with
+on-site licensed PTs.
 
-Veridian Motion aims to improve **inmate wellbeing** through early, structured
-assessment and **PT-reviewed bodyweight exercise plans** delivered inside
-custody — without replacing in-person care when red flags warrant it.
-
-<Note>
-  Veridian Motion does **not** include medical billing, coding, EHR
-  integration, live video visits, or partner API connectivity in the current
-  release. Those capabilities may be considered in future phases.
-</Note>
-
-## How it works (summary)
+## How it works (built today)
 
 <Steps>
-  <Step title="Staff enroll the inmate">
-    An admin creates the account and receives an **inmate number + PIN** for
-    custody handoff.
+  <Step title="Admin enrolls patient manually">
+    Single-facility, one-at-a-time enrollment → **Patient ID + PIN** for staff
+    handoff.
   </Step>
 
-  <Step title="Inmate completes kiosk intake">
-    Body map → complaint (optional voice-to-text) → four-view photos → submit.
-    The inmate sees **confirmation only** — no AI output.
+  <Step title="Patient completes portal intake">
+    Body map → complaint → questionnaire → up to four photos → submit. Patient
+    sees **confirmation only** — no AI plan.
   </Step>
 
-  <Step title="Server processes the assessment">
-    AI triage support is generated server-side (multi-LLM router with failover).
-    Output appears in the staff dashboard only.
+  <Step title="AI generates PT-reviewable plan">
+    Server-side, non-diagnostic plan appears in the dashboard for PT review.
   </Step>
 
-  <Step title="Admin assigns a PT">
-    New submissions sit in an **unassigned queue** until assigned.
+  <Step title="Admin assigns PT">
+    Submission moves through the **assignment queue**.
   </Step>
 
-  <Step title="PT reviews and releases">
-    Red flags first, then photos, AI observations, draft plan. PT edits the
-    plan, adds notes, marks **reviewed**. Approved content appears in the
-    inmate's **My plan / progress** view.
+  <Step title="PT approves">
+    PT reviews red flags, edits plan, **approves**. Patient sees plan in **My
+    plan / progress**.
   </Step>
 </Steps>
 
-Full detail: [Veridian Motion](/veridian-motion/product) and
-[Status and workflow](/veridian-motion/status-and-workflow).
+## Not built today
 
-## What is not in scope today
-
-| Not included | Notes |
+| Capability | Status |
 | --- | --- |
-| Live video consults | Asynchronous workflow only |
-| EHR / EMR integration | No automated feed to external clinical systems |
-| Partner API | No public API for third-party connectivity yet |
-| Medical billing / coding | Separate product line discontinued; not part of Veridian Motion |
-| Self sign-up | Staff provision all accounts |
-| AI direct to inmate | PT-review gate on all clinical output |
+| Staff SSO (SAML/OIDC) | Planned |
+| Bulk CSV roster import | Planned |
+| JMS / booking-system API | Planned |
+| Multi-facility tenancy | In progress |
+| EHR / EMR integration | Planned |
+| Partner API | Planned |
+| Live video | Planned |
 
-## Limitations (read before pilot)
+## Limitations
 
-- **Not diagnostic** — AI provides triage support; PT retains clinical authority
-- **Not emergency response** — red flags prompt review; facility protocols govern urgent care
-- **Not HIPAA-certified** — HIPAA-aligned design; BAA required for production PHI
-- **Not CJIS-authorized or FedRAMP-authorized** — agency provides compliant hosting and MDM
-- **Limited offline** — submit and photo upload require network connectivity
-- **AI can be wrong** — models may miss or mischaracterize; PT review is mandatory
+- **Not diagnostic** — triage support only; PT retains authority
+- **Not emergency response** — red flags prompt **see medical staff**; facility protocols govern urgent care
+- **HIPAA-aligned, not HIPAA-certified**; **not CJIS/FedRAMP-authorized**
+- **Agency provides** CJIS/FedRAMP/GovCloud hosting, MDM, network, personnel screening
+- **Limited offline** — submit requires connectivity
+- **AI can be wrong** — PT review mandatory
 
-## Security and privacy (summary)
+## Security (built today)
 
-| Topic | Veridian Motion (app) | Agency / facility |
-| --- | --- | --- |
-| Staff MFA + RBAC | Yes | — |
-| Inmate PIN auth + RLS | Yes | — |
-| Private photos (5-min signed URLs) | Yes | — |
-| Audit log (no PHI in payload) | Yes | — |
-| Kiosk app hardening (CSP, no external nav) | Yes | MDM lockdown also required |
-| BAA execution | Design supports | Agency + Veridian sign |
-| CJIS / FedRAMP hosting | — | Agency chooses environment |
+| Control | In app |
+| --- | --- |
+| RBAC (`pt`, `admin`, `it_admin`) | Yes |
+| RLS on every table | Yes |
+| Hash-chained audit log | Yes |
+| Field-level PHI encryption | Yes |
+| Brute-force login lockout | Yes |
+| TOTP MFA (per deployment) | Yes |
+| PWA/kiosk hardening | Yes |
+| CJIS/FedRAMP hosting | Agency |
 
-See [Security overview](/security/overview) and
-[HIPAA](/security/hipaa).
+See [Security overview](/security/overview).
 
 ## Read next by role
 
-| Your role | Start here |
+| Role | Start here |
 | --- | --- |
-| **Medical director / administrator** | [Facility onboarding & integration](/veridian-motion/facility-onboarding), [Getting started](/veridian-motion/getting-started), [Provider dashboard](/veridian-motion/provider-dashboard) |
+| **Medical director / admin** | [Facility onboarding](/veridian-motion/facility-onboarding), [Getting started](/veridian-motion/getting-started) |
 | **Physical therapist** | [Provider dashboard](/veridian-motion/provider-dashboard), [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) |
-| **Custody (officer / warden)** | [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow), [Role permissions](/veridian-motion/role-permissions) |
 | **IT** | [Deployment and kiosk](/veridian-motion/deployment-and-kiosk), [Data model & privacy](/veridian-motion/data-model-privacy) |
-| **Compliance / legal** | [HIPAA](/security/hipaa), [Data handling](/security/data-handling), [Incident response](/security/incident-response) |
+| **Compliance** | [HIPAA](/security/hipaa), [Data handling](/security/data-handling) |
 
 ## Contact
 
-- [Request access](https://veridianhp.com/request-access) — facility onboarding
-- [support@veridianhp.com](mailto:support@veridianhp.com) — general questions
-- [security@veridianhp.com](mailto:security@veridianhp.com) — security review
+[Request access](https://veridianhp.com/request-access) ·
+[support@veridianhp.com](mailto:support@veridianhp.com) ·
+[security@veridianhp.com](mailto:security@veridianhp.com)

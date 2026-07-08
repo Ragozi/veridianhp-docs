@@ -6,186 +6,124 @@ description: "Veridian Health Partners' flagship physical therapy platform for c
 # Veridian Motion
 
 **Veridian Motion** is the flagship product of **Veridian Health Partners** — a
-physical therapy platform built for jails and correctional facilities. It
-connects **inmate intake** on a locked kiosk with **licensed PT review** on a
-staff dashboard, so musculoskeletal complaints get structured assessment,
-AI-assisted triage support, and **PT-reviewed exercise recommendations**
-without replacing clinical judgment.
-
-<Note>
-  Veridian Motion was previously known as Veridian Health / PostureCare. It is
-  the sole active product in the Veridian Health Partners portfolio.
-</Note>
+physical therapy platform built for **correctional facilities**. It connects
+**patient portal intake** on a locked kiosk with **licensed PT review** on a
+provider dashboard, so musculoskeletal complaints get structured assessment,
+AI-assisted non-diagnostic triage, and **PT-approved exercise recommendations**.
 
 ## Why Veridian Motion exists
 
-Correctional facilities handle a steady volume of musculoskeletal complaints —
-back, shoulder, knee, and posture-related issues — often with limited on-site
-PT time and no simple way to capture standardized intake. Veridian Motion
-gives custody and clinical staff a repeatable workflow:
+Correctional facilities handle high volumes of musculoskeletal complaints —
+often with limited on-site PT time. Veridian Motion gives clinical and custody
+staff a repeatable workflow:
 
-- Inmates report **what hurts** and share **four-view posture photos** on a
-  facility-controlled kiosk.
-- AI produces **non-diagnostic triage support** for the reviewing PT — never
-  shown to the inmate before review.
-- The PT retains **full clinical authority**, edits the plan, and releases
-  approved content when ready.
-
-The product is designed for **custody constraints**: no external links, no
-self sign-up, append-only messaging inside the app, and kiosk hardening paired
-with agency MDM.
+- Patients report **what hurts**, complete a **questionnaire**, and capture
+  **up to four guided posture photos** on a facility-controlled kiosk.
+- AI produces an **immediate PT-reviewable exercise plan** (name, why, steps,
+  dosage, cautions) — **never shown to the patient before PT approval**.
+- The PT retains **full clinical authority**, edits the plan, and **approves**
+  when ready.
 
 ## Facility impact
 
-Veridian Motion targets **early MSK triage and PT-guided movement care** inside
-the facility. By giving inmates a structured path to report complaints and
-receive **PT-reviewed bodyweight plans**, facilities may reduce untreated pain,
-avoidable escalations, and downstream costs tied to emergency care, chronic
-disability, and litigation — while keeping clinical authority with licensed
-staff on site.
+Structured MSK triage and **PT-approved movement plans** can improve **patient
+wellbeing** and help facilities address complaints before they escalate into
+costlier outcomes — emergency transfers, chronic disability, repeat sick calls,
+and litigation exposure.
 
 <Note>
-  Veridian Motion is a **clinical workflow product**, not a billing system or
-  EHR. Live video, EHR integration, and partner API connectivity are **not** in
-  the current release.
+  Veridian Motion is a **clinical workflow product** — not billing, EHR, live
+  video, or partner API. Those are on the [Roadmap](/veridian-motion/roadmap)
+  or out of scope.
 </Note>
 
 ## Built for physical therapists
 
-Veridian Motion is a **PT product first**. The dashboard is where clinical
-work happens:
-
 | PT capability | What it means in practice |
 | --- | --- |
-| **Assessment review** | Complaint, body map, Q&A, photos, AI observations and hypotheses |
-| **Red-flag triage** | Prominent "review first" alerts — triage support, not diagnosis |
-| **Exercise planning** | Edit AI draft bodyweight plans using the exercise-media library |
-| **Clinical notes** | Document the assessment; share selected notes with the inmate |
-| **Plan release** | Nothing reaches the inmate until the PT marks the case **reviewed** |
-| **Follow-up** | Secure internal messaging and status transitions (`needs_followup`) |
-| **Documentation** | AI note summarization, PDF export, allowlisted email send |
+| **Assignment queue** | Admin assigns submissions to PTs |
+| **Assessment review** | Body map, questionnaire, photos, AI plan |
+| **Red-flag triage** | Review-first callouts; patient sees **see medical staff** — not diagnosis |
+| **Exercise planning** | Edit AI plan: name, why, steps, dosage, cautions |
+| **Approve and release** | Nothing reaches the patient until PT **approves** |
+| **Messaging** | Secure clinician-to-patient thread |
+| **PDF export** | Plain assessment PDF |
 
-AI accelerates review; it does **not** diagnose, prescribe without PT approval,
-or communicate directly with inmates.
-
-## Two surfaces, one platform
+## Two surfaces
 
 <CardGroup cols={2}>
-  <Card title="Inmate kiosk" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
-    Authenticated intake — inmate number + PIN, body map, complaint,
-    four-view photos, status tracking, approved plan after PT review.
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
+    Patient ID + PIN, body map, complaint, questionnaire, photos, status
+    tracking, approved plan after PT review.
   </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Roster, enrollment, assignment queue, full review workflow, messaging,
-    PDF export — staff email + TOTP MFA.
+    Patient roster, manual enrollment, assignment queue, review/approve,
+    messaging, PDF export.
   </Card>
 </CardGroup>
-
-Both surfaces run in one **TanStack Start** web app (React 19, installable
-PWA, USWDS-aligned UI), backed by **Supabase** via Lovable Cloud.
 
 ## How a case moves through the system
 
 <Steps>
   <Step title="Enroll">
-    An **admin** enrolls the inmate and receives an **inmate number** and
-    **initial PIN** to hand to custody staff.
+    An **admin** manually enrolls the patient and receives **Patient ID +
+    initial PIN**.
   </Step>
 
   <Step title="Intake on kiosk">
-    The inmate signs in, selects affected regions on the body map, describes
-    the complaint, and captures **front, back, left, and right** posture photos
-    with silhouette guides.
+    The patient signs in, selects body-map regions, describes the complaint,
+    completes the questionnaire, and captures up to four posture photos.
   </Step>
 
   <Step title="Submit and wait">
-    The inmate sees **confirmation and safety guidance only** — no AI output.
-    Status appears under **My plan / progress** (Received → Awaiting assignment
-    → Under review → Reviewed).
+    The patient sees **confirmation and safety guidance only**. AI generates a
+    PT-reviewable plan in the dashboard — not on the kiosk.
   </Step>
 
   <Step title="Assign and review">
-    The submission enters an **unassigned queue** until an admin assigns a **PT**.
-    The PT reviews red flags first, then AI findings, photos, and the draft plan.
+    An **admin** assigns a **PT** from the queue. The PT reviews red flags,
+    intake, and the AI plan.
   </Step>
 
-  <Step title="Release">
-    The PT marks the assessment **reviewed**. The inmate may then view the
-    **approved exercise plan** and any **PT notes explicitly shared** with them.
+  <Step title="Approve">
+    The PT **approves** the assessment. The patient may then view the approved
+    plan and shared PT notes in **My plan / progress**.
   </Step>
 </Steps>
-
-## What makes Veridian Motion different
-
-- **PT-review gate** — AI never bypasses the licensed therapist.
-- **Non-diagnostic by design** — observations, hypotheses, and triage support;
-  never "diagnosis" language in product output.
-- **Correctional-ready** — PIN-based inmate auth, locked kiosk hardening, no
-  external egress, monitored in-app messaging.
-- **Multi-LLM resilience** — Claude → GPT → Grok → fallback gateway with
-  model transparency for each assessment.
-- **Honest compliance posture** — HIPAA-aligned application controls; agency
-  provides CJIS/FedRAMP hosting, MDM, and physical security.
 
 ## Who uses it
 
 | Role | Role in Veridian Motion |
 | --- | --- |
-| **Physical therapist (`pt`)** | Primary clinical user — review, plan, release |
-| **Administrator (`admin`)** | Enroll patients, assign cases, grant roles, MFA reset |
-| **Officer / warden** | Operational visibility per role scope |
-| **IT admin (`it_admin`)** | Security settings and technical administration |
-| **Inmate** | Kiosk intake and post-review plan access only |
-
-See [Roles and access](/veridian-motion/roles-and-access) for MFA and
-provisioning. For a full permission matrix, see
-[Role permissions](/veridian-motion/role-permissions).
+| **Physical therapist (`pt`)** | Review, approve, notes, messaging |
+| **Administrator (`admin`)** | Manual enrollment, assignment, roles, MFA reset |
+| **IT admin (`it_admin`)** | Security and compliance administration |
+| **Patient** | Portal intake and post-approval plan access |
 
 ## Documentation map
 
 <CardGroup cols={2}>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    One-page guide for jail leaders, PTs, IT, and compliance.
+    One-page evaluation guide.
   </Card>
   <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Facility rollout checklist.
+    Rollout checklist.
   </Card>
-  <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
-    Technical scope, MVP features, and what the product is not.
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Manual enrollment and deployment.
   </Card>
-  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
-    Status map and handoffs.
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Planned SSO, bulk import, JMS, multi-facility.
   </Card>
-  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Secure internal messaging rules.
-  </Card>
-  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
-    Step-by-step authenticated intake.
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
+    Step-by-step patient intake.
   </Card>
   <Card title="Provider dashboard" icon="stethoscope" href="/veridian-motion/provider-dashboard">
-    Roster, review, messaging, export tools.
-  </Card>
-  <Card title="AI and clinical safety" icon="brain" href="/veridian-motion/ai-and-clinical-safety">
-    Multi-LLM router, red flags, PT workflow.
-  </Card>
-  <Card title="Data model & privacy" icon="database" href="/veridian-motion/data-model-privacy">
-    PHI, RLS, signed URLs, audit log.
-  </Card>
-  <Card title="Deployment and kiosk" icon="lock" href="/veridian-motion/deployment-and-kiosk">
-    PWA install, app hardening, agency MDM.
+    Review, approve, messaging, PDF.
   </Card>
 </CardGroup>
 
 ## Get started
 
-Veridian Motion is available at [veridianhp.com](https://veridianhp.com).
-Facilities request access through Veridian Health Partners onboarding.
-
-<CardGroup cols={2}>
-  <Card title="Request access" icon="envelope" href="https://veridianhp.com/request-access">
-    Start a facility conversation with Veridian Health Partners.
-  </Card>
-  <Card title="FAQ" icon="circle-question" href="/faq">
-    Common questions from facility and clinical teams.
-  </Card>
-</CardGroup>
+[Request access](https://veridianhp.com/request-access) through Veridian Health
+Partners.

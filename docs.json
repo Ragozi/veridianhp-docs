@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Veridian Health Partners",
-  "description": "Veridian Motion — posture and musculoskeletal triage for correctional facilities. Inmate kiosk and provider dashboard documentation.",
+  "description": "Veridian Motion — musculoskeletal triage for correctional facilities. Patient portal and provider dashboard documentation.",
   "colors": {
     "primary": "#0560A3",
     "light": "#68B7ED",
@@ -30,10 +30,11 @@
         "pages": [
           "veridian-motion/product",
           "veridian-motion/overview",
+          "veridian-motion/roadmap",
           "veridian-motion/getting-started",
-          "veridian-motion/inmate-kiosk-flow",
-          "veridian-motion/provider-dashboard",
           "veridian-motion/facility-onboarding",
+          "veridian-motion/patient-portal",
+          "veridian-motion/provider-dashboard",
           "veridian-motion/status-and-workflow",
           "veridian-motion/messaging",
           "veridian-motion/roles-and-access",

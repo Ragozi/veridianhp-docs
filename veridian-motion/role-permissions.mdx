@@ -5,110 +5,84 @@ description: "What each staff role can and cannot do in Veridian Motion."
 
 # Role permissions
 
-Veridian Motion uses five staff roles plus separate **inmate** access. This
-page lists concrete permissions as built today. Officers and wardens receive
-**least-privilege** defaults; your agency may restrict further.
+Veridian Motion has **three staff roles** plus separate **patient** kiosk
+access. This page reflects permissions **as built today** for a
+**single-facility** deployment.
 
 <Note>
-  All staff roles require **email + password + TOTP MFA**. Roles are granted
-  only by an **admin** at `/staff`.
+  Staff require **email + password** and **TOTP MFA** (enforced per deployment).
+  Roles are granted only by an **admin**.
 </Note>
 
 ## Permission matrix
 
-| Action | pt | admin | officer | warden | it_admin |
-| --- | --- | --- | --- | --- | --- |
-| Sign in to dashboard | Yes | Yes | Yes | Yes | Yes |
-| View patient roster | Assigned + policy | Yes | Scoped | Scoped | No |
-| Enroll patient | No | Yes | No | No | No |
-| Reset inmate PIN | No | Yes | No | No | No |
-| View unassigned queue | No | Yes | No | Scoped | No |
-| Assign case to PT | No | Yes | No | No | No |
-| Review assessment (clinical) | Yes (assigned) | No | No | No | No |
-| View AI findings / red flags | Yes (assigned) | Yes | No | No | No |
-| Edit and release exercise plan | Yes (assigned) | No | No | No | No |
-| Mark reviewed / needs_followup | Yes (assigned) | No | No | No | No |
-| AI note summarization | Yes | No | No | No | No |
-| Export assessment PDF | Yes | Yes | No | No | No |
-| Email PDF to allowlist | Yes | Yes | No | No | No |
-| Secure messaging (clinical) | Yes (assigned) | Policy | No | No | No |
-| Grant / revoke staff roles | No | Yes | No | No | No |
-| Break-glass MFA reset | No | Yes | No | No | Yes |
-| Audit log (`/audit`) | No | Yes | No | Scoped | Yes |
-| Compliance views (`/compliance`) | No | Yes | No | Scoped | Yes |
-| Security settings (`/security`) | No | No | No | No | Yes |
-
-**Scoped** = read-only or summary visibility per agency configuration — not
-full clinical notes or AI output unless explicitly granted.
+| Action | pt | admin | it_admin |
+| --- | --- | --- | --- |
+| Sign in to dashboard | Yes | Yes | Yes |
+| View patient roster | Assigned + policy | Yes | No |
+| Enroll patient (manual) | No | Yes | No |
+| Reset patient PIN | No | Yes | No |
+| View assignment queue | Assigned | Yes | No |
+| Assign case to PT | No | Yes | No |
+| Review / approve assessment | Yes (assigned) | No | No |
+| View AI output / red flags | Yes (assigned) | Yes | No |
+| Edit and release exercise plan | Yes (assigned) | No | No |
+| PT notes | Yes (assigned) | No | No |
+| Export assessment PDF | Yes | Yes | No |
+| Clinician-to-patient messaging | Yes (assigned) | Policy | No |
+| Grant / revoke staff roles | No | Yes | No |
+| Break-glass MFA reset | No | Yes | Yes |
+| Audit log | No | Yes | Yes |
+| Security / compliance settings | No | Limited | Yes |
 
 ## Role summaries
 
 ### Physical Therapist (`pt`)
 
-Primary **clinical user**. Reviews **assigned** assessments only: red flags,
-photos, AI triage support, draft plans. Edits bodyweight exercise plans,
-writes notes, marks **reviewed** or **needs_followup**, messages assigned
-patients, exports PDFs. Cannot enroll inmates or grant roles.
+Primary **clinical user**. Reviews **assigned** assessments: red flags, intake,
+AI exercise plan (name / why / steps / dosage / cautions). Edits, **approves**,
+adds notes, messages patients, exports PDFs. Cannot enroll patients or grant
+roles.
 
 ### Administrator (`admin`)
 
-**Operational owner.** Enrolls patients, assigns cases from the unassigned
-queue, resets inmate PINs, grants/revokes roles, performs MFA reset, views
-roster and audit logs. Does **not** replace PT clinical sign-off on plan
-release unless also holding a `pt` role.
-
-### Officer (`officer`)
-
-**Custody operations.** Typically no clinical review, enrollment, or messaging.
-May have roster visibility for operational coordination depending on deployment.
-Escorts inmates to kiosk; does not review AI output.
-
-### Warden (`warden`)
-
-**Facility oversight.** May have summary visibility into queue volume, status
-distribution, or compliance reports — not full clinical detail by default.
-Does not perform PT review or enrollment unless also granted `admin` or `pt`.
+**Operational owner** for the facility. Manually enrolls patients, assigns
+cases, resets PINs, grants/revokes roles, performs MFA reset, views roster and
+audit logs. Does not replace PT clinical sign-off unless also holding `pt`.
 
 ### IT Admin (`it_admin`)
 
-**Technical administration.** Security settings, compliance tooling, MFA
-break-glass with admin. Does not perform clinical review or inmate enrollment
-by default.
+**Technical administration** — security settings, compliance tooling, MFA
+break-glass with admin. No clinical review or patient enrollment by default.
 
-## Inmate (not a staff role)
+## Patient (kiosk — not a staff role)
 
 | Action | Allowed |
 | --- | --- |
-| Sign in with number + PIN | Yes |
-| Complete kiosk intake | Yes |
+| Sign in with Patient ID + PIN | Yes |
+| Complete patient portal intake | Yes |
 | View own submission status | Yes |
-| View approved plan after **reviewed** | Yes |
-| View PT notes marked **shared with inmate** | Yes |
+| View approved plan after PT approval | Yes |
+| View PT notes marked **shared with patient** | Yes |
 | Reply in secure messaging threads | Yes |
-| View AI findings before PT review | **No** |
+| View AI output before PT approval | **No** |
 | Self sign-up or change PIN | **No** |
-| Access other inmates' data | **No** |
+| Access other patients' data | **No** |
 
 ## Enforcement
 
-Permissions are enforced at two layers:
-
 1. **Application UI and API** — role checks on staff actions
-2. **Postgres Row-Level Security** — inmates and staff queries scoped at the
-   database; cross-inmate access denied even if UI is bypassed
-
-Role changes and MFA resets are **audit-logged**.
+2. **Row-level security** — patient and staff queries scoped at the database;
+   cross-patient access denied even if UI is bypassed
+3. **Hash-chained audit log** — sensitive actions recorded without PHI in payload
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    MFA, provisioning, break-glass reset.
+    MFA and provisioning.
   </Card>
   <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Rollout checklist for admins.
-  </Card>
-  <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    One-page guide for decision-makers.
+    Rollout checklist.
   </Card>
 </CardGroup>

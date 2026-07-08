@@ -6,31 +6,32 @@ published at [docs.veridianhp.com](https://docs.veridianhp.com) via Mintlify.
 ## Structure
 
 ```
-introduction.mdx                        Company hub
+introduction.mdx
 veridian-motion/
-  for-evaluators.mdx                    One-page evaluation guide
-  product.mdx                           Flagship PT product hub
-  overview.mdx                          Technical platform overview
-  getting-started.mdx                   Facility rollout checklist
-  inmate-kiosk-flow.mdx                 Authenticated inmate intake
-  provider-dashboard.mdx                Staff roster, review, messaging
-  facility-onboarding.mdx               Roster provisioning, SSO, onboarding runbook
-  status-and-workflow.mdx               Status map and handoffs
-  messaging.mdx                         Secure internal messaging
-  roles-and-access.mdx                  MFA and role provisioning
-  role-permissions.mdx                  Permission matrix by role
-  ai-and-clinical-safety.mdx            Multi-LLM router, PT-review gate
-  data-model-privacy.mdx                Entities, PHI, RLS, signed URLs
-  deployment-and-kiosk.mdx              PWA install, kiosk hardening, MDM
-security/*.mdx                          Compliance (enforced vs agency-provided)
-docs.json                               Mintlify navigation
+  for-evaluators.mdx
+  product.mdx
+  overview.mdx
+  roadmap.mdx                           Planned / in-progress capabilities
+  getting-started.mdx
+  facility-onboarding.mdx               Manual enrollment, deployment runbook
+  patient-portal.mdx                    Patient kiosk intake
+  provider-dashboard.mdx
+  status-and-workflow.mdx
+  messaging.mdx
+  roles-and-access.mdx
+  role-permissions.mdx
+  ai-and-clinical-safety.mdx
+  data-model-privacy.mdx
+  deployment-and-kiosk.mdx
+security/*.mdx
+docs.json
 ```
 
 ## Product
 
 | Product | Status |
 | --- | --- |
-| **Veridian Motion** | Flagship — correctional PT platform (inmate kiosk + provider dashboard) at [veridianhp.com](https://veridianhp.com) |
+| **Veridian Motion** | Flagship — patient portal + provider dashboard at [veridianhp.com](https://veridianhp.com) |
 
 ## Local preview
 

@@ -1,108 +1,82 @@
 ---
 title: "Status and workflow"
-description: "Assessment status labels, staff vs inmate views, transitions, and who acts at each step."
+description: "Assessment status labels, staff vs patient views, transitions, and who acts at each step."
 ---
 
 # Status and workflow
 
-Every Veridian Motion **assessment** (one kiosk submission) moves through a
-defined workflow. Staff and inmates see **different labels** for the same
-underlying state. This page is the single reference for status mapping and
-handoffs.
+Each **assessment** (one patient portal submission) moves through a defined
+workflow. Staff and patients see **different labels** for the same underlying
+state.
 
 ## Status map
 
-| Staff status | Inmate sees | Meaning |
+| Staff status | Patient sees | Meaning |
 | --- | --- | --- |
-| **new** | **Received** | Submitted; server may still be processing AI output |
+| **new** | **Received** | Submitted; server processing AI plan for PT review |
 | **Awaiting assignment** | **Awaiting assignment** | Ready for admin to assign a PT |
-| **Under review** | **Under review** | Assigned PT is actively reviewing |
-| **needs_followup** | **Under review** | PT flagged for additional follow-up; plan not yet re-released |
-| **reviewed** | **Reviewed** | PT completed review; approved plan and shared notes visible to inmate |
+| **Under review** | **Under review** | Assigned PT is reviewing |
+| **reviewed** (approved) | **Reviewed** | PT approved; plan and shared notes visible to patient |
 
 <Note>
-  Inmates never see staff-only labels like **new** or **needs_followup**.
-  During follow-up, the inmate typically continues to see **Under review**
-  until the PT marks the case **reviewed** again.
+  Patients never see staff-only labels like **new**. They never see AI output
+  until status is **Reviewed** after PT approval.
 </Note>
 
 ## Workflow diagram
 
 ```
-[Admin enrolls] → inmate number + PIN
+[Admin enrolls patient] → Patient ID + PIN
         ↓
-[Inmate kiosk intake] → submit
+[Patient portal intake] → submit
         ↓
-Staff: new / Received  →  AI processing (staff dashboard only)
+Staff: new / Received  →  AI generates PT-reviewable plan (dashboard only)
         ↓
 Staff: Awaiting assignment  ←  Admin assigns PT
         ↓
-Staff: Under review  ←  PT opens case
+Staff: Under review  ←  PT reviews and approves
         ↓
-    ┌───┴───┐
-    ↓       ↓
-reviewed   needs_followup → messaging / more review → reviewed
-    ↓
-Inmate: Reviewed + approved plan + shared notes
+Patient: Reviewed + approved plan + shared notes
 ```
 
 ## Who acts when
 
-| Step | Responsible role | Action |
+| Step | Role | Action |
 | --- | --- | --- |
-| Enroll patient | **admin** | Create account; hand off number + PIN |
-| Kiosk intake | **Inmate** (custody escort) | Complete body map, complaint, photos; submit |
-| Assign case | **admin** | Move from unassigned queue to assigned PT |
-| Review assessment | **pt** (assigned) | Red flags first → photos → AI → edit plan → notes |
-| Set needs_followup | **pt** | Flag case; may use [messaging](/veridian-motion/messaging) |
-| Mark reviewed | **pt** | Release approved plan and shared notes to inmate |
-| Reset inmate PIN | **admin** (or authorized staff) | Reissue credentials from patient record |
-| Escort / monitor kiosk | **officer** / custody | Physical supervision; not clinical review |
+| Enroll patient | **admin** | Manual enrollment; hand off Patient ID + PIN |
+| Portal intake | **Patient** (custody escort) | Body map, complaint, questionnaire, photos; submit |
+| Assign case | **admin** | Move from queue to assigned PT |
+| Review / approve | **pt** (assigned) | Red flags first → edit plan → approve |
+| Reset PIN | **admin** | Reissue credentials from patient record |
+| Monitor kiosk | **Custody staff** | Physical supervision |
 
 ## Post-submit processing
 
-After the inmate submits:
+After the patient submits:
 
-1. The assessment record is created immediately; the inmate sees **Received**
-   and confirmation (no AI content).
-2. **Server-side processing** runs AI triage support via TanStack server
-   functions (multi-LLM router). This typically completes within minutes.
-3. The submission appears in the **unassigned submissions** queue when ready
-   for assignment. Until a PT is assigned, status shows **Awaiting
-   assignment** to the inmate.
-4. If processing is delayed, staff may see **new** while the inmate still
-   sees **Received**. Contact support if processing exceeds 30 minutes.
+1. The assessment record is created; the patient sees **Received** and
+   confirmation (no AI content).
+2. **Server-side AI** generates an immediate **PT-reviewable exercise plan**
+   (name, why, steps, dosage, cautions) — visible only in the dashboard.
+3. The submission enters the **assignment queue** when ready for PT assignment.
+4. If processing is delayed beyond 30 minutes, contact
+   [support@veridianhp.com](mailto:support@veridianhp.com).
 
 ## Multiple submissions
 
-An enrolled inmate may submit **more than one assessment** over time (e.g.,
-a new complaint or re-assessment). Each submission has its own status in
-**My plan / progress**. Prior reviewed plans remain visible in history unless
-retention policy dictates otherwise.
-
-## Status transitions (PT)
-
-| From | PT may set to | Effect on inmate |
-| --- | --- | --- |
-| Under review | **reviewed** | Approved plan + shared notes visible |
-| Under review | **needs_followup** | Stays **Under review**; no new plan release |
-| needs_followup | **reviewed** | Updated plan/notes visible after re-review |
-| needs_followup | **needs_followup** | Continues follow-up workflow |
-
-Only a **PT** (or workflow rules assigned to PT role) should mark assessments
-**reviewed** or **needs_followup**. Admins assign cases; they do not replace
-PT clinical sign-off on plan release.
+A patient may submit **more than one assessment** over time. Each appears in
+**My plan / progress** with its own status.
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Review UI and tools.
-  </Card>
-  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
     Intake steps and My plan / progress.
   </Card>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Review and approve workflow.
+  </Card>
   <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Follow-up communication rules.
+    Follow-up communication.
   </Card>
 </CardGroup>

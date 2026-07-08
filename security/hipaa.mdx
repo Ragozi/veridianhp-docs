@@ -6,73 +6,59 @@ description: "HIPAA-aligned design for Veridian Motion — not certification."
 # HIPAA
 
 Veridian Health Partners processes Protected Health Information (PHI) on
-behalf of covered entities — correctional healthcare programs and their
-providers. Veridian operates as a **Business Associate** under HIPAA when a
-signed **BAA** is in place.
+behalf of covered entities. Veridian operates as a **Business Associate** when
+a signed **BAA** is in place.
 
 <Warning>
   **HIPAA-aligned design is not HIPAA certification.** Veridian Motion is
-  not certified under HIPAA. Compliance depends on BAAs, agency hosting
-  choices, and operational practices.
+  **not HIPAA-certified**. Compliance depends on BAAs, agency hosting, and
+  operational practices.
 </Warning>
 
-## What this means in practice
+## Technical safeguards (built today)
 
-- A **BAA** is required before production PHI flows
-- Administrative, physical, and technical safeguards align with the HIPAA
-  Security Rule intent (45 CFR Part 164, Subpart C)
-- Breach notification procedures follow the HIPAA Breach Notification Rule
-  (45 CFR Subpart D) when applicable
-- Subprocessors that touch PHI hold BAAs with Veridian Health Partners
+- Row-level security on every table
+- Field-level PHI encryption
+- Hash-chained audit log (no PHI in payload)
+- Role-based access (`pt`, `admin`, `it_admin`)
+- TOTP MFA for staff (enforced per deployment)
+- Brute-force login protection
 
 ## PHI in Veridian Motion
 
-PHI includes, among other items:
+- Patient identifiers and enrollment records
+- Body-map selections, complaint, questionnaire responses
+- Posture photos (up to four)
+- AI triage output, PT notes, approved exercise plans
+- Clinician-to-patient messages
 
-- Inmate identifiers and enrollment records
-- Assessment complaints, body-map selections, and Q&A
-- Posture photos
-- AI triage output, PT notes, and approved exercise plans
-- Internal messages between care team and inmate
-
-Veridian Motion collects the **minimum necessary** for MSK triage workflow.
-
-## Minimum necessary
-
-- Inmates see only their own data; plans only after PT review; notes only if shared
-- Staff access is scoped by role and assignment (RLS)
-- Audit logs record actions without copying clinical content
+**Minimum necessary:** patients see only their data; plans only after PT
+approval; notes only if shared.
 
 ## Patient rights
 
-Inmate HIPAA rights (access, amendment, accounting of disclosures) are
-exercised through the **covered entity / agency**, not directly with Veridian.
-Veridian supplies data to authorized agency staff to fulfill requests.
+HIPAA rights are exercised through the **covered entity / agency**. Veridian
+supplies data to authorized agency staff to fulfill requests.
 
 ## Corrections-specific note
 
-HIPAA applies to covered healthcare functions in custody settings. **CJIS
-security policy**, **FedRAMP**, and **state corrections IT standards** are
-separate frameworks — **not built into Veridian Motion**. Agencies host and
-operate the product in environments that satisfy their obligations.
+**CJIS**, **FedRAMP**, and state corrections IT standards are separate from
+HIPAA — **not built into Veridian Motion**. The **hosting agency** provides
+CJIS/FedRAMP/GovCloud environment, MDM kiosk lockdown, network controls, and
+personnel screening.
 
 ## Subprocessors
 
-PHI may be processed by subprocessors including:
-
-- Lovable Cloud / Supabase (database, auth, storage)
-- LLM providers (Anthropic, OpenAI, xAI, fallback gateway) — server-side only
-- Allowlisted email provider (when PDF email is enabled — BAA required)
-
-Current subprocessor list available to customers on request.
+PHI may be processed by subprocessors including Lovable Cloud / Supabase and
+server-side AI providers. List available to customers on request.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Data handling" icon="database" href="/security/data-handling">
-    Retention and deletion.
+    Collection and retention.
   </Card>
-  <Card title="Data model & privacy" icon="lock" href="/veridian-motion/data-model-privacy">
-    RLS and signed URLs.
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    Full posture.
   </Card>
 </CardGroup>

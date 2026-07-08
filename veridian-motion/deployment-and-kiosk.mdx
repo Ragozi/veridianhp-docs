@@ -5,88 +5,65 @@ description: "PWA installation, app-level kiosk hardening, and agency MDM respon
 
 # Deployment and kiosk
 
-Veridian Motion ships as a **Progressive Web App (PWA)** — a TanStack Start
-web application installable on facility tablets and workstations. Deployment
-at **`veridianhp.com`** (or an agency-specific domain) uses **Lovable Cloud /
-Supabase** for backend services.
+Veridian Motion ships as a **Progressive Web App (PWA)** installable on
+facility tablets. Backend services use Lovable Cloud / Supabase.
 
 ## PWA installation
 
-Facilities install Veridian Motion on kiosk devices through the browser's
-**Add to Home Screen / Install** flow (exact steps vary by OS). Installed PWAs
-launch full-screen without browser chrome, suitable for supervised intake
-stations.
+Install via browser **Add to Home Screen / Install**. PWAs launch full-screen
+for supervised patient intake stations.
 
 <Note>
-  Offline behavior is **limited**. Assessment submit and photo upload require
-  network connectivity to Supabase. The app does not promise full offline
-  clinical workflow.
+  **Limited offline.** Submit and photo upload require network connectivity.
 </Note>
 
-## App-level kiosk hardening
-
-Veridian Motion implements the following **in the application** (not a
-substitute for MDM):
+## App-level kiosk hardening (built today)
 
 | Control | Behavior |
 | --- | --- |
-| **No external navigation** | External links and web egress blocked in kiosk context |
-| **Strict CSP** | Content Security Policy limits script and resource loads |
-| **Self-hosted fonts** | Typography served from the app; no Google Fonts or CDN font loads |
-| **Idle auto-reset** | Inmate session clears after inactivity; returns to sign-in |
-| **No inmate external messaging** | Messaging is in-app only; no SMS/email to outside parties |
+| **No external navigation** | External links blocked in kiosk context |
+| **Strict CSP** | Limits script and resource loads |
+| **Self-hosted fonts** | No third-party font CDN loads |
+| **Idle auto-reset** | Patient session clears after inactivity |
+| **In-app messaging only** | No SMS/email egress |
 
 ## Agency-provided lockdown
 
-True **locked kiosk** operation in a correctional facility also requires
-**agency-provided** controls:
+True locked-kiosk operation requires **agency MDM**:
 
 | Control | Owner |
 | --- | --- |
-| MDM profile (single-app mode, disable browser, USB restrictions) | Agency IT |
-| Network firewall (allowlist only required endpoints) | Agency IT |
-| Physical supervision and escort | Custody staff |
-| Device procurement and replacement | Agency |
-| CJIS / FedRAMP / GovCloud hosting decision | Agency |
+| MDM (single-app mode, disable browser) | Agency IT |
+| Network firewall | Agency IT |
+| Physical supervision | Custody staff |
+| **CJIS / FedRAMP / GovCloud** hosting | Agency |
 
 <Warning>
-  Veridian Motion **does not** claim CJIS authorization or FedRAMP
-  authorization. Agencies must host in environments that meet their
-  compliance obligations.
+  Veridian Motion is **HIPAA-aligned, not HIPAA-certified**; **not
+  CJIS-authorized or FedRAMP-authorized**. The **hosting agency** provides
+  compliant environment, MDM, network controls, and personnel screening.
 </Warning>
 
-## Network requirements
+## Network
 
-Kiosk devices need stable **HTTPS** outbound access to:
+Kiosk devices need **HTTPS** outbound to the application host and Supabase
+endpoints.
 
-- The Veridian Motion application host
-- Supabase API and Storage endpoints (Lovable Cloud)
+## Pilot vs production
 
-Block all other outbound traffic at the network layer when policy requires.
-
-## Self-hosted fonts and UI
-
-The interface follows a **plain, USWDS-aligned government tone** — high
-contrast, accessible targets, minimal decoration. Fonts are bundled with the
-application build, supporting CSP and kiosk policies that block third-party
-resources.
-
-## Environment separation
-
-Use separate Supabase projects (or equivalent) for **pilot** vs **production**.
-Pilot environments should use synthetic or de-identified data until BAAs and
-agency hosting are in place.
+Use separate environments for pilot. Synthetic or de-identified data until BAA
+and agency hosting are in place.
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
-    What inmates experience on the device.
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
+    Patient kiosk experience.
   </Card>
-  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    Staff MFA and provisioning.
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Deployment runbook.
   </Card>
   <Card title="Security overview" icon="shield-check" href="/security/overview">
-    Compliance split: app vs agency.
+    App vs agency responsibilities.
   </Card>
 </CardGroup>

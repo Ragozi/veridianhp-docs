@@ -5,61 +5,53 @@ description: "What Veridian Motion collects, retains, and deletes."
 
 # Data handling
 
-Plain-language summary of data in **Veridian Motion**. For entity detail and
-RLS, see [Data model & privacy](/veridian-motion/data-model-privacy).
+Summary of data in **Veridian Motion**. See
+[Data model & privacy](/veridian-motion/data-model-privacy) for detail.
 
 ## What we collect
 
 | Data | Source | Purpose |
 | --- | --- | --- |
-| Patient / inmate record | Staff enrollment | Authentication, roster |
-| Inmate number + PIN hash | Staff enrollment | Kiosk sign-in |
-| Body-map selections | Inmate kiosk | Triage context |
-| Complaint text (and voice-to-text) | Inmate kiosk | Triage context |
-| Posture photos (4 views) | Inmate kiosk | PT review |
-| Q&A responses | Inmate kiosk | Triage context |
-| AI triage output | Server (multi-LLM) | PT review only until released |
-| Exercise plan + media refs | PT review | Care delivery after review |
-| PT notes | PT | Clinical record; optional inmate share |
-| Messages | Staff + inmate | Monitored internal record |
+| Patient record | Manual admin enrollment | Authentication, roster |
+| Patient ID + PIN hash | Enrollment | Portal sign-in |
+| Body-map selections | Patient portal | Triage context |
+| Complaint text | Patient portal | Triage context |
+| Questionnaire responses | Patient portal | Triage context |
+| Posture photos (up to 4) | Patient portal | PT review |
+| AI exercise plan | Server | PT review until approved |
+| PT notes | PT | Clinical record; optional patient share |
+| Messages | Staff + patient | Append-only internal record |
 | Staff accounts + roles | Admin | Dashboard access |
-| Audit events | Platform | Compliance (no PHI in payload) |
+| Audit events | Platform | Hash-chained; no PHI in payload |
 
 ## What we do not collect in logs
 
 - Clinical narrative in application logs
-- Raw photos in audit log entries
-- LLM prompts/responses in standard application logs
+- Raw photos in audit entries
+- AI prompt/response content in standard logs
 
 ## Where data lives
 
-Production data is hosted in **United States** regions through Lovable Cloud /
-Supabase unless an agency deploys to a dedicated environment under contract.
+United States regions via Lovable Cloud / Supabase unless dedicated
+environment under contract.
 
-## Retention
+## Retention and deletion
 
-Retention follows **agency agreement** and applicable health-record rules.
-Typical defaults align with multi-year clinical record retention. Agencies may
-request export before offboarding.
+Per **agency agreement**. Export window at contract end; deletion procedures
+and certificates on request.
 
-## Deletion
+## PDF export
 
-At contract end, agencies receive an **export window**, then Veridian Health
-Partners executes agreed **deletion procedures** for PHI in managed
-environments. Deletion certificates available on request.
-
-## Email and PDF
-
-Assessment PDFs sent to **allowlisted addresses** require a **BAA-covered
-email provider** before production use with real PHI.
+Staff may export assessment **PDF** from the dashboard. No automated email
+export in the current release.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
-    BAA and honest compliance framing.
+    BAA framing.
   </Card>
   <Card title="Incident response" icon="bell" href="/security/incident-response">
-    Breach and incident procedures.
+    Incident procedures.
   </Card>
 </CardGroup>

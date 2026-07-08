@@ -10,6 +10,18 @@ description: "Documentation and product updates for Veridian Health Partners."
   changes**. Internal engineering progress is not listed here exhaustively.
 </Note>
 
+<Update label="Ground-truth reconciliation" description="2026-07-08">
+  Reconciled documentation to match the product as built today:
+
+  - **Person-first language** — patient / Patient ID / patient portal (replacing inmate terminology)
+  - **Roles** — `pt`, `admin`, `it_admin` only (removed officer/warden)
+  - **Enrollment** — manual, single-facility only; CSV/JMS/SSO moved to [Roadmap](/veridian-motion/roadmap)
+  - **Security** — hash-chained audit log, field-level PHI encryption, brute-force lockout, TOTP MFA per deployment
+  - **AI** — PT-reviewable plan (name/why/steps/dosage/cautions); red-flag **see medical staff** framing
+  - **Removed overclaims** — multi-LLM provider list, allowlisted email, AI note summarization, voice-to-text
+  - Renamed `inmate-kiosk-flow` → [Patient portal](/veridian-motion/patient-portal)
+</Update>
+
 <Update label="Facility onboarding & integration" description="2026-07-06">
   Added [Facility onboarding & integration](/veridian-motion/facility-onboarding) —
   staff vs inmate identity, roster provisioning (JMS, SFTP, CSV, one-by-one),
@@ -45,7 +57,7 @@ description: "Documentation and product updates for Veridian Health Partners."
   the built product:
 
   - [Overview](/veridian-motion/overview) — two surfaces, MVP scope, PT-review gate
-  - [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow) — PIN login, body map,
+  - [Patient portal](/veridian-motion/patient-portal) — Patient ID + PIN login, body map,
     four-view capture, status-only until review
   - [Provider dashboard](/veridian-motion/provider-dashboard) — roster, enrollment,
     assignment queue, review workflow, PDF/email, messaging

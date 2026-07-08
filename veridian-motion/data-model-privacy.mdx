@@ -1,122 +1,97 @@
 ---
 title: "Data model & privacy"
-description: "Core entities, PHI boundaries, RLS, signed URLs, and retention posture."
+description: "Core entities, PHI boundaries, RLS, encryption, and audit log."
 ---
 
 # Data model & privacy
 
-Veridian Motion uses Supabase Postgres with **Row-Level Security (RLS) on
-every table**. This page describes data categories as built.
+Veridian Motion uses Supabase Postgres with **row-level security (RLS) on
+every table**, **field-level PHI encryption**, and a **hash-chained audit
+log**.
 
-Veridian Motion stores correctional health data under a **HIPAA-aligned
-design**. The application is **not HIPAA-certified**. A **BAA** is required
-with the health provider and any vendor (email, hosting) that touches PHI in
-production.
+**HIPAA-aligned, not HIPAA-certified.** A **BAA** is required with the
+health provider before production PHI.
 
 ## Core entities
 
 | Entity | Description | PHI |
 | --- | --- | --- |
-| **Patient** | Enrolled inmate — inmate number, internal ID | Yes |
-| **Assessment** | One intake submission (body map, complaint, photos, Q&A, AI output) | Yes |
-| **Photos** | Four posture images per assessment | Yes |
-| **Q&A responses** | Follow-up questionnaire answers | Yes |
-| **Exercise plan** | Draft and PT-approved bodyweight plan; links to exercise media | Yes |
-| **Exercise media** | Library images/video for prescribed exercises | Generally no PHI |
-| **PT notes** | Clinical notes; optional share-with-inmate flag | Yes |
-| **Messages** | Append-only internal care-team ↔ inmate thread | Yes |
-| **Staff roles** | Role assignments per staff user | Metadata |
-| **Audit log** | Sensitive action record (no PHI in log payload) | No PHI in logs |
+| **Patient** | Manually enrolled — Patient ID, internal ID | Yes |
+| **Assessment** | One portal submission (body map, complaint, questionnaire, photos, AI plan) | Yes |
+| **Photos** | Up to four posture images per assessment | Yes |
+| **Questionnaire responses** | Plain-language intake answers | Yes |
+| **Exercise plan** | AI draft and PT-approved plan (name, why, steps, dosage, cautions) | Yes |
+| **PT notes** | Clinical notes; optional share-with-patient flag | Yes |
+| **Messages** | Append-only clinician ↔ patient thread | Yes |
+| **Staff roles** | `pt`, `admin`, `it_admin` assignments | Metadata |
+| **Audit log** | Hash-chained action record (no PHI in payload) | No PHI in logs |
 
 ## Data flow
 
 ```
-Enroll (staff) → Patient + PIN
+Manual enroll (admin) → Patient ID + PIN
        ↓
-Kiosk intake → Assessment (body map, complaint, photos, Q&A)
+Patient portal → Assessment (body map, complaint, questionnaire, photos)
        ↓
-Server AI → Observations, hypotheses, red flags, draft plan (staff only)
+Server AI → PT-reviewable exercise plan (dashboard only)
        ↓
-Assign (admin) → PT review → Status: reviewed
+Assign (admin) → PT review → Approve
        ↓
-Inmate view → Approved plan + shared notes only
+Patient view → Approved plan + shared notes only
 ```
 
 ## Row-Level Security
 
-RLS policies enforce:
-
 | Actor | Access |
 | --- | --- |
-| **Inmate** | Own patient row, own assessments, own messages; plans **only after reviewed**; notes **only if shared** |
-| **PT** | Assigned assessments and related patients per policy |
-| **Admin** | Roster, assignment, roles, enrollment per role scope |
-| **Other staff roles** | Least-privilege per `officer`, `warden`, `it_admin` configuration |
+| **Patient** | Own record, own assessments/messages; plans **only after PT approval**; notes **only if shared** |
+| **PT** | Assigned assessments and related patients |
+| **Admin** | Roster, assignment, enrollment, roles for this facility |
+| **IT admin** | Security/compliance views per role |
 
-Cross-inmate access is denied at the database layer, not only in the UI.
+Cross-patient access is denied at the database layer.
 
-## Photos and signed URLs
+<Note>
+  **Multi-facility isolation is in progress.** Current deployments are
+  single-facility. See [Roadmap](/veridian-motion/roadmap).
+</Note>
 
-- Photos live in a **private Supabase Storage bucket**
-- The browser never receives permanent public URLs
-- Authorized staff retrieve photos via **signed URLs valid for five minutes**
-- Inmates do not receive raw storage URLs for other patients' images
+## Photos
+
+- Stored in a **private** bucket
+- Authorized staff access only; patients do not receive storage URLs for other
+  patients' images
 
 ## Session and client storage
 
-- **No PII in browser `localStorage`**
-- Inmate kiosk session state is **in-memory**; idle auto-reset clears it
-- Staff sessions use Supabase Auth tokens per standard secure cookie/session handling
+- **No PII in browser `localStorage`** on kiosk
+- Patient session state is **in-memory**; idle auto-reset clears it
 
 ## Audit log
 
-Append-only audit entries cover sensitive actions, including:
-
-- Patient enroll
-- Case assign
-- Assessment review / status change
-- Note create / share
-- Role grant / revoke
-- MFA reset (staff)
-- Message send
-- PDF email to allowlisted address
-
-**Application logs do not contain PHI.** Audit entries reference resource IDs
-and action types, not clinical content.
+Hash-chained, append-only entries for: enroll, assign, review/approve, notes,
+roles, MFA reset, messages. **No PHI in audit payload.**
 
 ## Messaging
 
-Messages are **append-only**, **monitored**, and **internal only** — no
-external SMS, email to inmates, or outbound links. Threads are part of the
-medical record subject to the same RLS and retention rules as assessments.
+Append-only, monitored, internal only — part of the medical record under RLS.
 
-## Retention
+## Agency vs. application
 
-Retention schedules are configured per **agency agreement**. Defaults follow
-health-record conventions (typically multi-year retention for clinical
-artifacts). Contact your Veridian Health Partners account contact for
-export and deletion procedures at contract end.
-
-## Agency vs. application responsibilities
-
-| Topic | Veridian Motion | Agency / facility |
+| Topic | Veridian Motion | Agency |
 | --- | --- | --- |
-| RLS and access control | Enforced in app | — |
-| BAA with health provider | Design + vendor chain | Execute agreements |
-| CJIS / FedRAMP / GovCloud hosting | — | Provide environment |
-| MDM and physical kiosk controls | App hardening only | Device management |
-| Personnel screening | — | Agency HR / policy |
+| RLS, encryption, audit log | Yes | — |
+| BAA | Design supports | Execute |
+| CJIS / FedRAMP / GovCloud hosting | — | Yes |
+| MDM and physical kiosk controls | App hardening | Device management |
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
-    Business Associate framing.
+    BAA framing.
   </Card>
-  <Card title="Data handling" icon="database" href="/security/data-handling">
-    Collection, retention, deletion summary.
-  </Card>
-  <Card title="Incident response" icon="bell" href="/security/incident-response">
-    If something goes wrong.
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    Full posture summary.
   </Card>
 </CardGroup>

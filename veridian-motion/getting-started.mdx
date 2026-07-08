@@ -1,14 +1,13 @@
 ---
 title: "Getting started"
-description: "Facility rollout checklist — from pilot setup through first inmate intake and PT review."
+description: "Facility rollout checklist — from agreement through first patient intake and PT approval."
 ---
 
 # Getting started
 
 This checklist helps **administrators and IT** bring Veridian Motion online at
-a jail or correctional facility. For roster provisioning methods, SSO, and the
-full onboarding runbook, see
-[Facility onboarding & integration](/veridian-motion/facility-onboarding).
+a correctional facility. For manual enrollment, staff MFA, and deployment
+detail, see [Facility onboarding & integration](/veridian-motion/facility-onboarding).
 
 <Note>
   Use **synthetic or de-identified data** in pilot until BAAs and agency
@@ -24,41 +23,36 @@ full onboarding runbook, see
   </Step>
 
   <Step title="Confirm hosting posture">
-    Decide whether the agency requires CJIS-aligned, FedRAMP, or GovCloud
-    hosting. Veridian Motion runs on Lovable Cloud / Supabase; dedicated
-    environments may be arranged under contract. The app is **not**
-    CJIS-authorized or FedRAMP-authorized by itself.
+    The **hosting agency** provides CJIS/FedRAMP/GovCloud environment if
+    required. Veridian Motion is **HIPAA-aligned, not HIPAA-certified**; **not
+    CJIS-authorized or FedRAMP-authorized**.
   </Step>
 
   <Step title="Identify contacts">
-    Designate agency contacts for clinical operations, IT, and security
-    incident notification.
+    Designate agency contacts for clinical operations, IT, and security.
   </Step>
 </Steps>
 
 ## Phase 2 — IT and kiosk setup
 
 <Steps>
-  <Step title="Network allowlist">
-    Allow outbound **HTTPS (443)** to the Veridian Motion app host and Supabase
-    endpoints. Block unnecessary egress per agency policy.
+  <Step title="Network">
+    Allow outbound **HTTPS (443)** to the Veridian Motion app host and backend
+    endpoints per deployment documentation.
   </Step>
 
   <Step title="Install the PWA">
-    On each kiosk device, install Veridian Motion via the browser **Add to
-    Home Screen / Install** flow. See
-    [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
+    Install Veridian Motion on kiosk devices via **Add to Home Screen /
+    Install**. See [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
   </Step>
 
   <Step title="Apply MDM lockdown">
-    Configure agency **MDM** for single-app or supervised mode, disable
-    external browsers, and assign physical supervision procedures. App-level
-    hardening alone is not sufficient for custody kiosks.
+    Configure agency **MDM** for supervised kiosk mode. App hardening alone is
+    not sufficient.
   </Step>
 
   <Step title="Test connectivity">
-    Run a test sign-in and photo capture with Veridian support before inmate
-    use.
+    Run a test sign-in and photo capture before patient use.
   </Step>
 </Steps>
 
@@ -66,38 +60,31 @@ full onboarding runbook, see
 
 <Steps>
   <Step title="Create staff accounts">
-    An Veridian or agency **admin** provisions staff emails in the dashboard.
+    An **admin** provisions staff emails — local accounts (no SSO in current release).
   </Step>
 
-  <Step title="Enroll MFA">
-    Each staff member completes **TOTP MFA** enrollment at `/mfa` on first
-    login. MFA is mandatory for dashboard access.
+  <Step title="Enroll TOTP MFA">
+    Staff complete **TOTP MFA** enrollment if required for the deployment.
   </Step>
 
   <Step title="Grant roles">
-    At `/staff`, assign roles: `pt`, `admin`, `officer`, `warden`, `it_admin`
-    as appropriate. See [Role permissions](/veridian-motion/role-permissions).
+    At `/staff`, assign `pt`, `admin`, or `it_admin`. See
+    [Role permissions](/veridian-motion/role-permissions).
   </Step>
 </Steps>
 
-## Phase 4 — Clinical configuration
+## Phase 4 — Clinical readiness
 
 <Steps>
-  <Step title="Configure allowlisted email (optional)">
-    If using PDF email export with real PHI, configure **allowlisted
-    addresses** and confirm a **BAA-covered email provider** is in place.
-    Until then, use PDF download only within the secured dashboard.
-  </Step>
-
   <Step title="Train PTs">
-    Walk through [Provider dashboard](/veridian-motion/provider-dashboard) and
+    Cover [Provider dashboard](/veridian-motion/provider-dashboard) and
     [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) —
-    especially the **red-flag-first** review order and PT-review gate.
+    red-flag-first review and the PT-approval gate.
   </Step>
 
   <Step title="Train custody staff">
-    Cover kiosk escort, PIN handoff, idle auto-reset, and when to interrupt for
-    safety concerns. See [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow).
+    Kiosk escort, PIN handoff, idle auto-reset, **see medical staff** safety
+    guidance. See [Patient portal](/veridian-motion/patient-portal).
   </Step>
 </Steps>
 
@@ -105,46 +92,35 @@ full onboarding runbook, see
 
 <Steps>
   <Step title="Enroll a patient">
-    Admin uses **Enroll patient** → record **inmate number + initial PIN** →
-    hand credentials to custody staff.
+    Admin uses **Enroll patient** → record **Patient ID + initial PIN** → hand
+    to custody staff.
   </Step>
 
-  <Step title="Inmate intake">
-    Inmate signs in at `/inmate-login`, completes body map, complaint, and
-    four photos, then submits.
+  <Step title="Patient intake">
+    Patient signs in on the kiosk, completes body map, complaint, questionnaire,
+    and up to four photos, then submits.
   </Step>
 
-  <Step title="Assign and review">
-    Admin assigns the submission from the **unassigned queue** to a PT. PT
-    reviews, edits plan, marks **reviewed**.
+  <Step title="Assign and approve">
+    Admin assigns from the queue to a PT. PT reviews, edits plan, **approves**.
   </Step>
 
-  <Step title="Confirm inmate release">
-    Inmate opens **My plan / progress** and confirms **Reviewed** status shows
-    the approved plan and any shared PT notes.
+  <Step title="Confirm patient release">
+    Patient opens **My plan / progress** and confirms **Reviewed** status shows
+    the approved plan.
   </Step>
 </Steps>
-
-## After go-live
-
-- Monitor the [status page](https://status.veridianhp.com) for service health
-- Route issues through [Troubleshooting](/troubleshooting) and
-  [support@veridianhp.com](mailto:support@veridianhp.com)
-- Review audit logs periodically (`/audit` — role-scoped)
 
 ## What's next
 
 <CardGroup cols={2}>
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Full onboarding and integration guide.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Planned SSO, bulk import, JMS sync.
+  </Card>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    One-page summary for decision-makers.
-  </Card>
-  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
-    Status labels and who acts when.
-  </Card>
-  <Card title="Deployment and kiosk" icon="lock" href="/veridian-motion/deployment-and-kiosk">
-    PWA, hardening, and MDM split.
-  </Card>
-  <Card title="FAQ" icon="circle-question" href="/faq">
-    Common facility questions.
+    One-page evaluation guide.
   </Card>
 </CardGroup>

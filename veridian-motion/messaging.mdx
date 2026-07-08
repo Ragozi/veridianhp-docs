@@ -1,108 +1,88 @@
 ---
 title: "Messaging"
-description: "Secure internal messaging between the care team and inmates — rules, visibility, and workflow."
+description: "Secure clinician-to-patient messaging — rules, visibility, and workflow."
 ---
 
 # Messaging
 
-Veridian Motion includes **secure internal messaging** between the care team
-(staff) and inmates. Messaging supports follow-up after assessment — especially
-when a PT sets status to **needs_followup** — without opening external SMS,
-email, or web links.
+Veridian Motion includes **secure clinician-to-patient messaging** — an
+**append-only** thread between staff and patients inside the application. It
+supports follow-up after assessment without SMS, email, or external links.
 
 <Warning>
   Messaging is **monitored** and **append-only**. It is part of the medical
-  record. Do not use it for off-record clinical communication.
+  record.
 </Warning>
 
 ## Design rules
 
 | Rule | Detail |
 | --- | --- |
-| **Internal only** | No SMS, email to inmates, or external URLs |
+| **Internal only** | No SMS, email to patients, or external URLs |
 | **Append-only** | Messages cannot be edited or deleted after send |
-| **Monitored** | UI displays that messages are monitored / part of the medical record |
-| **No external egress** | Server blocks outbound delivery outside the app |
-| **RLS-scoped** | Inmates see only their own threads; staff see threads per role and assignment |
+| **Monitored** | Displayed as part of the medical record |
+| **No external egress** | No outbound delivery outside the app |
+| **RLS-scoped** | Patients see only their own threads; PTs see assigned patients |
 
 ## Who can message
 
-| Role | Typical messaging access |
+| Role | Access |
 | --- | --- |
-| **pt** | Message assigned patients regarding their assessments and follow-up |
-| **admin** | Operational messaging per policy; not a substitute for PT clinical review |
-| **officer / warden** | Generally **no** clinical messaging unless explicitly granted by deployment policy |
-| **Inmate** | Reply within threads on their own record from the kiosk |
-
-Exact officer/warden access follows least-privilege defaults. See
-[Role permissions](/veridian-motion/role-permissions).
+| **pt** | Message assigned patients |
+| **admin** | Operational messaging per policy — not a substitute for PT review |
+| **Patient** | Read and reply within own threads on the kiosk |
 
 ## Where messaging lives
 
-**Staff** — open messaging from the **patient record** or **assessment review**
-screen in the provider dashboard (`/dashboard`). Threads are tied to the
-patient's care record.
+**Staff** — from the **patient record** or **assessment review** screen in
+the provider dashboard.
 
-**Inmate** — access messaging from the kiosk after sign-in, alongside **My
-plan / progress**. Inmates cannot start arbitrary conversations with staff
-outside the product's workflow rules; they respond within active care threads.
+**Patients** — from the kiosk alongside **My plan / progress**, within active
+care threads.
 
 ## Typical workflow
 
 <Steps>
-  <Step title="PT sets needs_followup">
-    After review, the PT marks **needs_followup** when additional information
-    or clarification is needed before releasing or updating a plan.
+  <Step title="PT reviews assessment">
+    After intake, the assigned PT reviews the AI plan and intake data.
   </Step>
 
-  <Step title="Staff sends a message">
-    The PT (or authorized staff) sends a plain-language question or instruction
-    in the secure thread. The inmate sees the **monitored / medical record**
-    notice.
+  <Step title="Clinician sends a message">
+    The PT (or authorized staff) sends a plain-language message in the secure
+    thread. The patient sees the monitored-record notice.
   </Step>
 
-  <Step title="Inmate responds on kiosk">
-    The inmate reads and replies during a supervised kiosk session. Replies are
+  <Step title="Patient responds on kiosk">
+    The patient reads and replies during a supervised session. Replies are
     append-only.
   </Step>
 
   <Step title="PT completes follow-up">
-    The PT reviews new messages, updates the assessment or plan if needed, and
-    marks **reviewed** when ready to release content to the inmate.
+    The PT updates the assessment or plan if needed and **approves** when
+    ready.
   </Step>
 </Steps>
 
 ## What messaging is not
 
-- **Not live chat support** — asynchronous only; no guaranteed response time SLA in MVP
-- **Not video or phone** — no live video consults in the current release
-- **Not external email** — PDF export to allowlisted addresses is a separate,
-  staff-only tool for records handoff
-- **Not private or ephemeral** — all messages are retained per agency retention policy
-
-## Custody considerations
-
-Custody staff should **supervise** inmate messaging sessions the same as intake.
-Inmates should not expect confidential communications outside the monitored
-record. Facility policy governs whether messaging occurs during medical escort
-blocks or scheduled kiosk time.
+- **Not live chat** — asynchronous only
+- **Not video or phone** — not in the current release
+- **Not external email** — PDF export is a separate staff tool
+- **Not private or ephemeral** — retained per agency policy
 
 ## Audit
 
-Every message send is recorded in the **append-only audit log** (action type
-and resource ID — not message body in audit payload). See
+Message sends are recorded in the **hash-chained audit log** (action type and
+resource ID — not message body). See
 [Data model & privacy](/veridian-motion/data-model-privacy).
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
-    needs_followup and review transitions.
-  </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Review tools and PDF export.
+    Review and approve workflow.
   </Card>
-  <Card title="Inmate kiosk flow" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
     Kiosk session and supervision.
   </Card>
 </CardGroup>

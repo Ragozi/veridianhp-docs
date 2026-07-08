@@ -1,0 +1,154 @@
+---
+title: "Patient portal"
+description: "Authenticated patient intake — body map, complaint, questionnaire, photos, and post-review plan access."
+---
+
+# Patient portal
+
+The **patient portal** is the patient-facing surface of Veridian Motion on a
+**facility-controlled kiosk**. Patients authenticate with a **Patient ID** and
+**PIN** provisioned by staff at enrollment. There is no self sign-up.
+
+<Warning>
+  Patients **never** see un-reviewed AI output or exercise plans. After submit
+  they see confirmation and plain-language safety guidance only. Approved
+  content appears after a licensed PT reviews and releases the assessment.
+</Warning>
+
+## Full flow
+
+<Steps>
+  <Step title="Sign in">
+    The patient enters their **Patient ID** and **PIN** (4–12 digits). Staff
+    create these at enrollment; patients who lack credentials must ask staff.
+  </Step>
+
+  <Step title="Select what's hurting (body map)">
+    An accessible **body-map region selector** presents a tappable diagram
+    plus labeled toggle buttons (e.g., left shoulder, upper back, left knee).
+    The patient selects the area(s) relevant to their complaint.
+  </Step>
+
+  <Step title="Describe the complaint">
+    The patient describes what is going on in plain language — typed text in
+    the complaint field.
+  </Step>
+
+  <Step title="Complete the questionnaire">
+    A **plain-language questionnaire** collects additional context (onset,
+    severity, movement limits, and related items). Required questions must be
+    answered before continuing. If the session resets due to idle timeout,
+    the patient must sign in again and may need to restart intake.
+  </Step>
+
+  <Step title="Capture posture photos">
+    Guided capture for **up to four views** (e.g., front, back, left, right).
+    On-screen **silhouette overlays** help positioning. The interface prompts
+    retakes when a photo is unusable. Camera access requires staff assistance
+    if denied.
+  </Step>
+
+  <Step title="Submit">
+    The patient reviews and submits. The assessment moves into staff workflow.
+    Server-side AI generates a **PT-reviewable exercise plan** — not shown on
+    the kiosk.
+  </Step>
+
+  <Step title="Confirmation (immediate)">
+    The patient sees **submission confirmation** and **plain-language safety
+    guidance** — including direction to **see medical staff** if symptoms
+    worsen. This screen does not include AI observations or exercise
+    prescriptions.
+  </Step>
+
+  <Step title="My plan / progress (ongoing)">
+    Patients can return to view each submission's **status**:
+
+    - **Received**
+    - **Awaiting assignment**
+    - **Under review**
+    - **Reviewed**
+
+    After a PT **approves** the assessment, the patient may see the
+    **approved exercise plan** (name, why, steps, dosage, cautions) and any
+    **PT notes explicitly shared** with them.
+  </Step>
+</Steps>
+
+## After submit
+
+Immediately after submission the patient sees **confirmation** and safety
+guidance only — not AI output or exercise plans. Track progress under **My
+plan / progress**; approved plan content appears only after status reaches
+**Reviewed**.
+
+## Red-flag safety inputs
+
+If intake responses trigger a red-flag pattern, the patient sees a calm
+**see medical staff** safety action — not a diagnosis and not an emergency
+dispatch. Custody and clinical staff follow facility protocols.
+
+## Multiple submissions
+
+An enrolled patient may complete **more than one assessment** over time. Each
+submission appears separately in **My plan / progress** with its own status.
+
+## What patients see after review
+
+When status is **Reviewed**, the patient may view:
+
+- **Approved exercise plan** — exercises with **name**, **why**, **steps**,
+  **dosage**, and **cautions** as the PT approved
+- **PT notes** marked **shared with patient** — only notes the PT explicitly
+  released
+
+## What patients cannot do on the portal
+
+- Self-create an account
+- View AI output or draft plans before PT review
+- Open external websites, links, or messaging outside the app
+- Access other patients' records
+
+## Locked kiosk behavior
+
+Veridian Motion applies **app-level hardening** for facility kiosks:
+
+- Blocked external navigation and links
+- Strict Content Security Policy (CSP)
+- Self-hosted fonts (no third-party font loads)
+- Idle **auto-reset** to clear patient session state
+
+**Agency-provided** controls — MDM profile, device lockdown, network
+filtering, physical supervision — are required for true kiosk lockdown in a
+correctional facility. See [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
+
+## Staff involvement
+
+| Role | Typical action |
+| --- | --- |
+| **Admin** | Enroll patient, hand over Patient ID + PIN, assign case to PT |
+| **Custody staff** | Escort to kiosk, monitor session, respond to safety concerns |
+| **PT** | Reviews in dashboard; approves and releases plan when ready |
+
+## Session and privacy on device
+
+Patient session state is held **in memory** — not in browser `localStorage`.
+No PII is persisted locally on the kiosk browser beyond what the active
+session requires.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    What happens after the patient submits.
+  </Card>
+  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
+    Status labels and handoffs.
+  </Card>
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Secure clinician-to-patient follow-up.
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+    Camera, PIN, and session issues.
+  </Card>
+</CardGroup>

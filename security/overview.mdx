@@ -5,70 +5,69 @@ description: "Veridian Motion security posture — what the app enforces vs what
 
 # Security overview
 
-Veridian Health Partners designs **Veridian Motion** with healthcare and
-correctional use cases in mind. This page summarizes the **security posture**
-honestly — what the application implements and what **hosting agencies** must
-provide.
+Veridian Health Partners designs **Veridian Motion** for healthcare and
+correctional use cases. This page summarizes what the **application enforces**
+and what **hosting agencies** must provide.
 
 <Warning>
-  Veridian Motion is **not HIPAA-certified**, **CJIS-authorized**, or
-  **FedRAMP-authorized**. HIPAA-aligned design ≠ certification. Agencies
-  choose hosting and operational controls to meet their obligations.
+  Veridian Motion is **HIPAA-aligned, not HIPAA-certified**. It is **not
+  CJIS-authorized** or **FedRAMP-authorized**. Agencies choose hosting and
+  operational controls to meet their obligations.
 </Warning>
 
-## What Veridian Motion enforces
+## What Veridian Motion enforces (built today)
 
 ### Access control
 
-- **Staff:** Email, password, mandatory TOTP MFA; role-based UI and API
-- **Inmates:** Inmate number + PIN; access limited to own data via RLS
-- **Roles:** `pt`, `admin`, `officer`, `warden`, `it_admin` — granted only by admin
+- **Staff:** Email + password; **TOTP MFA** (available; **enforced per deployment**); RBAC
+- **Patients:** Patient ID + PIN; access limited to own data via RLS
+- **Roles:** `pt`, `admin`, `it_admin` — granted only by admin
+- **Brute-force lockout** on patient and staff login identifiers
 
 ### Data protection
 
-- **Row-Level Security** on every Postgres table
-- **Private photo storage** with five-minute signed URLs after authorization
-- **No PII in browser localStorage** for inmates; in-memory session on kiosk
-- **No PHI in application logs**; append-only audit log for sensitive actions
+- **Row-level security** on every Postgres table
+- **Field-level PHI encryption**
+- **Private photo storage**; authorized staff access only
+- **No PII in browser localStorage** on kiosk; in-memory patient session
+- **No PHI in application logs**
+- **Hash-chained audit log** for sensitive actions
 
 ### Application hardening (kiosk)
 
 - Blocked external navigation, strict CSP, self-hosted fonts, idle auto-reset
-- Internal messaging only — no external egress for inmate communications
+- Internal messaging only — no external egress
 
 ### Clinical safety gate
 
-- AI output is **non-diagnostic** and **PT-reviewed** before inmate release
+- AI output is **non-diagnostic** and **PT-approved** before patient release
 
 ## What agencies / facilities must provide
 
 | Requirement | Owner |
 | --- | --- |
-| BAA with health provider and PHI-touching vendors (email, etc.) | Agency + Veridian Health Partners |
-| CJIS-compliant or FedRAMP / GovCloud hosting (if required) | Agency |
+| BAA with covered entity | Agency + Veridian Health Partners |
+| **CJIS / FedRAMP / GovCloud** hosting environment (if required) | Agency |
 | MDM kiosk lockdown, device supervision | Agency IT + custody |
-| Network segmentation and firewall allowlists | Agency IT |
+| Network segregation and firewall rules | Agency IT |
 | Personnel screening and security training | Agency |
 | Physical security of kiosk location | Agency |
 
 ## Encryption
 
-- **In transit:** TLS for all client and service connections
-- **At rest:** Supabase / cloud provider encryption for database and storage volumes
-- **Photos:** Private bucket; no public ACLs
+- **In transit:** TLS for all connections
+- **At rest:** Cloud provider encryption plus **field-level PHI encryption**
+- **Photos:** Private storage; no public ACLs
 
 ## Audit and monitoring
 
-Sensitive actions write to an **append-only audit log** (enroll, assign, review,
-notes, roles, MFA reset, messages, email). Application logs exclude PHI.
-
-Agencies may export audit data for compliance review from the dashboard
-(`/audit`, `/compliance`, `/security` — role-scoped).
+Sensitive actions write to a **hash-chained, append-only audit log** (enroll,
+assign, review, notes, roles, MFA reset, messages). Application logs exclude
+PHI. Audit entries use resource IDs and action types — not clinical content.
 
 ## Incident response
 
-See [Incident response](/security/incident-response) for notification
-expectations when an incident may affect agency or inmate data.
+See [Incident response](/security/incident-response).
 
 ## What's next
 
@@ -76,10 +75,10 @@ expectations when an incident may affect agency or inmate data.
   <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
     Business Associate framing.
   </Card>
-  <Card title="Data handling" icon="database" href="/security/data-handling">
-    Collection and retention.
-  </Card>
   <Card title="Data model & privacy" icon="lock" href="/veridian-motion/data-model-privacy">
-    RLS and entity detail.
+    RLS and entities.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Planned security-related features (e.g., SSO).
   </Card>
 </CardGroup>

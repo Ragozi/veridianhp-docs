@@ -5,105 +5,68 @@ description: "Common questions about Veridian Health Partners and Veridian Motio
 
 # FAQ
 
-## What is Veridian Health Partners?
-
-The company behind [veridianhp.com](https://veridianhp.com). We build
-healthcare technology for jails and correctional facilities. **Veridian
-Motion** is our flagship PT product (formerly Veridian Health / PostureCare).
-
 ## What is Veridian Motion?
 
-Veridian Health Partners' **flagship physical therapy platform** for
-correctional facilities — structured MSK intake on an inmate kiosk plus PT
-review on a provider dashboard. Start at
-[Veridian Motion](/veridian-motion/product) or
-[For evaluators](/veridian-motion/for-evaluators).
+Veridian Health Partners' **flagship PT platform** for correctional facilities —
+patient portal (kiosk) plus provider dashboard. See
+[Veridian Motion](/veridian-motion/product).
 
-## Does Veridian Motion include billing or EHR integration?
+## How are patients enrolled?
 
-**No.** The current release is a clinical workflow product — kiosk intake,
-PT review, exercise plans, messaging, and PDF export. It does **not** include
-medical billing, EHR/EMR integration, live video, or partner API connectivity.
-Those may be considered in future phases.
+**Manually**, one at a time, by an **admin** for a **single-facility**
+deployment. Bulk CSV import and JMS sync are **planned** —
+[Roadmap](/veridian-motion/roadmap).
 
-## How do we roll out at a new facility?
+## How do patients sign in?
 
-Follow the [Getting started](/veridian-motion/getting-started) checklist or
-the full [Facility onboarding & integration](/veridian-motion/facility-onboarding)
-guide: BAA, hosting posture, roster connection, kiosk/MDM setup, staff MFA,
-role grants, first enrollment, and first PT review.
+**Patient ID + PIN** (4–12 digits), staff-provisioned. No self sign-up. See
+[Patient portal](/veridian-motion/patient-portal).
 
-## How do inmates sign in?
+## Do patients see AI results immediately?
 
-Inmates do **not** self-register. Staff enroll each patient and hand over an
-**inmate number** and **initial PIN**. See
-[Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow).
-
-## Do inmates see AI results immediately after submit?
-
-No. After submit, the inmate sees only **confirmation** and safety guidance.
-AI output appears only in the staff dashboard until a PT marks the case
-**reviewed**. See [Status and workflow](/veridian-motion/status-and-workflow).
+No. Confirmation and safety guidance only until a PT **approves**. AI generates
+a PT-reviewable plan in the dashboard immediately after processing.
 
 ## How do staff sign in?
 
-Staff use **email, password, and TOTP MFA**. Roles are granted only by an
-admin. See [Roles and access](/veridian-motion/roles-and-access).
+Local **email + password**; **TOTP MFA** available, **enforced per deployment**.
+SSO is **planned** — [Roadmap](/veridian-motion/roadmap).
 
-## What can each staff role do?
+## What staff roles exist?
 
-See the [Role permissions](/veridian-motion/role-permissions) matrix. PTs
-review assigned cases; admins enroll and assign; officers and wardens have
-scoped operational visibility; IT admins manage security settings.
+`pt`, `admin`, `it_admin` only. See [Role permissions](/veridian-motion/role-permissions).
 
-## Is this a live video consult?
+## Is live video, EHR, or API included?
 
-No. Veridian Motion is **asynchronous** — kiosk intake, dashboard review, and
-[secure messaging](/veridian-motion/messaging) inside the app only.
-
-## Who can purchase Veridian Motion?
-
-Jails and correctional facilities that contract with Veridian Health Partners.
-
-## Is assessment data PHI?
-
-Yes. See [Data model & privacy](/veridian-motion/data-model-privacy).
+No. **Planned** or future — [Roadmap](/veridian-motion/roadmap).
 
 ## Is Veridian Motion HIPAA-certified?
 
-**No.** HIPAA-aligned design with BAA required for production PHI. CJIS,
-FedRAMP, MDM, and physical controls are **agency-provided**. See
+**No.** **HIPAA-aligned, not HIPAA-certified.** **Not CJIS-authorized or
+FedRAMP-authorized.** Agency provides hosting, MDM, network, personnel screening.
 [Security overview](/security/overview).
 
-## Does the app diagnose inmates?
+## Does the app diagnose patients?
 
-No. AI output is **non-diagnostic triage support**. PTs retain clinical
-authority. See [AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+No. Non-diagnostic triage; PT approves all plans. Red flags show **see medical
+staff** — not diagnosis. [AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
 
-## Can inmates browse the web from the kiosk?
+## Contact
 
-No. App hardening plus agency **MDM** required. See
-[Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
-
-## How do I contact the team?
-
-[support@veridianhp.com](mailto:support@veridianhp.com) — general support  
-[security@veridianhp.com](mailto:security@veridianhp.com) — security reports  
-[docs@veridianhp.com](mailto:docs@veridianhp.com) — documentation feedback
+[support@veridianhp.com](mailto:support@veridianhp.com) ·
+[security@veridianhp.com](mailto:security@veridianhp.com) ·
+[docs@veridianhp.com](mailto:docs@veridianhp.com)
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    One-page guide for decision-makers.
+    Evaluation guide.
   </Card>
-  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Facility rollout checklist.
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Planned capabilities.
   </Card>
-  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
-    Status labels and handoffs.
-  </Card>
-  <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
-    Permission matrix by role.
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Manual enrollment and deployment.
   </Card>
 </CardGroup>

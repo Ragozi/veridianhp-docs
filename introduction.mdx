@@ -5,96 +5,75 @@ description: "Veridian Health Partners builds Veridian Motion for correctional m
 
 # Veridian Health Partners
 
-**Veridian Health Partners** is the company. We build healthcare technology
-for jails and correctional facilities.
+**Veridian Health Partners** builds healthcare technology for **correctional
+facilities**.
 
 Our **flagship product** is [**Veridian Motion**](/veridian-motion/product) —
-a physical therapy platform for musculoskeletal triage inside custody
-settings. Veridian Motion pairs an **inmate kiosk** (structured intake and
-posture photos) with a **provider dashboard** where licensed PTs review
-AI-assisted triage support and release **PT-reviewed recommendations**. The
-product does not provide a diagnosis; clinical authority stays with the
-licensed PT.
+a physical therapy platform pairing a **patient portal** (kiosk intake) with a
+**provider dashboard** where licensed PTs review AI-assisted non-diagnostic
+triage and **approve** exercise recommendations. Clinical authority stays with
+the licensed PT; the product does not diagnose.
 
 ## Why Veridian Motion
 
-Structured MSK triage and **PT-reviewed bodyweight exercise plans** can improve
-inmate wellbeing and help facilities address complaints before they escalate
-into costlier outcomes — emergency transfers, chronic disability, repeat sick
-calls, and litigation exposure. Veridian Motion is built for that workflow
-inside custody, not as a billing or EHR replacement.
+Structured MSK triage and **PT-approved bodyweight plans** can improve **patient
+wellbeing** and help facilities address complaints before they escalate —
+reducing downstream costs from emergency care, chronic disability, and
+litigation exposure.
 
 <Note>
-  The current release does **not** include live video, EHR integration, partner
-  API connectivity, or medical billing. Those may be considered in future phases.
+  The current release does **not** include SSO, bulk roster import, JMS
+  integration, live video, EHR, or partner API. See
+  [Roadmap](/veridian-motion/roadmap).
 </Note>
 
 <CardGroup cols={2}>
   <Card title="Veridian Motion" icon="person-running" href="/veridian-motion/product">
-    Flagship PT platform — vision, case flow, and documentation map.
+    Flagship PT platform — vision and documentation map.
   </Card>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    One-page guide for jail leaders, PTs, IT, and compliance reviewers.
+    One-page guide for decision-makers.
   </Card>
 </CardGroup>
 
 ## Product portfolio
 
-| Product | Status | Description |
-| --- | --- | --- |
-| **Veridian Motion** | Flagship — active | Correctional PT platform: inmate kiosk + provider dashboard at [veridianhp.com](https://veridianhp.com) |
+| Product | Status |
+| --- | --- |
+| **Veridian Motion** | Flagship — active at [veridianhp.com](https://veridianhp.com) |
 
-## Stack at a glance
+## Built today (summary)
 
-- **Frontend:** TanStack Start (React 19), installable PWA, USWDS-aligned UI
-- **Backend:** Lovable Cloud (Supabase — Postgres, Auth, Storage)
-- **Server logic:** TanStack server functions
-- **AI:** Multi-provider router with automatic failover; all output is
-  non-diagnostic and PT-reviewed before inmate release
-
-## Two surfaces
-
-<CardGroup cols={2}>
-  <Card title="Inmate kiosk" icon="tablet-screen" href="/veridian-motion/inmate-kiosk-flow">
-    Authenticated intake — body map, complaint, four posture photos, status
-    and approved plan after PT review.
-  </Card>
-  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Roster, enrollment, assignment queue, assessment review, messaging, PDF
-    export.
-  </Card>
-</CardGroup>
+- **Patient portal:** Patient ID + PIN, body map, complaint, questionnaire, up to 4 photos
+- **Provider dashboard:** Manual enrollment, assignment queue, review/approve, notes, PDF, messaging
+- **Security:** RBAC, RLS, hash-chained audit log, field-level PHI encryption, brute-force lockout, TOTP MFA (per deployment), PWA hardening
 
 ## Compliance posture
 
-Veridian Motion is designed with HIPAA-aligned controls, but **is not
-HIPAA-certified, CJIS-authorized, or FedRAMP-authorized**. The application
-enforces role-based access, audit logging, and data isolation; **hosting
-agencies** provide CJIS/FedRAMP/GovCloud environments, MDM kiosk lockdown,
-network controls, and personnel screening. See [Security overview](/security/overview).
+**HIPAA-aligned, not HIPAA-certified.** **Not CJIS-authorized or
+FedRAMP-authorized.** The hosting **agency** provides CJIS/FedRAMP/GovCloud
+environment, MDM kiosk lockdown, network controls, and personnel screening.
+See [Security overview](/security/overview).
 
 ## Who these docs are for
 
 | Audience | Start here |
 | --- | --- |
-| **Evaluators / decision-makers** | [For evaluators](/veridian-motion/for-evaluators) |
-| **Administrators rolling out** | [Getting started](/veridian-motion/getting-started) |
+| **Evaluators** | [For evaluators](/veridian-motion/for-evaluators) |
+| **Administrators** | [Getting started](/veridian-motion/getting-started), [Facility onboarding](/veridian-motion/facility-onboarding) |
 | **Physical therapists** | [Provider dashboard](/veridian-motion/provider-dashboard) |
-| **Custody staff** | [Inmate kiosk flow](/veridian-motion/inmate-kiosk-flow) |
+| **Custody staff** | [Patient portal](/veridian-motion/patient-portal) |
 | **IT** | [Deployment and kiosk](/veridian-motion/deployment-and-kiosk) |
-| **Compliance reviewers** | [HIPAA](/security/hipaa), [Data model & privacy](/veridian-motion/data-model-privacy) |
+| **Compliance** | [HIPAA](/security/hipaa), [Data model & privacy](/veridian-motion/data-model-privacy) |
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Facility rollout checklist from pilot to first case.
+    Rollout checklist.
   </Card>
-  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
-    Status labels, transitions, and who acts when.
-  </Card>
-  <Card title="AI and clinical safety" icon="brain" href="/veridian-motion/ai-and-clinical-safety">
-    Multi-LLM routing, non-diagnostic output, red flags.
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Planned and in-progress capabilities.
   </Card>
   <Card title="Request access" icon="envelope" href="https://veridianhp.com/request-access">
     Contact Veridian Health Partners.

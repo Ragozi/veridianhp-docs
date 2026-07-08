@@ -1,0 +1,55 @@
+---
+title: "Roadmap"
+description: "Planned and in-progress Veridian Motion capabilities — not yet shipped."
+---
+
+# Roadmap
+
+This page lists capabilities that are **not yet available** in the current
+release, or are **in progress**. For what is built today, see
+[Platform overview](/veridian-motion/overview) and
+[Patient portal](/veridian-motion/patient-portal).
+
+<Warning>
+  Do not treat items on this page as current product features unless explicitly
+  marked **In progress** and your deployment has been upgraded.
+</Warning>
+
+## In progress
+
+| Capability | Status | Notes |
+| --- | --- | --- |
+| **Multi-facility / multi-tenant isolation** | In progress | Each facility's data will be strictly isolated at the database level (RLS). Today deployments are **single-facility**. |
+
+## Planned
+
+| Capability | Description |
+| --- | --- |
+| **Staff SSO (SAML / OIDC)** | Single sign-on via agency identity providers (e.g., Microsoft Entra ID, Google Workspace, Okta) with MFA and IdP group → Motion role mapping |
+| **Bulk roster provisioning (CSV import)** | Admin upload of a roster CSV to create/update patients and issue PINs at scale |
+| **JMS / booking-system integration** | Live or scheduled sync with jail management systems (e.g., Tyler, Spillman/Motorola Solutions, CentralSquare, Securus) — auto-provision on booking, deactivate on release |
+| **Scheduled SFTP roster feed** | Daily roster file drop for automated reconcile |
+| **EHR / EMR integration** | Automated clinical data exchange with external systems |
+| **Partner API** | Programmatic access for third-party integrations |
+| **Live video consults** | Synchronous telehealth sessions |
+
+## Explicitly out of scope (current release)
+
+- Medical billing / coding workflows
+- AI output shown to patients before PT review
+- Self-service patient or staff sign-up
+- External messaging (SMS, email to patients)
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
+    What is built today.
+  </Card>
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Manual enrollment and deployment today.
+  </Card>
+  <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
+    Evaluation guide using current capabilities only.
+  </Card>
+</CardGroup>
