@@ -1,25 +1,51 @@
 ---
 title: "Roadmap"
-description: "Planned and in-progress Veridian Motion capabilities — not yet shipped."
+description: "Rolling out, planned, and in-progress Veridian Motion capabilities."
 ---
 
 # Roadmap
 
-This page lists capabilities that are **not yet available** in the current
-release, or are **in progress**. For what is built today, see
+This page lists capabilities that are **not yet generally available** in every
+deployment. For what is **built today**, see
 [Platform overview](/veridian-motion/overview) and
 [Patient portal](/veridian-motion/patient-portal).
 
 <Warning>
-  Do not treat items on this page as current product features unless explicitly
-  marked **In progress** and your deployment has been upgraded.
+  Treat **Rolling out** items as available only when your facility has been
+  upgraded and Veridian Health Partners confirms activation. Until then,
+  assume **single-facility** deployments and **basic** secure messaging only.
 </Warning>
 
-## In progress
+## Rolling out
 
-| Capability | Status | Notes |
-| --- | --- | --- |
-| **Multi-facility / multi-tenant isolation** | In progress | Each facility's data will be strictly isolated at the database level (RLS). Today deployments are **single-facility**. |
+Capabilities below are in active rollout. They are **not** documented as
+available on current-capability pages until your deployment is confirmed live.
+
+### Multi-facility isolation and facility oversight
+
+| Item | Detail |
+| --- | --- |
+| **Facility-scoped data isolation** | Each facility's patients and staff are isolated through row-level security scoped by **facility membership** |
+| **Clinical access (`pt`)** | PT/clinician sees clinical data for **their facility only** |
+| **Facility oversight (`warden`)** | Operational visibility only — enrollment counts, confirmation that care workflows are active, and **safety escalations** — **no clinical PHI** (HIPAA minimum-necessary) |
+| **Facility switching** | Staff with access to multiple facilities can **switch between facilities** in the dashboard |
+
+<Note>
+  The **`warden`** role is part of this rollout. It does **not** grant access to
+  assessments, AI output, exercise plans, clinical notes, or message bodies.
+</Note>
+
+### Secure messaging — safety and records
+
+| Item | Detail |
+| --- | --- |
+| **Message safety screening** | Clinician-to-patient messages are screened for custody and safety concerns. Qualifying content is **escalated to facility staff in real time**. **Threats and contraband-related content are blocked** |
+| **Communication Record** | **Admin-only**, **immutable** record of messaging threads, exportable to **PDF** for records or legal use. **Every access** to the Communication Record is **audit-logged** |
+
+<Note>
+  This is **operational safety screening** for secure messaging — not a
+  behavioral-health, psychiatric, or patient-facing emotional-support module.
+</Note>
 
 ## Planned
 
@@ -39,6 +65,7 @@ release, or are **in progress**. For what is built today, see
 - AI output shown to patients before PT review
 - Self-service patient or staff sign-up
 - External messaging (SMS, email to patients)
+- Behavioral-health, psychiatric, mood/wellness, or emotional-support AI modules
 
 ## What's next
 
@@ -46,10 +73,13 @@ release, or are **in progress**. For what is built today, see
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
     What is built today.
   </Card>
-  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
-    Manual enrollment and deployment today.
+  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
+    Current staff roles (`pt`, `admin`, `it_admin`).
   </Card>
-  <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    Evaluation guide using current capabilities only.
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Secure messaging as built today.
+  </Card>
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Manual enrollment and deployment.
   </Card>
 </CardGroup>

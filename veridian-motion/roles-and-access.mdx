@@ -20,6 +20,14 @@ Auth and **row-level security (RLS)** on every table. Staff roles are granted
 See [Role permissions](/veridian-motion/role-permissions) for the full matrix.
 
 <Note>
+  **Rolling out:** multi-facility isolation, facility switching, and a
+  **`warden`** facility-oversight role (operational metrics and safety
+  escalations only — **no clinical PHI**). See
+  [Roadmap](/veridian-motion/roadmap). Built today: `pt`, `admin`, `it_admin`
+  only.
+</Note>
+
+<Note>
   Patient access is separate: patients authenticate with **Patient ID + PIN**,
   not staff roles. Patients see only their own submissions and approved/shared
   content.
