@@ -1,36 +1,40 @@
 ---
 title: "Roles and access"
-description: "Staff roles, TOTP MFA, provisioning, and break-glass MFA reset."
+description: "Staff roles, multi-facility access, TOTP MFA, and provisioning."
 ---
 
 # Roles and access
 
-Veridian Motion uses **role-based access control (RBAC)** backed by Supabase
-Auth and **row-level security (RLS)** on every table. Staff roles are granted
-**only by an admin**.
+Veridian Motion uses **role-based access control (RBAC)** and **row-level
+security (RLS)** on every table, scoped by **facility membership**. Staff
+roles are granted **only by an admin**.
 
-## Staff roles (built today)
+## Multi-facility access
 
-| Role | ID | Access |
+Each facility's **patients and staff** are isolated through RLS. Staff who
+work across sites can **switch between facilities** in the dashboard after an
+admin grants the appropriate roles and facility membership.
+
+| Scope | Who | Access |
 | --- | --- | --- |
-| **Physical Therapist** | `pt` | Assigned assessments — review, approve, notes, messaging |
-| **Administrator** | `admin` | Patient enrollment, assignment, role grant/revoke, MFA reset, roster |
-| **IT Admin** | `it_admin` | Security settings, compliance views, technical administration |
+| **Clinical (`pt`)** | Assigned PT/clinician | Clinical data for **their facility only** |
+| **Operational (`warden`)** | Facility oversight | Counts, workflow activity, safety escalations — **no clinical PHI** |
+| **Admin (`admin`)** | Facility administrator | Full operational + clinical admin for assigned facilities |
 
 See [Role permissions](/veridian-motion/role-permissions) for the full matrix.
 
-<Note>
-  **Rolling out:** multi-facility isolation, facility switching, and a
-  **`warden`** facility-oversight role (operational metrics and safety
-  escalations only — **no clinical PHI**). See
-  [Roadmap](/veridian-motion/roadmap). Built today: `pt`, `admin`, `it_admin`
-  only.
-</Note>
+## Staff roles
+
+| Role | ID | Access |
+| --- | --- | --- |
+| **Physical Therapist** | `pt` | Assigned assessments — review, approve, notes, messaging (facility-scoped) |
+| **Administrator** | `admin` | Enrollment, assignment, roles, MFA reset, roster, Communication Record |
+| **Warden / facility oversight** | `warden` | **Operational only** — no clinical PHI (minimum-necessary) |
+| **IT Admin** | `it_admin` | Security settings, compliance views, technical administration |
 
 <Note>
-  Patient access is separate: patients authenticate with **Patient ID + PIN**,
-  not staff roles. Patients see only their own submissions and approved/shared
-  content.
+  Patient access is separate: patients authenticate with **Patient ID + PIN**.
+  Patients see only their own submissions and approved/shared content.
 </Note>
 
 ## Staff authentication
@@ -38,27 +42,24 @@ See [Role permissions](/veridian-motion/role-permissions) for the full matrix.
 Staff accounts use:
 
 1. **Email + password**
-2. **TOTP MFA** — authenticator app; available on all staff accounts, **enforced
-   per deployment**
+2. **TOTP MFA** — available on all staff accounts, **enforced per deployment**
 
-There is no staff SSO (SAML/OIDC) in the current release. See
-[Roadmap](/veridian-motion/roadmap).
+Staff SSO (SAML/OIDC) is **planned** — see [Roadmap](/veridian-motion/roadmap).
 
 ## Role provisioning
 
 Admins manage roles at **`/staff`**:
 
-- **Grant** — assign `pt`, `admin`, or `it_admin` to a staff account
+- **Grant** — assign `pt`, `admin`, `warden`, or `it_admin`
 - **Revoke** — remove a role; access ends on next session
-- View role assignments and MFA status
+- Configure **facility membership** for multi-facility staff
 
 Role changes are recorded in the **hash-chained audit log**.
 
 ## Break-glass MFA reset
 
-If a staff member loses their authenticator device, an **admin** or
-**it_admin** may **reset MFA**. The user must re-enroll at next sign-in. MFA
-resets are audit-logged.
+An **admin** or **it_admin** may **reset MFA** when a device is lost. The user
+must re-enroll at next sign-in.
 
 ## Patient credentials
 
@@ -68,30 +69,13 @@ resets are audit-logged.
 | **Reset patient PIN** | `admin` | New PIN shown once for handoff |
 | **Sign in** | Patient at kiosk | Access to own submissions only |
 
-Patients cannot change their PIN without staff assistance.
-
-## What the app enforces vs. agency provides
-
-| Control | Veridian Motion | Agency |
-| --- | --- | --- |
-| Role-based UI and API access | Yes | — |
-| RLS on every table | Yes | — |
-| TOTP MFA (per deployment) | Yes | — |
-| Hash-chained audit log | Yes | — |
-| Field-level PHI encryption | Yes | — |
-| Brute-force login lockout | Yes | — |
-| CJIS / FedRAMP hosting | — | Yes |
-| MDM kiosk lockdown | — | Yes |
-| Personnel screening | — | Yes |
-| Physical kiosk supervision | — | Yes |
-
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
     Full permission matrix.
   </Card>
-  <Card title="Security overview" icon="shield-check" href="/security/overview">
-    Compliance posture.
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    Enrollment and deployment.
   </Card>
 </CardGroup>

@@ -14,7 +14,7 @@ today**.
 | Surface | Users | Purpose |
 | --- | --- | --- |
 | **Patient portal (kiosk)** | Patients (Patient ID + PIN) | Body map, complaint, questionnaire, up to 4 photos, status and approved plan |
-| **Provider dashboard** | Staff (`pt`, `admin`, `it_admin`) | Roster, manual enrollment, assignment queue, review/approve, messaging, PDF |
+| **Provider dashboard** | Staff (`pt`, `admin`, `warden`, `it_admin`) | Roster, enrollment, assignment, review/approve, messaging, PDF, multi-facility |
 
 TanStack Start web app (React 19), installable **PWA**, USWDS-aligned UI,
 backed by Supabase (Postgres, Auth, Storage) via Lovable Cloud.
@@ -24,9 +24,7 @@ backed by Supabase (Postgres, Auth, Storage) via Lovable Cloud.
 **Patient portal**
 
 - Sign-in with **Patient ID + PIN** (staff-provisioned)
-- Body-map region selector
-- Complaint text
-- Plain-language **questionnaire**
+- Body-map region selector, complaint, plain-language **questionnaire**
 - Up to **four guided posture photos**
 - Post-submit confirmation; **My plan / progress** status tracking
 - Approved exercise plan and shared PT notes **only after PT approval**
@@ -34,58 +32,59 @@ backed by Supabase (Postgres, Auth, Storage) via Lovable Cloud.
 
 **Provider dashboard**
 
-- Roles: `pt`, `admin`, `it_admin`
-- **Manual** patient enrollment (single-facility)
+- Roles: `pt`, `admin`, `warden`, `it_admin`
+- **Manual** patient enrollment
+- **Multi-facility isolation** — RLS scoped by facility membership; staff can **switch facilities**
+- **`warden`** — operational visibility only (counts, activity, safety escalations) — **no clinical PHI**
 - **Assignment queue** → assessment **review/approve**
-- PT notes
-- **PDF export**
-- **Secure clinician-to-patient messaging** (append-only)
+- PT notes, **PDF export**
+- **Secure messaging** with **safety screening** and admin **Communication Record** (PDF, audit-logged access)
 
 **AI**
 
-- Non-diagnostic triage producing immediate **PT-reviewable exercise plan**
-  (name / why / steps / dosage / cautions)
+- Non-diagnostic triage → immediate **PT-reviewable exercise plan** (name / why / steps / dosage / cautions)
 - Licensed PT retains clinical authority
 
 **Security**
 
-- Role-based access control
-- Row-level security on every table
-- **Hash-chained audit log**
-- **Field-level PHI encryption**
-- **Brute-force login protection**
-- PWA/kiosk hardening
-- Staff **TOTP MFA** (available; enforced per deployment)
+- RBAC, RLS on every table (facility-scoped)
+- Hash-chained audit log, field-level PHI encryption, brute-force lockout
+- PWA/kiosk hardening; staff **TOTP MFA** (enforced per deployment)
+
+## Rolling out
+
+| Capability | Status |
+| --- | --- |
+| **Admin analytics / ROI dashboard** | [Rolling out](/veridian-motion/admin-analytics) — confirm with Veridian |
+
+## Offerings (separate from built platform)
+
+| Offering | Status |
+| --- | --- |
+| **[Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)** | Approach / offering — not a finished certified product claim |
 
 ## What it is not (current release)
 
 - **Not a diagnosis tool**
 - **Not live video, EHR, or partner API** — see [Roadmap](/veridian-motion/roadmap)
-- **Not SSO** — local staff accounts only today
-- **Not bulk roster import or JMS integration** — manual enrollment only
-- **Not multi-facility** — single-facility deployments today; multi-facility
-  isolation and `warden` oversight **rolling out** — see [Roadmap](/veridian-motion/roadmap)
-- **Not HIPAA-certified, CJIS-authorized, or FedRAMP-authorized** — see
-  [Security overview](/security/overview)
+- **Not SSO, bulk roster import, or JMS integration**
+- **Not HIPAA-certified, CJIS-authorized, or FedRAMP-authorized** — see [Security overview](/security/overview)
+- **Not AI behavioral-health or emotional-assessment modules**
 
 ## PT-review authority
 
-Nothing from AI reaches a patient until a licensed PT **approves** the
-assessment. After submit, patients see confirmation and safety guidance only.
+Nothing from AI reaches a patient until a licensed PT **approves** the assessment.
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
-    Patient intake flow.
+  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
+    Multi-facility roles and `warden`.
+  </Card>
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Safety screening and Communication Record.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Planned capabilities.
-  </Card>
-  <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
-    Permission matrix.
-  </Card>
-  <Card title="Security overview" icon="shield-check" href="/security/overview">
-    Security posture.
+    Admin analytics and planned items.
   </Card>
 </CardGroup>

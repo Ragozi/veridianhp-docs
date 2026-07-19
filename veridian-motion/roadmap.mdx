@@ -1,51 +1,24 @@
 ---
 title: "Roadmap"
-description: "Rolling out, planned, and in-progress Veridian Motion capabilities."
+description: "Rolling out and planned Veridian Motion capabilities."
 ---
 
 # Roadmap
 
-This page lists capabilities that are **not yet generally available** in every
-deployment. For what is **built today**, see
-[Platform overview](/veridian-motion/overview) and
-[Patient portal](/veridian-motion/patient-portal).
+This page lists capabilities that are **not yet available** in every
+deployment, or are **planned** for a future release. For what is **built and
+live today**, see [Platform overview](/veridian-motion/overview).
 
 <Warning>
-  Treat **Rolling out** items as available only when your facility has been
-  upgraded and Veridian Health Partners confirms activation. Until then,
-  assume **single-facility** deployments and **basic** secure messaging only.
+  Treat **Rolling out** items as available only when Veridian Health Partners
+  confirms activation for your facility.
 </Warning>
 
 ## Rolling out
 
-Capabilities below are in active rollout. They are **not** documented as
-available on current-capability pages until your deployment is confirmed live.
-
-### Multi-facility isolation and facility oversight
-
-| Item | Detail |
+| Capability | Description |
 | --- | --- |
-| **Facility-scoped data isolation** | Each facility's patients and staff are isolated through row-level security scoped by **facility membership** |
-| **Clinical access (`pt`)** | PT/clinician sees clinical data for **their facility only** |
-| **Facility oversight (`warden`)** | Operational visibility only — enrollment counts, confirmation that care workflows are active, and **safety escalations** — **no clinical PHI** (HIPAA minimum-necessary) |
-| **Facility switching** | Staff with access to multiple facilities can **switch between facilities** in the dashboard |
-
-<Note>
-  The **`warden`** role is part of this rollout. It does **not** grant access to
-  assessments, AI output, exercise plans, clinical notes, or message bodies.
-</Note>
-
-### Secure messaging — safety and records
-
-| Item | Detail |
-| --- | --- |
-| **Message safety screening** | Clinician-to-patient messages are screened for custody and safety concerns. Qualifying content is **escalated to facility staff in real time**. **Threats and contraband-related content are blocked** |
-| **Communication Record** | **Admin-only**, **immutable** record of messaging threads, exportable to **PDF** for records or legal use. **Every access** to the Communication Record is **audit-logged** |
-
-<Note>
-  This is **operational safety screening** for secure messaging — not a
-  behavioral-health, psychiatric, or patient-facing emotional-support module.
-</Note>
+| **Admin analytics / ROI dashboard** | Per-facility, **admin-only** reporting on engagement and outcomes. Separates **measured** metrics from clearly labeled **estimated** cost figures; shows **no individual PHI**; any staff-wellness-related figures appear only in **aggregate / de-identified** form. See [Admin analytics](/veridian-motion/admin-analytics). |
 
 ## Planned
 
@@ -59,27 +32,33 @@ available on current-capability pages until your deployment is confirmed live.
 | **Partner API** | Programmatic access for third-party integrations |
 | **Live video consults** | Synchronous telehealth sessions |
 
-## Explicitly out of scope (current release)
+## Offerings (not a finished product claim)
+
+| Offering | Description |
+| --- | --- |
+| **[Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)** | Veridian Health Partners' **approach** to correctional **employee** wellness — voluntary, confidential movement and recovery content for staff. Not a certified or fully deployed product module; separate from patient care. |
+
+## Explicitly out of scope (public docs)
 
 - Medical billing / coding workflows
 - AI output shown to patients before PT review
 - Self-service patient or staff sign-up
 - External messaging (SMS, email to patients)
-- Behavioral-health, psychiatric, mood/wellness, or emotional-support AI modules
+- **AI behavioral-health, psychiatric, mood, or emotional-assessment modules** that interact with or assess a person psychologically (unreleased prototype — not documented)
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
-    What is built today.
+    Built today.
   </Card>
   <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    Current staff roles (`pt`, `admin`, `it_admin`).
+    Multi-facility roles including `warden`.
   </Card>
   <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Secure messaging as built today.
+    Safety screening and Communication Record.
   </Card>
-  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
-    Manual enrollment and deployment.
+  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
+    Employee wellness offering (approach).
   </Card>
 </CardGroup>

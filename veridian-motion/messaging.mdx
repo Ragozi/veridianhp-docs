@@ -1,17 +1,17 @@
 ---
 title: "Messaging"
-description: "Secure clinician-to-patient messaging — rules, visibility, and workflow."
+description: "Secure clinician-to-patient messaging — safety screening and Communication Record."
 ---
 
 # Messaging
 
 Veridian Motion includes **secure clinician-to-patient messaging** — an
-**append-only** thread between staff and patients inside the application. It
-supports follow-up after assessment without SMS, email, or external links.
+**append-only** thread inside the application. It supports follow-up after
+assessment without SMS, email, or external links.
 
 <Warning>
-  Messaging is **monitored** and **append-only**. It is part of the medical
-  record.
+  Messaging is **monitored**, **append-only**, and part of the **medical
+  record**. Safety screening applies to message content — see below.
 </Warning>
 
 ## Design rules
@@ -20,68 +20,77 @@ supports follow-up after assessment without SMS, email, or external links.
 | --- | --- |
 | **Internal only** | No SMS, email to patients, or external URLs |
 | **Append-only** | Messages cannot be edited or deleted after send |
-| **Monitored** | Displayed as part of the medical record |
-| **No external egress** | No outbound delivery outside the app |
 | **RLS-scoped** | Patients see only their own threads; PTs see assigned patients |
+| **Safety screening** | Messages are screened for custody and safety concerns (see below) |
+
+## Message safety screening
+
+Patient ↔ clinician messages are **screened for safety** before delivery:
+
+| Signal | System behavior |
+| --- | --- |
+| **Self-harm indicators** | **Escalated to facility staff in real time** for follow-up per facility protocol |
+| **Threats or contraband-related content** | **Blocked** — not delivered |
+
+<Note>
+  This is **operational safety screening** for secure messaging in a
+  correctional healthcare workflow — **not** a psychiatric or behavioral-health
+  assessment module and **not** AI emotional support.
+</Note>
+
+## Communication Record
+
+An **admin-only**, **immutable** **Communication Record** captures messaging
+threads for records or legal use:
+
+- Exportable to **PDF**
+- **Every access** to the Communication Record is recorded in the **hash-chained audit log**
+- **`warden`** and **`pt`** roles do **not** access the Communication Record by default
 
 ## Who can message
 
 | Role | Access |
 | --- | --- |
-| **pt** | Message assigned patients |
-| **admin** | Operational messaging per policy — not a substitute for PT review |
-| **Patient** | Read and reply within own threads on the kiosk |
-
-## Where messaging lives
-
-**Staff** — from the **patient record** or **assessment review** screen in
-the provider dashboard.
-
-**Patients** — from the kiosk alongside **My plan / progress**, within active
-care threads.
+| **pt** | Message assigned patients (clinical follow-up) |
+| **admin** | Operational messaging per policy; **Communication Record** access |
+| **Patient** | Read and reply in own threads on the kiosk |
 
 ## Typical workflow
 
 <Steps>
-  <Step title="PT reviews assessment">
-    After intake, the assigned PT reviews the AI plan and intake data.
-  </Step>
-
   <Step title="Clinician sends a message">
-    The PT (or authorized staff) sends a plain-language message in the secure
-    thread. The patient sees the monitored-record notice.
+    The PT sends a plain-language message in the secure thread. Content passes
+    safety screening.
   </Step>
 
   <Step title="Patient responds on kiosk">
     The patient reads and replies during a supervised session. Replies are
-    append-only.
+    screened and append-only.
   </Step>
 
-  <Step title="PT completes follow-up">
-    The PT updates the assessment or plan if needed and **approves** when
-    ready.
+  <Step title="Escalation if needed">
+    If screening triggers escalation, **facility staff** follow custody and
+    clinical protocols — the platform does not dispatch emergency services.
+  </Step>
+
+  <Step title="Records access">
+    An **admin** may export the **Communication Record** to PDF when authorized;
+    access is audit-logged.
   </Step>
 </Steps>
 
 ## What messaging is not
 
 - **Not live chat** — asynchronous only
-- **Not video or phone** — not in the current release
-- **Not external email** — PDF export is a separate staff tool
-- **Not private or ephemeral** — retained per agency policy
+- **Not video or phone**
+- **Not external email**
+- **Not a psychological or mood assessment** tool
 
 ## Audit
 
-Message sends are recorded in the **hash-chained audit log** (action type and
-resource ID — not message body). See
-[Data model & privacy](/veridian-motion/data-model-privacy).
-
-<Note>
-  **Rolling out:** message safety screening (custody/safety escalation, blocked
-  threats/contraband content) and an admin-only **Communication Record** (PDF
-  export, audit-logged access). Not yet documented as available in all
-  deployments — see [Roadmap](/veridian-motion/roadmap).
-</Note>
+Message sends and **Communication Record** access are recorded in the
+**hash-chained audit log** (action type and resource ID — not message body in
+audit payload). See [Data model & privacy](/veridian-motion/data-model-privacy).
 
 ## What's next
 
@@ -89,7 +98,7 @@ resource ID — not message body). See
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
     Review and approve workflow.
   </Card>
-  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
-    Kiosk session and supervision.
+  <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
+    Who can access messaging tools.
   </Card>
 </CardGroup>

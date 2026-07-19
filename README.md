@@ -10,12 +10,14 @@ introduction.mdx
 veridian-motion/
   for-evaluators.mdx
   product.mdx
+  officer-staff-wellness.mdx            Employee wellness offering (not patient care)
   overview.mdx
-  roadmap.mdx                           Planned / in-progress capabilities
+  roadmap.mdx                           Rolling out and planned capabilities
   getting-started.mdx
   facility-onboarding.mdx               Manual enrollment, deployment runbook
   patient-portal.mdx                    Patient kiosk intake
   provider-dashboard.mdx
+  admin-analytics.mdx                   Admin ROI dashboard (rolling out)
   status-and-workflow.mdx
   messaging.mdx
   roles-and-access.mdx

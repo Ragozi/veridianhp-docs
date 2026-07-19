@@ -17,7 +17,8 @@ facilities**:
 - **Patient portal (kiosk)** — body map, complaint, questionnaire, up to four
   posture photos (Patient ID + PIN)
 - **Provider dashboard** — assignment queue, assessment review/**approve**, PT
-  notes, PDF export, secure messaging
+  notes, PDF export, secure messaging with **safety screening** and **Communication Record**
+- **Multi-facility isolation** — facility-scoped RLS; **`warden`** operational oversight (no clinical PHI); facility switching for authorized staff
 
 AI produces **non-diagnostic**, **PT-reviewable** exercise plans (name / why /
 steps / dosage / cautions). A licensed PT **approves** before anything reaches
@@ -70,14 +71,15 @@ on-site licensed PTs.
 
 ## Rolling out
 
-Confirm with Veridian Health Partners before treating these as live in your
-deployment. Details on [Roadmap](/veridian-motion/roadmap).
-
 | Capability | Status |
 | --- | --- |
-| Multi-facility isolation + facility switching | Rolling out |
-| `warden` facility-oversight role (no clinical PHI) | Rolling out |
-| Messaging safety screening + Communication Record (PDF) | Rolling out |
+| Admin analytics / ROI dashboard | [Rolling out](/veridian-motion/admin-analytics) |
+
+## Offerings
+
+| Offering | Status |
+| --- | --- |
+| [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness) | Approach — not a finished product claim |
 
 ## Limitations
 
@@ -92,7 +94,9 @@ deployment. Details on [Roadmap](/veridian-motion/roadmap).
 
 | Control | In app |
 | --- | --- |
-| RBAC (`pt`, `admin`, `it_admin`) | Yes |
+| RBAC (`pt`, `admin`, `warden`, `it_admin`) | Yes |
+| Multi-facility RLS + facility switching | Yes |
+| Messaging safety screening + Communication Record | Yes |
 | RLS on every table | Yes |
 | Hash-chained audit log | Yes |
 | Field-level PHI encryption | Yes |

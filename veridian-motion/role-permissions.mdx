@@ -5,16 +5,10 @@ description: "What each staff role can and cannot do in Veridian Motion."
 
 # Role permissions
 
-Veridian Motion has **three staff roles** plus separate **patient** kiosk
-access. This page reflects permissions **as built today** for a
-**single-facility** deployment.
-
-<Note>
-  **Rolling out:** multi-facility RLS, facility switching, and **`warden`**
-  (operational visibility only — no clinical PHI). Until your deployment is
-  confirmed, use this matrix for `pt`, `admin`, and `it_admin` only. See
-  [Roadmap](/veridian-motion/roadmap).
-</Note>
+Veridian Motion uses **four staff roles** plus separate **patient** kiosk
+access. Permissions are enforced through the application and **row-level
+security (RLS)** scoped by **facility membership**. Staff with access to
+multiple facilities can **switch between facilities** in the dashboard.
 
 <Note>
   Staff require **email + password** and **TOTP MFA** (enforced per deployment).
@@ -23,44 +17,58 @@ access. This page reflects permissions **as built today** for a
 
 ## Permission matrix
 
-| Action | pt | admin | it_admin |
-| --- | --- | --- | --- |
-| Sign in to dashboard | Yes | Yes | Yes |
-| View patient roster | Assigned + policy | Yes | No |
-| Enroll patient (manual) | No | Yes | No |
-| Reset patient PIN | No | Yes | No |
-| View assignment queue | Assigned | Yes | No |
-| Assign case to PT | No | Yes | No |
-| Review / approve assessment | Yes (assigned) | No | No |
-| View AI output / red flags | Yes (assigned) | Yes | No |
-| Edit and release exercise plan | Yes (assigned) | No | No |
-| PT notes | Yes (assigned) | No | No |
-| Export assessment PDF | Yes | Yes | No |
-| Clinician-to-patient messaging | Yes (assigned) | Policy | No |
-| Grant / revoke staff roles | No | Yes | No |
-| Break-glass MFA reset | No | Yes | Yes |
-| Audit log | No | Yes | Yes |
-| Security / compliance settings | No | Limited | Yes |
+| Action | pt | admin | warden | it_admin |
+| --- | --- | --- | --- | --- |
+| Sign in to dashboard | Yes | Yes | Yes | Yes |
+| Switch facility (multi-facility) | If granted | If granted | If granted | If granted |
+| View patient roster (clinical) | Assigned | Yes | **No** | No |
+| Enroll patient (manual) | No | Yes | No | No |
+| Reset patient PIN | No | Yes | No | No |
+| View assignment queue (clinical) | Assigned | Yes | **No** | No |
+| Assign case to PT | No | Yes | No | No |
+| Review / approve assessment | Yes (assigned) | No | **No** | No |
+| View AI output / clinical red flags | Yes (assigned) | Yes | **No** | No |
+| Edit and release exercise plan | Yes (assigned) | No | **No** | No |
+| PT notes (clinical) | Yes (assigned) | No | **No** | No |
+| Export assessment PDF | Yes | Yes | **No** | No |
+| Clinician-to-patient messaging | Yes (assigned) | Policy | **No** | No |
+| View operational metrics (counts, activity) | No | Yes | **Yes** | No |
+| View safety escalations (operational) | No | Yes | **Yes** | No |
+| Communication Record (PDF) | No | Yes | **No** | No |
+| Admin analytics dashboard | No | Yes* | **No** | No |
+| Grant / revoke staff roles | No | Yes | No | No |
+| Break-glass MFA reset | No | Yes | No | Yes |
+| Audit log | No | Yes | Policy | Yes |
+| Security / compliance settings | No | Limited | No | Yes |
+
+\*Admin analytics / ROI dashboard is **rolling out** — see [Admin analytics](/veridian-motion/admin-analytics).
 
 ## Role summaries
 
 ### Physical Therapist (`pt`)
 
-Primary **clinical user**. Reviews **assigned** assessments: red flags, intake,
-AI exercise plan (name / why / steps / dosage / cautions). Edits, **approves**,
-adds notes, messages patients, exports PDFs. Cannot enroll patients or grant
-roles.
+Primary **clinical user** for a **facility**. Reviews **assigned**
+assessments only — red flags, intake, AI exercise plan. Edits, **approves**,
+notes, messages patients, exports PDFs. Clinical data scoped to **their
+facility** via RLS.
 
 ### Administrator (`admin`)
 
-**Operational owner** for the facility. Manually enrolls patients, assigns
-cases, resets PINs, grants/revokes roles, performs MFA reset, views roster and
-audit logs. Does not replace PT clinical sign-off unless also holding `pt`.
+**Operational and clinical administration** for a facility. Enrolls patients,
+assigns cases, resets PINs, grants roles, MFA reset, roster, audit logs,
+**Communication Record** access, and (when enabled) **admin analytics**.
+
+### Warden / facility oversight (`warden`)
+
+**Operational visibility only** — enrollment counts, confirmation that care
+workflows are active, and **safety escalations**. **No clinical PHI**: no
+assessments, AI output, exercise plans, clinical notes, message bodies, or
+patient-identifiable roster views. HIPAA **minimum-necessary** by design.
 
 ### IT Admin (`it_admin`)
 
 **Technical administration** — security settings, compliance tooling, MFA
-break-glass with admin. No clinical review or patient enrollment by default.
+break-glass. No clinical review or patient enrollment by default.
 
 ## Patient (kiosk — not a staff role)
 
@@ -76,12 +84,18 @@ break-glass with admin. No clinical review or patient enrollment by default.
 | Self sign-up or change PIN | **No** |
 | Access other patients' data | **No** |
 
+## Multi-facility isolation
+
+- Each facility's **patients and staff data** are isolated through **RLS** by
+  **facility membership**
+- **`pt`** clinicians see clinical data for **their facility only** (per assignment)
+- Cross-facility patient access is denied at the database layer
+
 ## Enforcement
 
 1. **Application UI and API** — role checks on staff actions
-2. **Row-level security** — patient and staff queries scoped at the database;
-   cross-patient access denied even if UI is bypassed
-3. **Hash-chained audit log** — sensitive actions recorded without PHI in payload
+2. **Row-level security** — facility-scoped queries; cross-patient and cross-facility access denied even if UI is bypassed
+3. **Hash-chained audit log** — sensitive actions recorded without PHI in payload; **Communication Record** access is audit-logged
 
 ## What's next
 
@@ -89,7 +103,7 @@ break-glass with admin. No clinical review or patient enrollment by default.
   <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
     MFA and provisioning.
   </Card>
-  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Rollout checklist.
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Safety screening and Communication Record.
   </Card>
 </CardGroup>

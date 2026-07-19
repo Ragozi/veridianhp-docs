@@ -45,8 +45,16 @@ litigation exposure.
 ## Built today (summary)
 
 - **Patient portal:** Patient ID + PIN, body map, complaint, questionnaire, up to 4 photos
-- **Provider dashboard:** Manual enrollment, assignment queue, review/approve, notes, PDF, messaging
-- **Security:** RBAC, RLS, hash-chained audit log, field-level PHI encryption, brute-force lockout, TOTP MFA (per deployment), PWA hardening
+- **Provider dashboard:** Manual enrollment, assignment queue, review/approve, notes, PDF, messaging with **safety screening** and **Communication Record**
+- **Multi-facility:** Facility-scoped RLS, facility switching, **`warden`** operational role (no clinical PHI)
+- **Security:** RBAC, hash-chained audit log, field-level PHI encryption, brute-force lockout, TOTP MFA (per deployment), PWA hardening
+
+## Offerings
+
+[**Officer & Staff Wellness**](/veridian-motion/officer-staff-wellness) — Veridian
+Health Partners' **approach** to correctional **employee** wellness (voluntary,
+confidential, non-diagnostic). Separate from the patient platform; not a finished
+product certification claim.
 
 ## Compliance posture
 
@@ -71,6 +79,9 @@ See [Security overview](/security/overview).
 <CardGroup cols={2}>
   <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
     Rollout checklist.
+  </Card>
+  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
+    Employee wellness offering.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
     Planned and in-progress capabilities.

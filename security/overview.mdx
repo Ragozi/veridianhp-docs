@@ -21,7 +21,8 @@ and what **hosting agencies** must provide.
 
 - **Staff:** Email + password; **TOTP MFA** (available; **enforced per deployment**); RBAC
 - **Patients:** Patient ID + PIN; access limited to own data via RLS
-- **Roles:** `pt`, `admin`, `it_admin` — granted only by admin
+- **Roles:** `pt`, `admin`, `warden`, `it_admin` — granted only by admin; **facility-scoped** via RLS
+- **Multi-facility:** staff may switch facilities; data isolated per facility membership
 - **Brute-force lockout** on patient and staff login identifiers
 
 ### Data protection
@@ -62,13 +63,8 @@ and what **hosting agencies** must provide.
 ## Audit and monitoring
 
 Sensitive actions write to a **hash-chained, append-only audit log** (enroll,
-assign, review, notes, roles, MFA reset, messages). Application logs exclude
-PHI. Audit entries use resource IDs and action types — not clinical content.
-
-<Note>
-  **Rolling out:** audit-logged access to the admin-only **Communication
-  Record** for messaging. See [Roadmap](/veridian-motion/roadmap).
-</Note>
+assign, review, notes, roles, MFA reset, messages, **Communication Record
+access**). Application logs exclude PHI.
 
 ## Incident response
 
