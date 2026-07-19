@@ -20,8 +20,10 @@ and may reset MFA (break-glass). See
 ## Patient roster
 
 A **searchable, filterable patient roster** lists manually enrolled patients
-for this **single-facility** deployment. Staff open patient records for
-assessment history, messaging, and review.
+for the **selected facility**. Staff with multi-facility access **switch
+facilities** before opening clinical records. **`warden`** users do not receive
+clinical roster views — operational metrics only. See
+[Role permissions](/veridian-motion/role-permissions).
 
 ## Enroll patient (manual)
 
@@ -76,10 +78,16 @@ occurs server-side.
 
 ### Secure messaging
 
-**Clinician-to-patient messaging** — append-only thread, monitored, no
-external egress. See [Messaging](/veridian-motion/messaging). Message safety
-screening and the admin **Communication Record** are **rolling out** — see
-[Roadmap](/veridian-motion/roadmap).
+**Clinician-to-patient messaging** — append-only, with **safety screening**
+(self-harm escalated to facility staff in real time; threats/contraband
+blocked). Admins may access the immutable **Communication Record** (PDF export;
+every access audit-logged). See [Messaging](/veridian-motion/messaging).
+
+### Admin analytics (rolling out)
+
+A per-facility, **admin-only** engagement and outcomes dashboard — **measured**
+vs **estimated** cost figures, no individual PHI. Confirm availability with
+Veridian. See [Admin analytics](/veridian-motion/admin-analytics).
 
 ## What's next
 

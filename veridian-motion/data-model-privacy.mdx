@@ -1,81 +1,62 @@
 ---
 title: "Data model & privacy"
-description: "Core entities, PHI boundaries, RLS, encryption, and audit log."
+description: "Core entities, PHI boundaries, multi-facility RLS, encryption, and audit log."
 ---
 
 # Data model & privacy
 
-Veridian Motion uses Supabase Postgres with **row-level security (RLS) on
-every table**, **field-level PHI encryption**, and a **hash-chained audit
-log**.
+Veridian Motion uses **row-level security (RLS) on every table**, scoped by
+**facility membership**, plus **field-level PHI encryption** and a
+**hash-chained audit log**.
 
-**HIPAA-aligned, not HIPAA-certified.** A **BAA** is required with the
-health provider before production PHI.
+**HIPAA-aligned, not HIPAA-certified.** A **BAA** is required before production PHI.
 
 ## Core entities
 
 | Entity | Description | PHI |
 | --- | --- | --- |
-| **Patient** | Manually enrolled — Patient ID, internal ID | Yes |
-| **Assessment** | One portal submission (body map, complaint, questionnaire, photos, AI plan) | Yes |
-| **Photos** | Up to four posture images per assessment | Yes |
+| **Patient** | Manually enrolled — Patient ID, facility membership | Yes |
+| **Assessment** | Portal submission (body map, complaint, questionnaire, photos, AI plan) | Yes |
+| **Photos** | Up to four posture images | Yes |
 | **Questionnaire responses** | Plain-language intake answers | Yes |
-| **Exercise plan** | AI draft and PT-approved plan (name, why, steps, dosage, cautions) | Yes |
+| **Exercise plan** | AI draft and PT-approved plan | Yes |
 | **PT notes** | Clinical notes; optional share-with-patient flag | Yes |
-| **Messages** | Append-only clinician ↔ patient thread | Yes |
-| **Staff roles** | `pt`, `admin`, `it_admin` assignments | Metadata |
-| **Audit log** | Hash-chained action record (no PHI in payload) | No PHI in logs |
+| **Messages** | Append-only clinician ↔ patient thread (safety-screened) | Yes |
+| **Communication Record** | Admin-only immutable messaging export | Yes (controlled access) |
+| **Staff roles** | `pt`, `admin`, `warden`, `it_admin` + facility membership | Metadata |
+| **Audit log** | Hash-chained actions (no PHI in payload) | No PHI in logs |
 
-## Data flow
+## Multi-facility isolation
 
-```
-Manual enroll (admin) → Patient ID + PIN
-       ↓
-Patient portal → Assessment (body map, complaint, questionnaire, photos)
-       ↓
-Server AI → PT-reviewable exercise plan (dashboard only)
-       ↓
-Assign (admin) → PT review → Approve
-       ↓
-Patient view → Approved plan + shared notes only
-```
+- Each facility's **patients and staff** are isolated through **RLS** by
+  **facility membership**
+- **`pt`** — clinical data for assigned patients **within their facility**
+- **`warden`** — **operational** data only (counts, activity, escalations) — **no clinical PHI**
+- **`admin`** — operational and clinical admin per facility assignment
+- Staff with multiple facilities **switch context** in the dashboard; queries
+  remain facility-scoped
 
-## Row-Level Security
+## Row-Level Security (summary)
 
 | Actor | Access |
 | --- | --- |
-| **Patient** | Own record, own assessments/messages; plans **only after PT approval**; notes **only if shared** |
-| **PT** | Assigned assessments and related patients |
-| **Admin** | Roster, assignment, enrollment, roles for this facility |
+| **Patient** | Own record only; plans after PT approval; notes if shared |
+| **PT** | Assigned patients **in their facility** |
+| **Admin** | Roster, assignment, enrollment, Communication Record (facility-scoped) |
+| **Warden** | Operational metrics and escalations — **no clinical PHI** |
 | **IT admin** | Security/compliance views per role |
 
-Cross-patient access is denied at the database layer.
+## Communication Record
 
-<Note>
-  **Multi-facility isolation, `warden` oversight, and Communication Record
-  access controls are rolling out** — not assumed in all deployments today.
-  Current production: **single-facility**. See [Roadmap](/veridian-motion/roadmap).
-</Note>
-
-## Photos
-
-- Stored in a **private** bucket
-- Authorized staff access only; patients do not receive storage URLs for other
-  patients' images
-
-## Session and client storage
-
-- **No PII in browser `localStorage`** on kiosk
-- Patient session state is **in-memory**; idle auto-reset clears it
+- **Admin-only**, **immutable** export of messaging threads (PDF)
+- **Every access** audit-logged in the hash-chained log
+- Not available to **`warden`** or **`pt`** by default
 
 ## Audit log
 
-Hash-chained, append-only entries for: enroll, assign, review/approve, notes,
-roles, MFA reset, messages. **No PHI in audit payload.**
-
-## Messaging
-
-Append-only, monitored, internal only — part of the medical record under RLS.
+Hash-chained entries for: enroll, assign, review/approve, notes, roles, MFA
+reset, messages, **Communication Record access**. No clinical content in audit
+payload.
 
 ## Agency vs. application
 
@@ -89,10 +70,10 @@ Append-only, monitored, internal only — part of the medical record under RLS.
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
-    BAA framing.
+  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
+    Safety screening and Communication Record.
   </Card>
-  <Card title="Security overview" icon="shield-check" href="/security/overview">
-    Full posture summary.
+  <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
+    Multi-facility and `warden`.
   </Card>
 </CardGroup>

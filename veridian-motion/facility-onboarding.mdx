@@ -13,9 +13,10 @@ populations**, each handled differently.
     **Physical therapists, administrators, and IT admins** are named users tied
     to the facility workforce.
 
-    **Built today:** Local **email + password** accounts with **TOTP MFA**
-    (available; **enforced per deployment**). Roles (`pt`, `admin`, `it_admin`)
-    are granted by an administrator.
+    **Built today:** Local **email + password** with **TOTP MFA** (enforced per
+    deployment). Roles include `pt`, `admin`, `warden` (operational only), and
+    `it_admin`. **Multi-facility** staff can switch facilities; RLS isolates each
+    facility's data.
 
     **Planned:** Single sign-on via agency identity provider (SAML/OIDC). See
     [Roadmap](/veridian-motion/roadmap).
@@ -23,7 +24,7 @@ populations**, each handled differently.
 
   <Tab title="Patients">
     Patients are **not** federated identities. Staff **manually enroll** each
-    patient for the **single facility** deployment. Patients sign in with a
+    patient for their **facility** (manual, one at a time). Patients sign in with
     **Patient ID + PIN** on a locked, **MDM-managed** kiosk.
 
     Patient onboarding is **manual provisioning**, not SSO. Bulk CSV import and
@@ -33,7 +34,7 @@ populations**, each handled differently.
 
 ## Provisioning patient accounts (built today)
 
-Today, enrollment is **manual and single-facility**:
+Today, enrollment is **manual** (one patient at a time per facility):
 
 <Steps>
   <Step title="Admin enrolls one patient">
@@ -80,20 +81,24 @@ deployment). An **admin** grants roles at `/staff`:
 
 | Role | Purpose |
 | --- | --- |
-| `pt` | Assessment review, approve plans, notes, messaging |
-| `admin` | Patient enrollment, case assignment, role grant/revoke, MFA reset |
+| `pt` | Clinical review, approve plans, notes, messaging (facility-scoped) |
+| `admin` | Enrollment, assignment, roles, MFA reset, Communication Record |
+| `warden` | **Operational only** — counts, activity, safety escalations; **no clinical PHI** |
 | `it_admin` | Security settings, compliance views, technical administration |
 
 See [Roles and access](/veridian-motion/roles-and-access) and
 [Role permissions](/veridian-motion/role-permissions).
 
-## Multi-facility / tenancy
+## Multi-facility isolation
 
-<Warning>
-  **Multi-facility isolation and the `warden` oversight role are rolling out.**
-  Current deployments are **single-facility** with roles `pt`, `admin`, and
-  `it_admin` only. See [Roadmap](/veridian-motion/roadmap) for rollout status.
-</Warning>
+Veridian Motion **isolates each facility's patients and staff** through **RLS**
+scoped by **facility membership**:
+
+- **`pt`** clinicians see clinical data for **their facility only**
+- **`warden`** sees **operational** metrics and safety escalations — **no clinical PHI** (HIPAA minimum-necessary)
+- Authorized staff can **switch between facilities** in the dashboard
+
+See [Roles and access](/veridian-motion/roles-and-access).
 
 ## Deployment
 
@@ -129,13 +134,14 @@ See [Security overview](/security/overview) and [HIPAA](/security/hipaa).
     Execute facility agreement and BAA. Confirm hosting decision.
   </Step>
 
-  <Step title="Provision the facility">
-    Veridian Health Partners provisions the **single-facility** deployment.
+  <Step title="Provision facilities">
+    Veridian Health Partners provisions facility tenant(s) and **facility-scoped**
+    configuration. Multi-facility agencies receive isolated RLS per site.
   </Step>
 
   <Step title="Connect staff identity">
     Create **local staff accounts** with **TOTP MFA** (per deployment policy).
-    Assign roles (`pt`, `admin`, `it_admin`).
+    Assign roles (`pt`, `admin`, `warden`, `it_admin`) and facility membership.
   </Step>
 
   <Step title="Enroll patients manually">
