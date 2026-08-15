@@ -7,85 +7,75 @@ description: "Common questions about Veridian Health Partners and Veridian Motio
 
 ## What is Veridian Motion?
 
-Veridian Health Partners' **flagship AI-assisted, clinician-reviewed
-correctional wellness platform** — patient portal (kiosk) plus provider
-dashboard, with licensed programs (MSK, Precision Rehab, medical intake, Chess
-Wellness). See [Veridian Motion](/veridian-motion/product).
-
-## How are patients enrolled?
-
-By an **admin** — **manually** or via **mass import**. Program seats are
-enforced when a patient is enrolled in a licensed program. **JMS** sync is
-**planned** — [Roadmap](/veridian-motion/roadmap).
-
-## How do patients sign in?
-
-**Patient ID + PIN** (4–12 digits), staff-provisioned. No self sign-up. See
-[Patient portal](/veridian-motion/patient-portal).
-
-## Do patients see AI results immediately?
-
-No. Confirmation and safety guidance only until a clinician **approves**. AI
-generates a clinician-reviewable plan in the dashboard after processing.
-
-## How do staff sign in?
-
-Local **email + password**; **TOTP MFA** available, **enforced per deployment**.
-SSO is **planned** — [Roadmap](/veridian-motion/roadmap).
-
-## What staff roles exist?
-
-`pt`, `admin`, `officer`, `warden`, `it_admin`, and `wellness_participant`.
-**`officer` / `warden`** are operational (no clinical PHI by default).
-`wellness_participant` is for the employee wellness portal. See
-[Role permissions](/veridian-motion/role-permissions).
-
-## Does Veridian Motion support multiple facilities?
-
-Yes. Each facility's patients and staff are isolated via **row-level security**
-scoped by facility membership. Multi-facility staff can **switch facilities**.
-See [Roles and access](/veridian-motion/roles-and-access).
+A **correctional wellness platform** from Veridian Health Partners. **MSK
+Assessment & PT review** is the flagship; licensed programs include Precision
+Rehab, Medical Intake, and Chess Wellness. See
+[Veridian Motion](/veridian-motion/product).
 
 ## What programs are available?
 
-MSK Assessment & PT review, [Precision Rehab](/veridian-motion/precision-rehab),
-[Medical intake](/veridian-motion/medical-intake), and
-[Chess Wellness](/veridian-motion/chess-wellness) — license-gated and
-feature-flagged. See [Programs & licensing](/veridian-motion/programs-and-licensing).
+| Program | Docs |
+| --- | --- |
+| MSK Assessment & PT review | [Patient portal](/veridian-motion/patient-portal) |
+| Precision Rehab | [Precision Rehab](/veridian-motion/precision-rehab) |
+| Medical Intake | [Medical Intake](/veridian-motion/medical-intake) |
+| Chess Wellness | [Chess Wellness](/veridian-motion/chess-wellness) |
 
-## Is live video, EHR, or API included?
+All are **non-diagnostic** and (where clinical) **clinician-reviewed**. Modules
+are feature-flagged and **rolling out** — confirm activation for your facility.
 
-No. **Planned** — [Roadmap](/veridian-motion/roadmap).
+## How does program licensing / subscription work?
+
+**Contract-first** (no credit cards). Each facility gets a per-program
+**entitlement** (seat cap + contract price). Patients get per-seat
+**enrollments**. Access requires both; enrolling past seats is blocked. Monthly
+billing snapshots support invoicing. This is **program licensing**, not medical
+claims/CPT coding. See [Programs & licensing](/veridian-motion/programs-and-licensing).
+
+## How are patients enrolled?
+
+By an **admin** — manually or via **bulk roster import**. Then enroll into
+licensed programs within seat caps. **JMS** sync is **planned**.
+
+## How do patients sign in?
+
+**Patient ID + PIN**, staff-provisioned. **Terms acceptance** is required at
+first login. See [Terms & patient consent](/veridian-motion/terms-and-consent).
+
+## Do patients see AI results immediately?
+
+No. Confirmation and safety guidance only until a clinician **approves**.
+
+## What staff roles exist?
+
+`pt`, `admin`, `it_admin`, `officer`, `warden`, `bh_clinician`,
+`wellness_participant`. **`warden` / `officer`** are operational (no clinical
+PHI by default). `bh_clinician` is reserved — see Behavioral Health below.
+
+## Why isn't Behavioral Health available?
+
+Behavioral Health remains **gated pending legal/clinical clearance** under the
+**Illinois WOPR Act**. There is **no public BH product page**. It appears only
+as a planned / pending-legal line on the [Roadmap](/veridian-motion/roadmap).
 
 ## Is Veridian Motion HIPAA-certified?
 
 **No.** **HIPAA-aligned, not HIPAA-certified.** **Not CJIS-authorized or
-FedRAMP-authorized.** Agency provides hosting, MDM, network, personnel screening.
-Current Lovable builds use **synthetic data only**.
+FedRAMP-authorized.** Current builds use **synthetic data only**.
 [Security overview](/security/overview).
 
 ## Does the app diagnose patients?
 
 No. Non-diagnostic triage and education; clinicians approve clinical materials.
-Red flags show **see medical staff** — not diagnosis.
 [AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+
+## Is multi-facility supported?
+
+**Rolling out** — facility-scoped RLS and switching when activated. Until then,
+assume single-facility. [Roadmap](/veridian-motion/roadmap).
 
 ## Contact
 
 [support@veridianhp.com](mailto:support@veridianhp.com) ·
 [security@veridianhp.com](mailto:security@veridianhp.com) ·
 [docs@veridianhp.com](mailto:docs@veridianhp.com)
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
-    Evaluation guide.
-  </Card>
-  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Planned capabilities.
-  </Card>
-  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
-    Entitlements and seats.
-  </Card>
-</CardGroup>

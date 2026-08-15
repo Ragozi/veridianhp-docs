@@ -23,11 +23,13 @@ and what **hosting agencies** must provide.
 - **Staff:** Email + password; **TOTP MFA** (enforced per deployment via
   `MFA_ENFORCED`); RBAC
 - **Patients:** Patient ID + PIN; access limited to own data via RLS
-- **Roles:** `pt`, `admin`, `officer`, `warden`, `it_admin`,
-  `wellness_participant` — granted only by admin
-- **Multi-facility:** RLS by facility membership; staff may switch facilities
+- **Roles:** `pt`, `admin`, `officer`, `warden`, `it_admin`, `bh_clinician`
+  (reserved — BH not public), `wellness_participant` — granted only by admin
+- **Multi-facility (rolling out):** RLS by facility membership; staff may switch
+  facilities when enabled — confirm activation before assuming live
 - **Brute-force lockout** on patient and staff login identifiers
 - **Program entitlements:** seat-capped enrollments before program access
+- **Terms acceptance:** versioned patient consent logged at first login
 
 ### Data protection
 

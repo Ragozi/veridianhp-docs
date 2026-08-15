@@ -1,6 +1,6 @@
 ---
 title: "Welcome"
-description: "Veridian Health Partners builds Veridian Motion — AI-assisted, clinician-reviewed correctional wellness."
+description: "Veridian Health Partners builds Veridian Motion — a correctional wellness platform."
 ---
 
 # Veridian Health Partners
@@ -8,28 +8,23 @@ description: "Veridian Health Partners builds Veridian Motion — AI-assisted, c
 **Veridian Health Partners** builds healthcare technology for **correctional
 facilities**.
 
-Our **flagship product** is [**Veridian Motion**](/veridian-motion/product) —
-an **AI-assisted, clinician-reviewed correctional wellness platform**. Patients
-use a locked kiosk; staff use an authenticated dashboard. Clinical authority
-stays with licensed clinicians; the product does **not** diagnose. Modules are
-**feature-flagged and additive**.
-
-## Why Veridian Motion
-
-Structured MSK triage, self-directed rehab education, medical intake safety
-screens, and facility-safe cognitive programs can improve **patient wellbeing**
-and help facilities address needs before they escalate — while keeping humans
-in the loop.
+Our **flagship product** is [**Veridian Motion**](/veridian-motion/product) — a
+**correctional wellness platform**. **MSK Assessment & PT review** is the
+flagship clinical workflow; licensed programs include Precision Rehab, Medical
+Intake, and Chess Wellness. Clinical authority stays with licensed clinicians;
+the product does **not** diagnose. Modules are **feature-flagged** and
+documented as **built / rolling out** — not generally available for real PHI
+until compliance migration.
 
 <Note>
-  **SSO, JMS, EHR, partner API, and live video** remain on the
-  [Roadmap](/veridian-motion/roadmap). Current Lovable builds use **synthetic
-  data only**.
+  **SSO, JMS, EHR, partner API, and live video** remain
+  [planned](/veridian-motion/roadmap). **Multi-facility** is **rolling out**.
+  Current Lovable builds use **synthetic data only**.
 </Note>
 
 <CardGroup cols={2}>
   <Card title="Veridian Motion" icon="person-running" href="/veridian-motion/product">
-    Flagship platform — programs and documentation map.
+    Platform overview and documentation map.
   </Card>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
     One-page guide for decision-makers.
@@ -38,11 +33,10 @@ in the loop.
 
 ## Built today (summary)
 
-- **Patient portal:** Patient ID + PIN; MSK intake; medical intake; Precision Rehab; Chess Wellness
-- **Provider dashboard:** Enrollment (manual + mass import), programs/licensing, review/approve, messaging with safety screening + Communication Record, admin analytics
-- **Multi-facility:** Facility-scoped RLS, facility switching, `officer` / `warden` operational roles (no clinical PHI)
-- **Officer & Staff Wellness:** Separate confidential employee portal
-- **Security:** RBAC, RLS, hash-chained audit log, field-level PHI encryption (AES-256-GCM), brute-force lockout, TOTP MFA, PWA hardening
+- **Patient portal:** Terms gate, Patient ID + PIN, MSK intake, Medical Intake, Precision Rehab, Chess Wellness
+- **Provider dashboard:** Enrollment (manual + bulk import), program licensing/seats, review panels, messaging, analytics
+- **Programs & licensing:** Contract-first entitlements and seat caps
+- **Security:** RBAC, RLS, hash-chained audit log, field-level PHI encryption, TOTP MFA, PWA hardening
 
 ## Compliance posture
 
@@ -68,10 +62,10 @@ See [Security overview](/security/overview).
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
     Built today — technical scope.
   </Card>
-  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Planned enhancements and pilot gates.
+  <Card title="Programs" icon="grid-2" href="/veridian-motion/precision-rehab">
+    Precision Rehab, Medical Intake, Chess.
   </Card>
-  <Card title="Request access" icon="envelope" href="https://veridianhp.com/request-access">
-    Contact Veridian Health Partners.
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Rolling out and planned items.
   </Card>
 </CardGroup>

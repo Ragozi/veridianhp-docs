@@ -1,79 +1,81 @@
 ---
 title: "Roadmap"
-description: "Planned Veridian Motion enhancements and compliance migration gates."
+description: "Rolling out and planned Veridian Motion capabilities."
 ---
 
 # Roadmap
 
-For what is **built and live today**, see
-[Platform overview](/veridian-motion/overview). This page lists **planned**
-enhancements and **pilot readiness** work.
+For what is **built today** (pre-production / synthetic data), see
+[Platform overview](/veridian-motion/overview). This page lists **rolling out**
+and **planned** items. Nothing here is **generally available** until Veridian
+Health Partners confirms activation for your facility.
 
 <Warning>
-  Do not treat roadmap items as available in production until Veridian Health
-  Partners confirms activation for your facility.
+  Do not treat roadmap or rolling-out items as production-ready for real PHI
+  until compliance migration and facility activation are confirmed.
 </Warning>
 
-## Planned product enhancements
+## Rolling out
 
-| Area | Planned work |
+| Capability | Description |
 | --- | --- |
-| **Chess Wellness** | Facility/pod leaderboard; local two-player; finish facility reporting; roll Korenman's full curriculum into interactive lessons; optional Stockfish upgrade (separate process, GPLv3) |
-| **Precision Rehab** | Region library + video |
-| **Medical intake** | Workflow decision + clinical sign-off (Dominic Marchiafava, PA-C) |
+| **Bulk roster provisioning (CSV / mass import)** | Admin bulk import of staff and patients — **built** in the admin console; confirm activation per deployment |
+| **Multi-facility isolation** | Facility-scoped RLS, facility switching, and **`warden`** operational oversight (no clinical PHI) |
+| **Program licensing & facility billing** | Entitlements, seat caps, enrollments, immutable monthly snapshots, invoice-support export — see [Programs & licensing](/veridian-motion/programs-and-licensing) |
+| **Precision Rehab** | Feature-flagged self-directed MSK rehab — see [Precision Rehab](/veridian-motion/precision-rehab) |
+| **Medical Intake** | Feature-flagged one-time medical profile + red-flag engine — see [Medical Intake](/veridian-motion/medical-intake) |
+| **Chess Wellness** | Feature-flagged cognitive wellness program — see [Chess Wellness](/veridian-motion/chess-wellness) |
+| **Terms & patient consent** | Versioned Terms acceptance at first login — see [Terms & patient consent](/veridian-motion/terms-and-consent) |
+| **Messaging safety + Communication Record** | Safety screening and admin-only immutable PDF export (audit-logged access) |
+| **Admin analytics** | Per-facility engagement / value reporting (measured vs estimated; no individual PHI) |
+
+## Planned
+
+| Capability | Description |
+| --- | --- |
 | **Staff SSO (SAML / OIDC)** | Agency IdP sign-on with MFA and group → role mapping |
 | **JMS / booking-system integration** | Live or scheduled sync (e.g., Tyler, Spillman/Motorola, CentralSquare, Securus) |
 | **Scheduled SFTP roster feed** | Daily roster file drop for automated reconcile |
 | **EHR / EMR integration** | Automated clinical data exchange |
 | **Partner API** | Programmatic third-party access |
 | **Live video consults** | Synchronous telehealth sessions |
-
-<Note>
-  **Mass import** of staff and patients, **program entitlements**, **admin
-  analytics**, multi-facility RLS, messaging safety screening, and Communication
-  Record are documented as **built today** — not roadmap. See
-  [Programs & licensing](/veridian-motion/programs-and-licensing) and
-  [Platform overview](/veridian-motion/overview).
-</Note>
+| **Chess enhancements** | Facility/pod leaderboard; local two-player; fuller Korenman curriculum; optional Stockfish (GPLv3, separate process) |
+| **Precision Rehab enhancements** | Region library + video |
+| **Medical Intake enhancements** | Workflow decision + clinical sign-off |
+| **Behavioral Health (pending legal)** | Not publicly documented as a product. Gated pending legal/clinical clearance against the **Illinois WOPR Act**. Role key `bh_clinician` may exist in the platform for future use — **no public BH module docs** |
 
 ## Compliance migration (gate to real deployment)
 
 Current Lovable builds use **synthetic data only**. Before any real-PHI pilot:
 
 1. Migrate to **owned Supabase** (HIPAA add-on + BAA) and a **compliant host**
-   (AWS commercial + BAA; GovCloud/CJIS only if a facility requires it)
-2. Move the messaging **AI screener** to BAA-covered or self-hosted infrastructure
+2. Move messaging AI screener to BAA-covered or self-hosted infrastructure
 3. Finalize **Terms / MSA / BAA** with counsel
-4. Obtain an **IRB determination** under program-evaluation framing (when required)
+4. Obtain an **IRB determination** when required (program-evaluation framing)
 5. Obtain clinical sign-offs for enabled programs
 
-Until then, positioning remains **"HIPAA-aligned"** and **"wellness program"** —
-never "certified," "IRB-approved," or "clinically proven."
+Positioning remains **"HIPAA-aligned"** and **"wellness program"** — never
+"certified," "IRB-approved," or "clinically proven."
 
 ## Explicitly out of scope (public docs)
 
-- Medical **coding / insurance billing** workflows (program seat licensing is separate)
+- Medical **claims / CPT coding** workflows (program licensing ≠ medical billing)
 - AI output shown to patients before clinician review
 - Self-service patient or staff sign-up
 - External messaging (SMS, email to patients) except allowlisted staff PDF send where configured
 - Patient-vs-patient chat or matchmaking
-- **AI behavioral-health, psychiatric, mood, or emotional-assessment modules**
-  that interact with or assess a person psychologically — **not documented** in
-  public docs (disabled / pending legal clearance; Illinois WOPR Act sensitivity)
+- **Public Behavioral Health / AI emotional-assessment product pages** — WOPR-sensitive; see Planned only
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
-    Built today.
+    Built today (pre-production).
+  </Card>
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
   </Card>
   <Card title="Security overview" icon="shield-check" href="/security/overview">
-    Compliance posture and pilot gates.
-  </Card>
-  <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
-    Cognitive program (built).
-  </Card>
-  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
-    Rehab program (built).
+    Compliance posture.
   </Card>
 </CardGroup>

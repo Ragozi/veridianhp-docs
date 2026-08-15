@@ -1,41 +1,64 @@
 ---
 title: "Precision Rehab"
-description: "Self-directed MSK rehab from the Precision Manual Therapy Model — course, guided self-treatment, and daily movement routines."
+description: "Self-directed MSK rehab — course, 9-step self-treatment with safety screen, Daily Movement routines, PT review panel."
 ---
 
 # Precision Rehab
 
-**Precision Rehab** is a feature-flagged program that delivers
-**self-directed musculoskeletal rehab** based on Leon Cherbukhovsky, PT,
-DPT's **Precision Manual Therapy Model**. It is **non-diagnostic**: patients
-learn self-care and log their own data; licensed clinicians retain review
-authority.
+**Precision Rehab** is a feature-flagged program for **self-directed
+musculoskeletal rehab** based on a licensed PT's method (Leon Cherbukhovsky,
+PT, DPT — Precision Manual Therapy Model). It is **educational and
+non-diagnostic**; a **PT review panel** surfaces logged activity for human
+review.
 
 <Note>
-  Controlled by the **`PRECISION_REHAB_ENABLED`** feature flag (on by default
-  in current builds). Facility access also requires an active
-  [program entitlement](/veridian-motion/programs-and-licensing) and patient
-  enrollment.
+  Controlled by **`PRECISION_REHAB_ENABLED`**. Facility access also requires an
+  active [program entitlement](/veridian-motion/programs-and-licensing) and
+  patient enrollment. Built / rolling out — confirm activation for your
+  deployment.
 </Note>
 
-## What patients get
+## Course and competency
 
-| Track | Detail |
+| Step | Detail |
 | --- | --- |
-| **Course** | Lessons and quick checks → **competency check** → printable **Certificate of Competency** |
-| **Guided self-treatment** | The **9-step method**: comparable sign (0–10) → localize → fiber direction → position → contact → dose → retest → load |
-| **Safety screen** | If any safety flag is checked, the session **stops** and routes the patient toward an **in-person sick call** |
-| **Daily Movement routines** | Four equipment-free correctional programs: Cell Mobility, Morning Reset, Prolonged-Sitting Reset, Evening Recovery |
+| **Lessons + quick checks** | Short course with quiz-style checks |
+| **Competency check** | Confirms understanding before certification |
+| **Certificate of Competency** | Printable certificate on successful completion |
 
-## Clinician review
+## Guided self-treatment (9-step method)
+
+1. Pick a **comparable sign** (0–10)
+2. **Localize**
+3. **Fiber direction**
+4. **Position**
+5. **Contact**
+6. **Dose**
+7. **Retest**
+8. **Load**
+
+### Safety screen
+
+If **any** safety / red-flag item is checked, the session **stops** and routes
+the patient toward an **in-person sick call**. See
+[AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+
+## Daily Movement routines
+
+Equipment-free correctional programs:
+
+- **Cell Mobility**
+- **Morning Reset**
+- **Prolonged-Sitting Reset**
+- **Evening Recovery**
+
+## PT review panel
 
 On the patient page, clinicians see:
 
 - Logged self-treatment sessions
 - Routine completions
 - Space for **review notes**
-
-Nothing here replaces licensed clinical judgment or diagnoses a condition.
 
 ## Offline capability
 
@@ -46,11 +69,7 @@ external API calls where it matters for session continuity.
 
 - **Not a diagnosis** or therapy substitute for hands-on care
 - **Not** AI emotional or behavioral-health assessment
-- **Not** a claim of specific clinical outcomes or dollar savings
-
-## Attribution
-
-Clinical model and curriculum credit: **Leon Cherbukhovsky, PT, DPT**.
+- **Not** clinically proven / IRB-approved claims
 
 ## What's next
 
@@ -58,8 +77,8 @@ Clinical model and curriculum credit: **Leon Cherbukhovsky, PT, DPT**.
   <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
     Entitlements and seat caps.
   </Card>
-  <Card title="Medical intake" icon="notes-medical" href="/veridian-motion/medical-intake">
-    Layer-1 medical profile and red flags.
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Review panel on the patient page.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
     Region library and video planned.

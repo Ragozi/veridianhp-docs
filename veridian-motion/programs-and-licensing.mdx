@@ -5,64 +5,74 @@ description: "Contract-first program entitlements, seat caps, enrollments, and i
 
 # Programs & licensing
 
-Veridian Motion uses a shared **program / entitlement / billing spine** so every
-licensed program (MSK assessment, Precision Rehab, Chess Wellness, and others)
-is gated the same way: **contract-first**, **seat-capped**, and
+Facilities **subscribe to programs** under contract. Veridian Motion enforces a
+shared licensing spine so every program (MSK, Precision Rehab, Chess Wellness,
+and others) is gated the same way: **contract-first**, **seat-capped**, and
 **invoice-supportable**.
 
 <Warning>
-  This is **facility program licensing** — not medical coding, insurance
-  billing, or credit-card checkout. Facilities license programs under contract;
-  the platform meters enrollments and produces **invoice-support** artifacts.
+  This is **program licensing / contract billing** — **not** medical claims,
+  CPT coding, or credit-card checkout. Confirm entitlement activation with
+  Veridian for your deployment (built / rolling out — not generally available
+  production).
 </Warning>
 
 ## How access works
 
-A patient can use a program only when **both** are true:
+A patient can open a program only when **both** are true:
 
 1. The facility has an **active program entitlement**, and
-2. The patient has an **active program enrollment** within the purchased
+2. The patient has an **active enrollment (seat)** within the purchased
    **seat cap**
 
-Enrolling past purchased seats is **blocked** (`assertSeatAvailable`).
+Enrolling past purchased seats is **blocked**.
+
+## Per-facility entitlements
+
+| Field | Detail |
+| --- | --- |
+| **Program** | Which catalog program is licensed |
+| **Seat cap** | Maximum concurrent / purchased patient seats |
+| **Contract price** | Price agreed in the facility contract |
+| **On / off** | Admin can enable or disable access per entitlement |
 
 ## Admin console capabilities
 
 | Capability | Detail |
 | --- | --- |
-| **Programs & Access** | License on/off, seats, price per facility entitlement |
+| **Programs & Access** | License on/off, seats, price |
 | **Pricing calculator** | Support for quoting seat / program configurations |
-| **Mass import** | Bulk import of staff and patients (roster provisioning) |
+| **Bulk roster import** | Import staff and patients |
 | **Enrollment** | Per-patient and **bulk** program enrollment |
-| **Billing snapshots** | Immutable monthly snapshots + **invoice PDF** support |
-| **Legal forms** | Admin console for versioned terms (see [Legal terms](/veridian-motion/legal-terms)) |
+| **Billing snapshots** | Immutable monthly snapshots + **invoice-support** export |
+| **Legal forms** | Versioned Terms console — see [Terms & patient consent](/veridian-motion/terms-and-consent) |
 
 ## Conceptual data model
 
 | Entity | Purpose |
 | --- | --- |
-| **programs** | Catalog of licensable programs |
-| **program_entitlements** | Per-facility license, seat cap, price |
-| **program_enrollments** | Per-patient seat |
-| **program_billing_snapshots** | Immutable monthly metering |
-| **program_usage_events** | Usage events for metering / audit |
+| `programs` | Catalog of licensable programs |
+| `program_entitlements` | Per-facility license, seat cap, price |
+| `program_enrollments` | Per-patient seat |
+| `program_billing_snapshots` | Immutable monthly metering |
+| `program_usage_events` | Usage events for metering / audit |
+
+All tables are **RLS-scoped**. See
+[Data model & privacy](/veridian-motion/data-model-privacy).
 
 ## Feature flags
 
-Programs also sit behind application feature flags (additive; off until cleared
-for a build). Current public flags include:
-
 | Flag | Typical default (current builds) |
 | --- | --- |
-| `PRECISION_REHAB_ENABLED` | On |
-| `CHESS_ENABLED` | On |
-| `MEDICAL_INTAKE_ENABLED` | On |
+| `PRECISION_REHAB_ENABLED` | On (confirm per deployment) |
+| `CHESS_ENABLED` | On (confirm per deployment) |
+| `MEDICAL_INTAKE_ENABLED` | On (confirm per deployment) |
 | `MFA_ENFORCED` | Per deployment |
-| Behavioral-health modules | **Not documented / not enabled** in public releases |
+| Behavioral Health | **Not enabled / not publicly documented** (WOPR) |
 
 ## What it is not
 
-- **Not** medical billing or coding workflows
+- **Not** medical claims or CPT coding
 - **Not** self-serve credit-card checkout
 - **Not** a guarantee of any specific ROI or savings figure
 
@@ -75,10 +85,10 @@ for a build). Current public flags include:
   <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
     Licensed cognitive program.
   </Card>
-  <Card title="Admin analytics" icon="chart-line" href="/veridian-motion/admin-analytics">
-    Engagement and value reporting.
+  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
+    License programs during rollout.
   </Card>
-  <Card title="Legal terms" icon="file-contract" href="/veridian-motion/legal-terms">
-    Versioned patient terms acceptance.
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Rolling out status.
   </Card>
 </CardGroup>

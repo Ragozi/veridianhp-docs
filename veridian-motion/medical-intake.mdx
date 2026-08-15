@@ -1,35 +1,35 @@
 ---
-title: "Medical intake"
-description: "One-time medical profile with clinician red-flag review — non-diagnostic attestation."
+title: "Medical Intake"
+description: "One-time medical profile with rules-based clinician red-flag review — non-diagnostic."
 ---
 
-# Medical intake
+# Medical Intake
 
-**Medical intake** is a feature-flagged, one-time **medical profile** patients
-complete on the portal. A server-side **red-flag engine** highlights risk
-signals for clinician review. The profile is **non-diagnostic** and includes an
-exact non-diagnostic attestation.
+**Medical Intake** is a feature-flagged, **one-time medical profile** patients
+self-complete on the portal. A **rules-based red-flag engine** surfaces review
+prompts for the clinician. The profile is **non-diagnostic**.
 
 <Note>
-  Controlled by the **`MEDICAL_INTAKE_ENABLED`** feature flag (on by default in
-  current builds). Clinical model credit: **Dominic Marchiafava, PA-C**.
+  Controlled by **`MEDICAL_INTAKE_ENABLED`**. Clinical model credit: Dominic
+  Marchiafava, PA-C. Built / rolling out — confirm activation for your
+  deployment.
 </Note>
 
 ## What patients complete
 
 | Section | Examples |
 | --- | --- |
-| **History** | Relevant medical history items |
+| **History** | Relevant medical history |
 | **Medications** | Current meds plus a **side-effect screen** |
 | **Allergies** | Including severe allergy flags |
 | **Surgical** | Recent surgery indicators |
 | **Social** | Activity and sleep context |
 
-**Emergency contact is omitted** for facility security reasons.
+**Emergency contact is intentionally omitted** for facility security.
 
 ## Red-flag engine
 
-After submission, the platform raises clinician-facing triggers such as:
+After submission, the platform raises clinician-facing review prompts such as:
 
 - Cardiac / cancer / clot / fracture history signals
 - Statin / steroid / new-medication signals
@@ -47,19 +47,14 @@ mark the intake **reviewed**.
 - **Not** behavioral-health or psychological assessment
 - **Not** a substitute for facility sick-call protocols
 
-## Why it exists
-
-A Layer-1 medical safety screen that complements MSK assessment and Precision
-Rehab — organizing the patient's own reported data for human clinician review.
-
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
-    Self-directed MSK rehab program.
-  </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Patient page and review workflow.
+    Review + red flags on the patient page.
+  </Card>
+  <Card title="AI and clinical safety" icon="brain" href="/veridian-motion/ai-and-clinical-safety">
+    Non-diagnostic safety gates.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
     Workflow decisions and clinical sign-off.

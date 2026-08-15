@@ -11,25 +11,19 @@ veridian-motion/
   for-evaluators.mdx
   product.mdx
   overview.mdx
-  programs-and-licensing.mdx            Entitlements, seats, invoice-support
+  roadmap.mdx
+  getting-started.mdx
+  facility-onboarding.mdx
+  programs-and-licensing.mdx
+  terms-and-consent.mdx
   precision-rehab.mdx
   medical-intake.mdx
   chess-wellness.mdx
-  officer-staff-wellness.mdx            Employee wellness portal
-  roadmap.mdx                           Planned enhancements + compliance migration
-  getting-started.mdx
-  facility-onboarding.mdx
+  officer-staff-wellness.mdx
   patient-portal.mdx
   provider-dashboard.mdx
   admin-analytics.mdx
-  legal-terms.mdx
-  status-and-workflow.mdx
-  messaging.mdx
-  roles-and-access.mdx
-  role-permissions.mdx
-  ai-and-clinical-safety.mdx
-  data-model-privacy.mdx
-  deployment-and-kiosk.mdx
+  ...
 security/*.mdx
 docs.json
 ```
@@ -38,7 +32,7 @@ docs.json
 
 | Product | Status |
 | --- | --- |
-| **Veridian Motion** | Flagship — patient portal + provider dashboard + licensed programs at [veridianhp.com](https://veridianhp.com) |
+| **Veridian Motion** | Flagship correctional wellness platform — MSK triage + licensed programs |
 
 ## Local preview
 

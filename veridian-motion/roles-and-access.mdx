@@ -1,24 +1,9 @@
 ---
 title: "Roles and access"
-description: "Staff roles, multi-facility access, TOTP MFA, and provisioning."
+description: "Staff roles, MFA, provisioning, and multi-facility access (rolling out)."
 ---
 
 # Roles and access
-
-## Multi-facility access
-
-Each facility's patients and staff are isolated via **row-level security**
-scoped by **facility membership**. Staff granted membership in more than one
-facility **switch facilities** in the dashboard before working with that site's
-data.
-
-| Access type | Who | What they see |
-| --- | --- | --- |
-| **Clinical (`pt`)** | Licensed clinicians | Clinical data for **their facility only** (assignments) |
-| **Admin (`admin`)** | Facility administrators | Roster, enrollment, programs, analytics (facility-scoped) |
-| **Operational (`officer`, `warden`)** | Facility oversight | Counts, workflow activity, safety escalations — **no clinical PHI** by default |
-| **IT (`it_admin`)** | Technical admins | Security / compliance tooling |
-| **Employee wellness (`wellness_participant`)** | Staff participants | Confidential officer wellness portal only |
 
 ## Staff authentication
 
@@ -29,22 +14,58 @@ data.
 ## Patient authentication
 
 - **Patient ID + PIN** (staff-provisioned)
-- No personal email required from the patient; synthetic identifiers may be used
-  under the hood for auth plumbing
+- **Terms acceptance** required at first login — see
+  [Terms & patient consent](/veridian-motion/terms-and-consent)
 - No self sign-up
+
+## Staff roles
+
+| Role | Role key | Access summary |
+| --- | --- | --- |
+| **Physical therapist** | `pt` | Clinical review for assigned patients (MSK, rehab, medical intake) |
+| **Administrator** | `admin` | Roster, licensing/seats, enrollment, analytics, Communication Record |
+| **IT admin** | `it_admin` | Security / compliance tooling |
+| **Officer** | `officer` | Operational support — **no clinical PHI by default** |
+| **Warden** | `warden` | Operational oversight only — **no clinical PHI** |
+| **BH clinician** | `bh_clinician` | Reserved — **BH product not publicly available** (WOPR) |
+| **Wellness participant** | `wellness_participant` | Officer & Staff Wellness portal only |
+
+Full matrix: [Role permissions](/veridian-motion/role-permissions).
+
+## Multi-facility access (rolling out)
+
+When enabled for a deployment, each facility's patients and staff are isolated
+via **RLS** scoped by **facility membership**. Staff granted membership in more
+than one facility **switch facilities** before working with that site's data.
+
+| Access type | Who | What they see |
+| --- | --- | --- |
+| **Clinical (`pt`)** | Licensed clinicians | Clinical data for **their facility only** (assignments) |
+| **Admin (`admin`)** | Facility administrators | Roster, enrollment, programs, analytics (facility-scoped) |
+| **Operational (`officer`, `warden`)** | Facility oversight | Counts, activity, safety escalations — **no clinical PHI** |
+| **IT (`it_admin`)** | Technical admins | Security / compliance tooling |
+| **Employee wellness** | `wellness_participant` | Confidential officer wellness portal |
+
+Until multi-facility is confirmed for your site, assume **single-facility**
+operation. See [Roadmap](/veridian-motion/roadmap).
 
 ## Provisioning
 
 Admins:
 
-- **Grant** roles (`pt`, `admin`, `officer`, `warden`, `it_admin`,
-  `wellness_participant`)
-- Configure **facility membership** for multi-facility staff
-- **Mass-import** staff and patients where enabled
+- **Grant** roles listed above
+- Configure **facility membership** when multi-facility is enabled
+- **Bulk-import** staff and patients where enabled
 - Assign **program enrollments** within seat caps
 
-See [Role permissions](/veridian-motion/role-permissions) and
-[Programs & licensing](/veridian-motion/programs-and-licensing).
+See [Programs & licensing](/veridian-motion/programs-and-licensing) and
+[Facility onboarding](/veridian-motion/facility-onboarding).
+
+## Chess instructor assignment
+
+Staff with appropriate policy (`pt` and/or `admin`) can **assign Chess Wellness
+activities** to enrolled patients. Engagement metrics appear on
+[Admin analytics](/veridian-motion/admin-analytics) — not as individual clinical PHI.
 
 ## What's next
 
@@ -52,10 +73,10 @@ See [Role permissions](/veridian-motion/role-permissions) and
   <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
     Full permission matrix.
   </Card>
-  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
-    Employee wellness portal.
-  </Card>
   <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
     Enrollment and deployment.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Multi-facility rolling out.
   </Card>
 </CardGroup>

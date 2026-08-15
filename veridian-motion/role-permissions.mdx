@@ -1,118 +1,118 @@
 ---
 title: "Role permissions"
-description: "What each staff role can and cannot do in Veridian Motion."
+description: "What each staff role can and cannot do across Veridian Motion programs."
 ---
 
 # Role permissions
 
 Veridian Motion uses **role-based access** plus **row-level security (RLS)**
-scoped by **facility membership**. Staff with access to multiple facilities can
-**switch between facilities** in the dashboard.
+scoped by **facility membership**. Permissions below describe the **built**
+matrix; multi-facility switching and some program modules are **rolling out** —
+confirm activation for your deployment.
 
 <Note>
-  Staff require **email + password** and **TOTP MFA** (enforced per deployment
-  via `MFA_ENFORCED`). Roles are granted only by an **admin**.
+  Staff require **email + password** and **TOTP MFA** (enforced per deployment).
+  Roles are granted only by an **admin**.
 </Note>
 
-## Staff roles (public docs)
+## Staff roles
 
 | Role key | Purpose |
 | --- | --- |
-| `pt` | Clinical review and patient messaging |
-| `admin` | Enrollment, programs/licensing, roles, analytics, Communication Record |
-| `officer` | Facility operational support per policy — **no clinical PHI by default** |
-| `warden` | Operational oversight only — **no clinical PHI** (minimum-necessary) |
+| `pt` | Clinical review (MSK, Precision Rehab, Medical Intake as applicable) |
+| `admin` | Enrollment, program licensing/seats, roles, analytics, Communication Record |
 | `it_admin` | Security / compliance administration |
+| `officer` | Facility operational support — **no clinical PHI by default** |
+| `warden` | Operational oversight only — **no clinical PHI** (minimum-necessary) |
+| `bh_clinician` | Reserved for future Behavioral Health workflows — **BH product not publicly available** (WOPR pending) |
 | `wellness_participant` | Officer & Staff Wellness portal participant (employee wellness) |
 
 Patient kiosk access is separate (Patient ID + PIN) — not a staff role.
 
-## Permission matrix (core actions)
+## Permission matrix (core)
 
-| Action | pt | admin | officer | warden | it_admin |
-| --- | --- | --- | --- | --- | --- |
-| Sign in to dashboard | Yes | Yes | Yes | Yes | Yes |
-| Switch facility (multi-facility) | If granted | If granted | If granted | If granted | If granted |
-| View patient roster (clinical) | Assigned | Yes | **No** | **No** | No |
-| Enroll patient / mass import | No | Yes | No | No | No |
-| Manage program entitlements / seats | No | Yes | No | No | No |
-| Enroll patient in programs | No | Yes | No | No | No |
-| Reset patient PIN | No | Yes | No | No | No |
-| Review / approve MSK assessment | Yes (assigned) | No | **No** | **No** | No |
-| View AI / clinical red flags | Yes (assigned) | Yes | **No** | **No** | No |
-| Precision Rehab review panel | Yes (assigned) | Policy | **No** | **No** | No |
-| Medical intake clinician review | Yes (assigned) | Policy | **No** | **No** | No |
-| Chess instructor assignment | Policy | Yes | **No** | **No** | No |
-| Clinician-to-patient messaging | Yes (assigned) | Policy | **No** | **No** | No |
-| Communication Record (PDF) | No | Yes | **No** | **No** | No |
-| Admin analytics dashboard | No | Yes | **No** | **No** | No |
-| View operational metrics / escalations | No | Yes | Policy | **Yes** | No |
-| Grant / revoke staff roles | No | Yes | No | No | No |
-| Break-glass MFA reset | No | Yes | No | No | Yes |
-| Audit log | No | Yes | No | Policy | Yes |
-| Security / compliance settings | No | Limited | No | No | Yes |
+| Action | pt | admin | officer | warden | it_admin | bh_clinician |
+| --- | --- | --- | --- | --- | --- | --- |
+| Sign in to dashboard | Yes | Yes | Yes | Yes | Yes | Yes |
+| Switch facility (when multi-facility enabled) | If granted | If granted | If granted | If granted | If granted | If granted |
+| View patient roster (clinical) | Assigned | Yes | **No** | **No** | No | Policy* |
+| Enroll patient / bulk roster import | No | Yes | No | No | No | No |
+| Manage program entitlements / seats | No | Yes | No | No | No | No |
+| Enroll patient in programs | No | Yes | No | No | No | No |
+| Review / approve MSK assessment | Yes (assigned) | No | **No** | **No** | No | No |
+| Precision Rehab review panel | Yes (assigned) | Policy | **No** | **No** | No | No |
+| Medical Intake clinician review | Yes (assigned) | Policy | **No** | **No** | No | No |
+| Chess instructor assignment | Policy | Yes | **No** | **No** | No | No |
+| Chess engagement metrics (admin analytics) | No | Yes | **No** | **No** | No | No |
+| Clinician-to-patient messaging | Yes (assigned) | Policy | **No** | **No** | No | Policy* |
+| Communication Record (PDF) | No | Yes | **No** | **No** | No | No |
+| Admin analytics dashboard | No | Yes | **No** | **No** | No | No |
+| View operational metrics / escalations | No | Yes | Policy | **Yes** | No | No |
+| Grant / revoke staff roles | No | Yes | No | No | No | No |
+| Break-glass MFA reset | No | Yes | No | No | Yes | No |
+| Audit log | No | Yes | No | Policy | Yes | No |
+| Security / compliance settings | No | Limited | No | No | Yes | No |
+
+\* `bh_clinician` permissions apply only if/when a Behavioral Health module is
+legally cleared and enabled for a deployment. **No public BH product docs.**
 
 ## Role summaries
 
 ### Physical therapist (`pt`)
 
-Primary **clinical user** for a facility. Reviews assigned assessments,
-Precision Rehab session logs, and medical-intake flags as applicable. Approves
-plans, notes, messages patients. Clinical data scoped by facility membership
-and assignment.
+Primary **clinical user**. Reviews assigned MSK assessments, Precision Rehab
+session logs / routine completions, and Medical Intake flags. Approves plans,
+notes, messages patients. May assign Chess activities per facility policy.
 
 ### Administrator (`admin`)
 
-**Operational owner** — enrollment (manual and mass import), program
-entitlements and seats, bulk program enrollment, roles, MFA reset, Communication
-Record, admin analytics, legal-forms console, billing snapshots.
+**Operational owner** — bulk roster import, program entitlements and seats,
+bulk/per-patient enrollment, roles, MFA reset, Communication Record, admin
+analytics, legal-forms console, billing snapshots.
 
 ### Officer (`officer`)
 
 **Facility operational support** per agency policy. Does **not** receive clinical
-PHI by default (assessments, AI output, plans, message bodies).
+PHI by default.
 
-### Warden / facility oversight (`warden`)
+### Warden (`warden`)
 
-**Operational visibility only** — enrollment counts, confirmation that care
-workflows are active, and **safety escalations**. **No clinical PHI.** HIPAA
-**minimum-necessary** by design.
+**Operational visibility only** — enrollment counts, workflow activity, safety
+escalations. **No clinical PHI.** HIPAA **minimum-necessary** by design.
 
 ### IT admin (`it_admin`)
 
 **Technical administration** — security settings, compliance tooling, MFA
-break-glass. No clinical review or patient enrollment by default.
+break-glass.
+
+### BH clinician (`bh_clinician`)
+
+Role key reserved for future BH workflows. **Behavioral Health is not a public
+product** pending WOPR legal clearance — see [Roadmap](/veridian-motion/roadmap).
 
 ### Wellness participant (`wellness_participant`)
 
 Access to the confidential [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)
-portal as an **employee** participant — not a patient clinical role.
+portal as an **employee** participant.
 
 ## Patient (kiosk)
 
 | Action | Allowed |
 | --- | --- |
+| Accept Terms at first login | Yes (required) |
 | Sign in with Patient ID + PIN | Yes |
-| Complete MSK / medical intake when enabled | Yes |
+| Complete MSK / Medical Intake when enabled | Yes |
 | Use enrolled programs (rehab, chess, …) | Yes |
 | View approved plan after clinician approval | Yes |
 | Reply in secure messaging threads | Yes |
 | View AI output before clinician approval | **No** |
 | Self sign-up | **No** |
 
-## Multi-facility isolation
-
-- Each facility's patients and staff data are isolated through **RLS** by
-  **facility membership** (`private.has_role()`, `private.is_facility_member()`)
-- Clinicians see clinical data for **their facility only** (per assignment)
-- Cross-facility patient access is denied at the database layer
-
 ## Enforcement
 
-1. **Application UI and API** — role checks on staff actions
+1. **Application UI and API** — role checks
 2. **Row-level security** — facility-scoped queries
-3. **Hash-chained audit log** — sensitive actions; Communication Record access
-   is audit-logged
+3. **Hash-chained audit log** — sensitive actions; Communication Record access logged
 4. **Program entitlement checks** — seat-capped enrollments
 
 ## What's next

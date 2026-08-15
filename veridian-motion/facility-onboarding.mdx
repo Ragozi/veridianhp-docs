@@ -1,6 +1,6 @@
 ---
 title: "Facility onboarding & integration"
-description: "How facilities enroll patients, license programs, configure staff, and deploy Veridian Motion."
+description: "License programs, enroll patients, configure staff, and deploy Veridian Motion."
 ---
 
 # Facility onboarding & integration
@@ -15,151 +15,112 @@ populations**, each handled differently.
 
     **Built today:** Local **email + password** with **TOTP MFA** (enforced per
     deployment). Roles include `pt`, `admin`, `officer`, `warden`, `it_admin`,
-    and `wellness_participant`. **Multi-facility** staff can switch facilities;
-    RLS isolates each facility's data.
+    `bh_clinician` (reserved — BH not public), and `wellness_participant`.
 
-    **Planned:** Single sign-on via agency identity provider (SAML/OIDC). See
-    [Roadmap](/veridian-motion/roadmap).
+    **Planned:** SSO via agency IdP (SAML/OIDC). **Rolling out:** multi-facility
+    membership and switching. See [Roadmap](/veridian-motion/roadmap).
   </Tab>
 
   <Tab title="Patients">
     Patients are **not** federated identities. Staff enroll patients for their
-    **facility** (manual or **mass import**). Patients sign in with
+    facility (**manual** or **bulk roster import**). Patients accept
+    [Terms](/veridian-motion/terms-and-consent) at first login and sign in with
     **Patient ID + PIN** on a locked, **MDM-managed** kiosk.
 
-    Patient onboarding is **provisioning**, not SSO. **JMS** sync remains
-    **planned** — see [Roadmap](/veridian-motion/roadmap).
+    **JMS** sync remains **planned**.
   </Tab>
 </Tabs>
+
+## License programs (entitlements + seats)
+
+Before patients use a program beyond core MSK (as applicable to your contract):
+
+1. Confirm the facility **program entitlement** (on/off, **seat cap**, contract price)
+2. Enroll patients into that program within the seat cap
+3. Confirm feature flags for Precision Rehab / Medical Intake / Chess Wellness
+
+See [Programs & licensing](/veridian-motion/programs-and-licensing).
 
 ## Provisioning patient accounts
 
 <Steps>
   <Step title="Admin enrolls patients">
-    An administrator uses **Enroll patient** (one at a time) or **mass import**
-    in the admin console to create patient records for this facility.
+    Use **Enroll patient** or **bulk roster import** in the admin console.
   </Step>
 
   <Step title="Receive Patient ID + PIN">
-    The system returns a **Patient ID** and **initial PIN** for staff to hand
-    to the patient through the facility's existing credential channel.
+    Hand credentials to the patient through the facility's existing channel.
   </Step>
 
-  <Step title="License programs and enroll seats">
-    Confirm [program entitlements](/veridian-motion/programs-and-licensing)
-    (seats + price), then enroll patients into licensed programs within the
-    seat cap.
+  <Step title="Enroll program seats">
+    Assign licensed program enrollments without exceeding purchased seats.
   </Step>
 
-  <Step title="Patient completes intake">
-    The patient signs in on the kiosk, accepts
-    [versioned Terms](/veridian-motion/legal-terms), and completes enabled
-    portal flows.
+  <Step title="Patient accepts Terms and completes intake">
+    First login requires Terms acceptance; then MSK and other enabled programs.
   </Step>
 </Steps>
 
-## Credentials and PINs
-
-- Patients authenticate with **Patient ID** and a **4–12 digit PIN**.
-- PINs are **unique per patient**, generated at enrollment and delivered
-  through the facility's existing channel.
-- Staff may **reset a PIN** from the patient record.
-- **Never** use a facility-wide shared PIN.
-
-<Warning>
-  **Brute-force lockout** protects both patient and staff logins. Repeated
-  failed attempts temporarily lock that identifier.
-</Warning>
-
 ## Staff access
-
-Staff use **local accounts** with **TOTP MFA**. An **admin** grants roles:
 
 | Role | Purpose |
 | --- | --- |
-| `pt` | Clinical review, approve plans, notes, messaging (facility-scoped) |
-| `admin` | Enrollment, programs/licensing, roles, MFA reset, Communication Record, analytics |
-| `officer` | Operational support per policy — **no clinical PHI by default** |
-| `warden` | **Operational only** — counts, activity, safety escalations; **no clinical PHI** |
-| `it_admin` | Security settings, compliance views, technical administration |
+| `pt` | Clinical review (MSK, rehab, medical intake), messaging |
+| `admin` | Enrollment, licensing/seats, roles, Communication Record, analytics |
+| `officer` | Operational support — **no clinical PHI by default** |
+| `warden` | Operational only — counts, activity, escalations; **no clinical PHI** |
+| `it_admin` | Security / compliance administration |
+| `bh_clinician` | Reserved — BH product not publicly available (WOPR) |
 | `wellness_participant` | Officer & Staff Wellness portal |
 
-See [Roles and access](/veridian-motion/roles-and-access) and
-[Role permissions](/veridian-motion/role-permissions).
+## Multi-facility (rolling out)
 
-## Programs & licensing
-
-Facilities license programs under contract — **no credit cards**. Admins manage
-entitlements, seat caps, enrollments, monthly billing snapshots, and invoice
-PDF support. See [Programs & licensing](/veridian-motion/programs-and-licensing).
-
-## Multi-facility isolation
-
-- Each facility's patients and staff are isolated through **RLS** by facility membership
-- **`pt`** sees clinical data for **their facility only**
-- **`officer` / `warden`** see **operational** metrics — **no clinical PHI**
-- Authorized staff can **switch between facilities**
+Facility-scoped RLS, facility switching, and `warden` oversight are **rolling
+out**. Until confirmed, assume **single-facility** operation.
 
 ## Deployment
 
 ### Kiosks
 
-- **Facility-issued tablets** locked to Veridian Motion via agency **MDM**
-- No outside web browsing or external messaging from the kiosk
-- Chess engine, puzzles, and rehab loops are designed to work **offline / on
-  locked networks** where it matters
+Facility-issued tablets locked via agency **MDM**. Chess/rehab loops are
+designed for locked networks where it matters.
 
 ### Hosting and compliance
 
-Veridian Motion is **HIPAA-aligned, not HIPAA-certified**; it is **not
-CJIS-authorized or FedRAMP-authorized**. Current Lovable builds use
-**synthetic data only**. Real-PHI pilots require owned Supabase + BAA,
-compliant hosting, and counsel-finalized agreements — see
-[Security overview](/security/overview) and [Roadmap](/veridian-motion/roadmap).
-
-| Requirement | Owner |
-| --- | --- |
-| Signed **BAA** with the covered entity | Agency + Veridian Health Partners |
-| **CJIS / FedRAMP / GovCloud** hosting (if required) | Agency |
-| Network segregation | Agency |
-| Personnel screening | Agency |
-| Data classification review | Agency |
+**HIPAA-aligned, not HIPAA-certified**; **not CJIS/FedRAMP-authorized**. Current
+builds use **synthetic data only**. Real-PHI pilots require compliance migration
+— see [Security overview](/security/overview) and [Roadmap](/veridian-motion/roadmap).
 
 ## Onboarding runbook
 
 <Steps>
   <Step title="Contract, BAA, and data-classification review">
-    Execute facility agreement and BAA. Confirm hosting decision and that real
-    PHI is not used until compliance migration is complete.
+    Execute facility agreement and BAA. Confirm hosting; no real PHI until ready.
   </Step>
 
-  <Step title="Provision facilities and program entitlements">
-    Veridian Health Partners provisions facility tenant(s). Admins configure
-    program licenses and seat caps.
+  <Step title="Provision facility and program entitlements">
+    Configure tenant, licenses, seat caps, and feature flags.
   </Step>
 
   <Step title="Connect staff identity">
-    Create **local staff accounts** with **TOTP MFA**. Assign roles and
-    facility membership.
+    Create local staff accounts with TOTP MFA. Assign roles.
   </Step>
 
-  <Step title="Enroll patients">
-    Admins enroll manually or via **mass import**, then enroll patients into
-    licensed programs within seat caps.
+  <Step title="Enroll patients and program seats">
+    Manual or bulk roster import; enroll into licensed programs within caps.
   </Step>
 
   <Step title="Provision kiosks">
-    Install the PWA via **MDM**. Issue Patient ID + PIN through facility process.
+    Install the PWA via MDM. Issue Patient ID + PIN.
   </Step>
 
   <Step title="Train staff and launch pilot">
-    Train clinicians on review/approve, Precision Rehab review, medical intake
-    flags, and [AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+    Train clinicians on MSK review, Precision Rehab panel, Medical Intake flags,
+    and [AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
   </Step>
 
   <Step title="Monitor">
-    Review the **hash-chained audit log**, program billing snapshots, and
-    [admin analytics](/veridian-motion/admin-analytics).
+    Review audit log, billing snapshots, and admin analytics.
   </Step>
 </Steps>
 
@@ -173,6 +134,6 @@ compliant hosting, and counsel-finalized agreements — see
     Shorter rollout checklist.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    SSO, JMS, compliance migration.
+    Rolling out and planned items.
   </Card>
 </CardGroup>

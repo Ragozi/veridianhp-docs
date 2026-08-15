@@ -1,59 +1,53 @@
 ---
 title: "Chess Wellness"
-description: "License-gated cognitive wellness program — play, puzzles, academy, and solo competition without patient-vs-patient matchmaking."
+description: "Licensed cognitive-wellness program — on-device play, puzzles, academy, solo ranking. Not clinical."
 ---
 
 # Chess Wellness
 
-**Chess Wellness** is a **subscribable cognitive-wellness program** —
-play, puzzles, lessons, and solo competition — licensed **per facility** and
-**per patient**. It is designed for locked facility networks: the engine and
-puzzles run **on-device** with **no chess API** and **no external matchmaking**.
+**Chess Wellness** is a **licensed cognitive-wellness program** focused on
+patience, focus, and problem-solving. It is **explicitly not clinical** — not a
+diagnosis tool, therapy, or behavioral-health module.
 
 <Note>
-  Controlled by the **`CHESS_ENABLED`** feature flag (on by default in current
-  builds). Facility access requires an active
-  [program entitlement](/veridian-motion/programs-and-licensing) and patient
-  enrollment with available seats.
+  Controlled by **`CHESS_ENABLED`**. Licensed **per facility** and **per
+  patient seat** — see [Programs & licensing](/veridian-motion/programs-and-licensing).
+  Built / rolling out — confirm activation for your deployment.
 </Note>
 
 ## What patients get
 
 | Area | Detail |
 | --- | --- |
-| **Play** | Vs a bundled on-device engine (3 levels); save / resume; **offline** |
-| **Puzzles** | 36 tactics puzzles; each proven a unique mate |
-| **Challenges** | Daily puzzle (streaks), Puzzle Rush (timed), Ladder |
-| **Ranking & seasons** | Personal rating, tiers (Bronze→Platinum), season points, streaks — **solo only**, no patient-vs-patient |
-| **Chess Academy** | Curriculum from **Dr. Mikhail Korenman's** handbook — lessons across 4 units, checkmate drills vs the engine, **Certificate of Completion**, interactive teaching games |
-| **Instructor assignment** | Staff can assign specific activities to a patient |
+| **Play** | Vs a **bundled on-device engine** (adjustable difficulty); save / resume; **offline** — **no external chess API** |
+| **Puzzles** | Tactics puzzles |
+| **Challenges** | Daily puzzle, Puzzle Rush (timed), Ladder |
+| **Ranking & seasons** | Personal rating, tiers, season points, streaks — **solo only**, no patient-vs-patient |
+| **Chess Academy** | Structured curriculum, checkmate drills, interactive teaching games, **Certificate of Completion** |
+| **Instructor assignment** | Staff assign specific activities to a patient |
 
-## Security design (corrections)
+## Corrections security design
 
 - **No chat** and **no matchmaking** between patients
 - Engine and puzzle content run **without outbound chess-API calls**
-- Rules via **chess.js** (BSD); Veridian's bundled engine avoids GPL constraints.
-  Stronger play via Stockfish is a **documented later upgrade** (separate process,
-  GPLv3 compliance) if needed — see [Roadmap](/veridian-motion/roadmap)
+- Rules via chess.js (BSD); Veridian's bundled engine avoids GPL constraints.
+  Stronger play via Stockfish is a **planned** upgrade (separate process, GPLv3)
 
 ## Licensing
 
-`hasProgramAccess(patient, program)` requires:
-
-1. The facility holds an **active entitlement**, and
-2. The patient holds an **active enrollment** within the purchased **seat cap**
-
-See [Programs & licensing](/veridian-motion/programs-and-licensing).
+`hasProgramAccess` requires an active facility **entitlement** and an active
+patient **enrollment** within the seat cap.
 
 ## Engagement metrics
 
-Chess engagement appears on the **admin analytics** dashboard at the facility /
-program level — not as individual clinical PHI.
+Chess engagement appears on [Admin analytics](/veridian-motion/admin-analytics)
+at the facility / program level — not as individual clinical PHI.
 
-## Why it exists
+## What it is not
 
-Patience, focus, and cognitive engagement — a facility-safe, offline program
-with curriculum from a titled chess authority.
+- **Not clinical** assessment or treatment
+- **Not** behavioral health or mood screening
+- **Not** patient-vs-patient competition or messaging
 
 ## What's next
 
@@ -61,10 +55,10 @@ with curriculum from a titled chess authority.
   <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
     Seats and enrollments.
   </Card>
-  <Card title="Admin analytics" icon="chart-line" href="/veridian-motion/admin-analytics">
-    Engagement reporting.
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Instructor assignment.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Leaderboards, two-player, fuller curriculum.
+    Leaderboards and fuller curriculum.
   </Card>
 </CardGroup>

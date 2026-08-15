@@ -15,22 +15,30 @@ The **patient portal** is the patient-facing surface of Veridian Motion on a
   content appears after a licensed clinician reviews and releases the assessment.
 </Warning>
 
-## Other programs on the portal
+## Programs on the portal
 
-When licensed and feature-flagged for the facility, patients may also access:
+After **Terms acceptance** at first login, and when licensed/feature-flagged,
+patients may access:
 
-- **[Medical intake](/veridian-motion/medical-intake)** — one-time medical profile
-- **[Precision Rehab](/veridian-motion/precision-rehab)** — course, guided self-treatment, daily routines
+- **MSK Assessment** — flagship intake (body map, complaint, questionnaire, photos)
+- **[Medical Intake](/veridian-motion/medical-intake)** — one-time medical profile
+- **[Precision Rehab](/veridian-motion/precision-rehab)** — course, guided self-treatment, Daily Movement
 - **[Chess Wellness](/veridian-motion/chess-wellness)** — play, puzzles, academy (offline engine)
 
-At registration, patients accept **[versioned Terms](/veridian-motion/legal-terms)**.
+See [Terms & patient consent](/veridian-motion/terms-and-consent).
+
+## First login — Terms gate
+
+Before using the portal, the patient must accept **Terms & Policies** via a
+required checkbox linked to the public `/terms` page. Each acceptance is logged
+with **version + timestamp**.
 
 ## Full MSK intake flow
 
 <Steps>
-  <Step title="Sign in">
-    The patient enters their **Patient ID** and **PIN** (4–12 digits). Staff
-    create these at enrollment; patients who lack credentials must ask staff.
+  <Step title="Accept Terms (first login) then sign in">
+    On first use, accept Terms. Then enter **Patient ID** and **PIN** (4–12
+    digits). Staff create these at enrollment.
   </Step>
 
   <Step title="Select what's hurting (body map)">

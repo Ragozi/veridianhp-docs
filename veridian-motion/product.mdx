@@ -1,94 +1,99 @@
 ---
 title: "Veridian Motion"
-description: "AI-assisted, clinician-reviewed correctional wellness platform — MSK, rehab, medical intake, and cognitive programs."
+description: "Correctional wellness platform — MSK triage flagship plus licensed Precision Rehab, Medical Intake, and Chess Wellness programs."
 ---
 
 # Veridian Motion
 
-**Veridian Motion** is Veridian Health Partners' flagship **AI-assisted,
-clinician-reviewed correctional wellness platform**. Patients use a locked-down
-tablet experience; staff use an authenticated dashboard. The platform is the
-**content, data, and education layer** of a broader correctional-wellness vision
-(patient programs + [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)).
+**Veridian Motion** is Veridian Health Partners' flagship **correctional wellness
+platform**. It delivers multiple **licensed, non-diagnostic, clinician-reviewed
+programs** on a locked patient kiosk and an authenticated staff dashboard.
+
+**MSK Assessment & PT review** remains the flagship clinical workflow. Additional
+programs — [Precision Rehab](/veridian-motion/precision-rehab),
+[Medical Intake](/veridian-motion/medical-intake), and
+[Chess Wellness](/veridian-motion/chess-wellness) — are licensed per facility
+and feature-flagged.
 
 <Note>
   **Non-diagnostic.** The product teaches self-care and organizes the patient's
-  own data. A **licensed clinician** reviews before clinical materials reach a
-  patient. **HIPAA-aligned, not HIPAA-certified.** Modules are **feature-flagged
-  and additive**.
+  own data. Licensed clinicians review clinical materials before patients see
+  them. **HIPAA-aligned, not HIPAA-certified.** Capabilities below are **built /
+  pre-production / rolling out** — not generally available for real PHI until
+  compliance migration and facility activation.
 </Note>
 
 ## Why Veridian Motion exists
 
 Correctional facilities manage high volumes of musculoskeletal and wellness
 needs with limited clinician time. Veridian Motion gives facilities a
-repeatable, safety-gated workflow:
+repeatable, safety-gated workflow across licensed programs:
 
-- Patients report problems, complete structured intakes, and use self-directed
-  education programs on a facility-controlled kiosk.
+- Patients complete structured intakes and self-directed education on a
+  facility-controlled kiosk after accepting Terms.
 - AI and program logic produce **observations and plans for clinician review** —
   never a diagnosis.
 - Licensed clinicians retain **clinical authority** and approve what patients see.
 
-## Programs (built today)
+## Programs
 
 <CardGroup cols={2}>
   <Card title="MSK Assessment & PT review" icon="person-running" href="/veridian-motion/patient-portal">
-    Complaint, photos, non-diagnostic AI findings, PT review, exercise plan,
+    Flagship — complaint, photos, non-diagnostic AI findings, PT review, plan,
     messaging, PDF.
   </Card>
   <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
-    Leon Cherbukhovsky, PT, DPT — course, 9-step self-treatment, daily routines.
+    Self-directed MSK rehab — course, 9-step method, Daily Movement routines.
   </Card>
-  <Card title="Medical intake" icon="notes-medical" href="/veridian-motion/medical-intake">
-    Dominic Marchiafava, PA-C — one-time profile with clinician red-flag review.
+  <Card title="Medical Intake" icon="notes-medical" href="/veridian-motion/medical-intake">
+    One-time medical profile with clinician red-flag review.
   </Card>
   <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
-    Offline cognitive program — play, puzzles, academy, solo ranking.
+    Non-clinical cognitive wellness — offline play, puzzles, academy.
   </Card>
 </CardGroup>
 
-Shared backbone: [Programs & licensing](/veridian-motion/programs-and-licensing)
+Licensing backbone: [Programs & licensing](/veridian-motion/programs-and-licensing)
 (contract-first entitlements, seat caps, enrollments, invoice-support snapshots).
 
 ## Two primary surfaces
 
 <CardGroup cols={2}>
   <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
-    Patient ID + PIN; MSK intake; programs; messaging; approved plans.
+    Terms gate, Patient ID + PIN, MSK intake, programs, messaging, approved plans.
   </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Roster, enrollment, review/approve, programs admin, messaging, analytics.
+    Roster, licensing/enrollment, review panels, messaging, analytics.
   </Card>
 </CardGroup>
 
 ## How an MSK case moves through the system
 
 <Steps>
-  <Step title="Enroll">
-    An **admin** enrolls the patient (manual or mass import) and issues
-    **Patient ID + PIN**. Program seats are enforced when applicable.
+  <Step title="License and enroll">
+    Facility holds a program **entitlement**; admin enrolls the patient
+    (manual or bulk import) and issues **Patient ID + PIN**, then assigns
+    program **seats** within the cap.
   </Step>
 
-  <Step title="Intake on kiosk">
-    The patient signs in, completes MSK intake (body map, complaint,
-    questionnaire, up to four posture photos), and may complete medical intake
-    when enabled.
+  <Step title="Terms and intake">
+    Patient accepts **Terms** at first login, then completes MSK intake (body
+    map, complaint, questionnaire, up to four posture photos).
   </Step>
 
   <Step title="Submit and wait">
-    The patient sees **confirmation and safety guidance only**. AI generates a
+    Patient sees **confirmation and safety guidance only**. AI generates a
     clinician-reviewable plan in the dashboard — not on the kiosk before approval.
   </Step>
 
   <Step title="Assign and review">
-    An **admin** assigns a clinician. The clinician reviews red flags, intake,
-    and the AI plan; edits and **approves** when ready.
+    Admin assigns a clinician. The clinician reviews red flags, intake, and the
+    AI plan; edits and **approves** when ready.
   </Step>
 
   <Step title="Approve and follow up">
-    The patient may view the approved plan, use Precision Rehab / Chess when
-    enrolled, and message staff in the secure thread.
+    Patient may view the approved plan, use other enrolled programs, and message
+    staff in the secure thread.
   </Step>
 </Steps>
 
@@ -97,26 +102,19 @@ Shared backbone: [Programs & licensing](/veridian-motion/programs-and-licensing)
 | Role | Role in Veridian Motion |
 | --- | --- |
 | **Physical therapist (`pt`)** | Clinical review, approve, notes, messaging, rehab review |
-| **Administrator (`admin`)** | Enrollment, programs/licensing, roles, Communication Record, analytics |
+| **Administrator (`admin`)** | Enrollment, licensing/seats, roles, Communication Record, analytics |
 | **Officer (`officer`)** | Facility operational support per policy (no clinical PHI by default) |
-| **Warden (`warden`)** | Operational oversight only — no clinical PHI |
+| **Warden (`warden`)** | Operational oversight only — no clinical PHI (rolling out with multi-facility) |
 | **IT admin (`it_admin`)** | Security and compliance administration |
-| **Wellness participant (`wellness_participant`)** | Officer / staff wellness portal participant |
+| **BH clinician (`bh_clinician`)** | Reserved for future BH workflows — **BH product not publicly available** (WOPR) |
+| **Wellness participant (`wellness_participant`)** | Officer & Staff Wellness portal participant |
 | **Patient** | Portal intake, programs, post-approval plan access |
 
 ## Officer & Staff Wellness
 
-A **separate confidential** [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)
+A separate confidential [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)
 portal extends movement-based wellness to **employees** — voluntary,
-confidential, non-diagnostic, and under **employee-wellness** rules (not
-patient HIPAA). Facility insight is **aggregate / anonymous** only.
-
-## Design principles
-
-- **Non-diagnostic** — clinician review before clinical content reaches patients
-- **Safety-gated** — red flags route to in-person sick call
-- **Additive + flag-gated** — modules off until cleared
-- **Offline where it matters** — chess engine, puzzles, and rehab on locked networks
+confidential, non-diagnostic, under employee-wellness rules (not patient HIPAA).
 
 ## Documentation map
 
@@ -131,10 +129,10 @@ patient HIPAA). Facility insight is **aggregate / anonymous** only.
     Entitlements, seats, invoice-support.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Planned items and compliance migration.
+    Rolling out and planned items.
   </Card>
-  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
-    Employee wellness portal.
+  <Card title="Terms & consent" icon="file-contract" href="/veridian-motion/terms-and-consent">
+    First-login Terms acceptance.
   </Card>
   <Card title="Security overview" icon="shield-check" href="/security/overview">
     HIPAA-aligned posture.
