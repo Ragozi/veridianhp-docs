@@ -1,50 +1,65 @@
 ---
 title: "Roadmap"
-description: "Rolling out and planned Veridian Motion capabilities."
+description: "Planned Veridian Motion enhancements and compliance migration gates."
 ---
 
 # Roadmap
 
-This page lists capabilities that are **not yet available** in every
-deployment, or are **planned** for a future release. For what is **built and
-live today**, see [Platform overview](/veridian-motion/overview).
+For what is **built and live today**, see
+[Platform overview](/veridian-motion/overview). This page lists **planned**
+enhancements and **pilot readiness** work.
 
 <Warning>
-  Treat **Rolling out** items as available only when Veridian Health Partners
-  confirms activation for your facility.
+  Do not treat roadmap items as available in production until Veridian Health
+  Partners confirms activation for your facility.
 </Warning>
 
-## Rolling out
+## Planned product enhancements
 
-| Capability | Description |
+| Area | Planned work |
 | --- | --- |
-| **Admin analytics / ROI dashboard** | Per-facility, **admin-only** reporting on engagement and outcomes. Separates **measured** metrics from clearly labeled **estimated** cost figures; shows **no individual PHI**; any staff-wellness-related figures appear only in **aggregate / de-identified** form. See [Admin analytics](/veridian-motion/admin-analytics). |
-
-## Planned
-
-| Capability | Description |
-| --- | --- |
-| **Staff SSO (SAML / OIDC)** | Single sign-on via agency identity providers (e.g., Microsoft Entra ID, Google Workspace, Okta) with MFA and IdP group → Motion role mapping |
-| **Bulk roster provisioning (CSV import)** | Admin upload of a roster CSV to create/update patients and issue PINs at scale |
-| **JMS / booking-system integration** | Live or scheduled sync with jail management systems (e.g., Tyler, Spillman/Motorola Solutions, CentralSquare, Securus) — auto-provision on booking, deactivate on release |
+| **Chess Wellness** | Facility/pod leaderboard; local two-player; finish facility reporting; roll Korenman's full curriculum into interactive lessons; optional Stockfish upgrade (separate process, GPLv3) |
+| **Precision Rehab** | Region library + video |
+| **Medical intake** | Workflow decision + clinical sign-off (Dominic Marchiafava, PA-C) |
+| **Staff SSO (SAML / OIDC)** | Agency IdP sign-on with MFA and group → role mapping |
+| **JMS / booking-system integration** | Live or scheduled sync (e.g., Tyler, Spillman/Motorola, CentralSquare, Securus) |
 | **Scheduled SFTP roster feed** | Daily roster file drop for automated reconcile |
-| **EHR / EMR integration** | Automated clinical data exchange with external systems |
-| **Partner API** | Programmatic access for third-party integrations |
+| **EHR / EMR integration** | Automated clinical data exchange |
+| **Partner API** | Programmatic third-party access |
 | **Live video consults** | Synchronous telehealth sessions |
 
-## Offerings (not a finished product claim)
+<Note>
+  **Mass import** of staff and patients, **program entitlements**, **admin
+  analytics**, multi-facility RLS, messaging safety screening, and Communication
+  Record are documented as **built today** — not roadmap. See
+  [Programs & licensing](/veridian-motion/programs-and-licensing) and
+  [Platform overview](/veridian-motion/overview).
+</Note>
 
-| Offering | Description |
-| --- | --- |
-| **[Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)** | Veridian Health Partners' **approach** to correctional **employee** wellness — voluntary, confidential movement and recovery content for staff. Not a certified or fully deployed product module; separate from patient care. |
+## Compliance migration (gate to real deployment)
+
+Current Lovable builds use **synthetic data only**. Before any real-PHI pilot:
+
+1. Migrate to **owned Supabase** (HIPAA add-on + BAA) and a **compliant host**
+   (AWS commercial + BAA; GovCloud/CJIS only if a facility requires it)
+2. Move the messaging **AI screener** to BAA-covered or self-hosted infrastructure
+3. Finalize **Terms / MSA / BAA** with counsel
+4. Obtain an **IRB determination** under program-evaluation framing (when required)
+5. Obtain clinical sign-offs for enabled programs
+
+Until then, positioning remains **"HIPAA-aligned"** and **"wellness program"** —
+never "certified," "IRB-approved," or "clinically proven."
 
 ## Explicitly out of scope (public docs)
 
-- Medical billing / coding workflows
-- AI output shown to patients before PT review
+- Medical **coding / insurance billing** workflows (program seat licensing is separate)
+- AI output shown to patients before clinician review
 - Self-service patient or staff sign-up
-- External messaging (SMS, email to patients)
-- **AI behavioral-health, psychiatric, mood, or emotional-assessment modules** that interact with or assess a person psychologically (unreleased prototype — not documented)
+- External messaging (SMS, email to patients) except allowlisted staff PDF send where configured
+- Patient-vs-patient chat or matchmaking
+- **AI behavioral-health, psychiatric, mood, or emotional-assessment modules**
+  that interact with or assess a person psychologically — **not documented** in
+  public docs (disabled / pending legal clearance; Illinois WOPR Act sensitivity)
 
 ## What's next
 
@@ -52,13 +67,13 @@ live today**, see [Platform overview](/veridian-motion/overview).
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
     Built today.
   </Card>
-  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    Multi-facility roles including `warden`.
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    Compliance posture and pilot gates.
   </Card>
-  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Safety screening and Communication Record.
+  <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
+    Cognitive program (built).
   </Card>
-  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
-    Employee wellness offering (approach).
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Rehab program (built).
   </Card>
 </CardGroup>

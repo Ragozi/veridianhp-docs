@@ -1,0 +1,67 @@
+---
+title: "Medical intake"
+description: "One-time medical profile with clinician red-flag review — non-diagnostic attestation."
+---
+
+# Medical intake
+
+**Medical intake** is a feature-flagged, one-time **medical profile** patients
+complete on the portal. A server-side **red-flag engine** highlights risk
+signals for clinician review. The profile is **non-diagnostic** and includes an
+exact non-diagnostic attestation.
+
+<Note>
+  Controlled by the **`MEDICAL_INTAKE_ENABLED`** feature flag (on by default in
+  current builds). Clinical model credit: **Dominic Marchiafava, PA-C**.
+</Note>
+
+## What patients complete
+
+| Section | Examples |
+| --- | --- |
+| **History** | Relevant medical history items |
+| **Medications** | Current meds plus a **side-effect screen** |
+| **Allergies** | Including severe allergy flags |
+| **Surgical** | Recent surgery indicators |
+| **Social** | Activity and sleep context |
+
+**Emergency contact is omitted** for facility security reasons.
+
+## Red-flag engine
+
+After submission, the platform raises clinician-facing triggers such as:
+
+- Cardiac / cancer / clot / fracture history signals
+- Statin / steroid / new-medication signals
+- Severe allergy
+- Recent surgery
+- Activity / sleep concerns
+
+Clinicians see the **profile plus highlighted flags** on the patient page and
+mark the intake **reviewed**.
+
+## What it is not
+
+- **Not a diagnosis** or treatment plan
+- **Not** a full EHR chart
+- **Not** behavioral-health or psychological assessment
+- **Not** a substitute for facility sick-call protocols
+
+## Why it exists
+
+A Layer-1 medical safety screen that complements MSK assessment and Precision
+Rehab — organizing the patient's own reported data for human clinician review.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Self-directed MSK rehab program.
+  </Card>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Patient page and review workflow.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Workflow decisions and clinical sign-off.
+  </Card>
+</CardGroup>

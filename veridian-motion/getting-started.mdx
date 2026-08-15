@@ -68,18 +68,26 @@ detail, see [Facility onboarding & integration](/veridian-motion/facility-onboar
   </Step>
 
   <Step title="Grant roles">
-    At `/staff`, assign `pt`, `admin`, or `it_admin`. See
+    At `/staff`, assign `pt`, `admin`, `officer`, `warden`, `it_admin`, or
+    `wellness_participant` as needed. See
     [Role permissions](/veridian-motion/role-permissions).
   </Step>
 </Steps>
 
-## Phase 4 — Clinical readiness
+## Phase 4 — Programs and clinical readiness
 
 <Steps>
-  <Step title="Train PTs">
-    Cover [Provider dashboard](/veridian-motion/provider-dashboard) and
+  <Step title="Configure program entitlements">
+    Set licenses, seats, and enrollments in
+    [Programs & licensing](/veridian-motion/programs-and-licensing).
+  </Step>
+
+  <Step title="Train clinicians">
+    Cover [Provider dashboard](/veridian-motion/provider-dashboard),
+    [Precision Rehab](/veridian-motion/precision-rehab),
+    [Medical intake](/veridian-motion/medical-intake), and
     [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) —
-    red-flag-first review and the PT-approval gate.
+    red-flag-first review and the clinician-approval gate.
   </Step>
 
   <Step title="Train custody staff">
@@ -92,17 +100,18 @@ detail, see [Facility onboarding & integration](/veridian-motion/facility-onboar
 
 <Steps>
   <Step title="Enroll a patient">
-    Admin uses **Enroll patient** → record **Patient ID + initial PIN** → hand
-    to custody staff.
+    Admin uses **Enroll patient** or mass import → record **Patient ID +
+    initial PIN** → hand to custody staff. Enroll into licensed programs within
+    seat caps.
   </Step>
 
   <Step title="Patient intake">
-    Patient signs in on the kiosk, completes body map, complaint, questionnaire,
-    and up to four photos, then submits.
+    Patient accepts Terms, signs in on the kiosk, completes MSK intake (and
+    other enabled programs), then submits.
   </Step>
 
   <Step title="Assign and approve">
-    Admin assigns from the queue to a PT. PT reviews, edits plan, **approves**.
+    Admin assigns from the queue. Clinician reviews, edits plan, **approves**.
   </Step>
 
   <Step title="Confirm patient release">
@@ -118,7 +127,7 @@ detail, see [Facility onboarding & integration](/veridian-motion/facility-onboar
     Full onboarding and integration guide.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Planned SSO, bulk import, JMS sync.
+    Planned SSO, JMS, compliance migration.
   </Card>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
     One-page evaluation guide.

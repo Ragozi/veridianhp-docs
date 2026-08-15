@@ -1,6 +1,6 @@
 ---
 title: "Welcome"
-description: "Veridian Health Partners builds Veridian Motion for correctional musculoskeletal triage."
+description: "Veridian Health Partners builds Veridian Motion — AI-assisted, clinician-reviewed correctional wellness."
 ---
 
 # Veridian Health Partners
@@ -9,52 +9,40 @@ description: "Veridian Health Partners builds Veridian Motion for correctional m
 facilities**.
 
 Our **flagship product** is [**Veridian Motion**](/veridian-motion/product) —
-a physical therapy platform pairing a **patient portal** (kiosk intake) with a
-**provider dashboard** where licensed PTs review AI-assisted non-diagnostic
-triage and **approve** exercise recommendations. Clinical authority stays with
-the licensed PT; the product does not diagnose.
+an **AI-assisted, clinician-reviewed correctional wellness platform**. Patients
+use a locked kiosk; staff use an authenticated dashboard. Clinical authority
+stays with licensed clinicians; the product does **not** diagnose. Modules are
+**feature-flagged and additive**.
 
 ## Why Veridian Motion
 
-Structured MSK triage and **PT-approved bodyweight plans** can improve **patient
-wellbeing** and help facilities address complaints before they escalate —
-reducing downstream costs from emergency care, chronic disability, and
-litigation exposure.
+Structured MSK triage, self-directed rehab education, medical intake safety
+screens, and facility-safe cognitive programs can improve **patient wellbeing**
+and help facilities address needs before they escalate — while keeping humans
+in the loop.
 
 <Note>
-  The current release does **not** include SSO, bulk roster import, JMS
-  integration, live video, EHR, or partner API. See
-  [Roadmap](/veridian-motion/roadmap).
+  **SSO, JMS, EHR, partner API, and live video** remain on the
+  [Roadmap](/veridian-motion/roadmap). Current Lovable builds use **synthetic
+  data only**.
 </Note>
 
 <CardGroup cols={2}>
   <Card title="Veridian Motion" icon="person-running" href="/veridian-motion/product">
-    Flagship PT platform — vision and documentation map.
+    Flagship platform — programs and documentation map.
   </Card>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
     One-page guide for decision-makers.
   </Card>
 </CardGroup>
 
-## Product portfolio
-
-| Product | Status |
-| --- | --- |
-| **Veridian Motion** | Flagship — active at [veridianhp.com](https://veridianhp.com) |
-
 ## Built today (summary)
 
-- **Patient portal:** Patient ID + PIN, body map, complaint, questionnaire, up to 4 photos
-- **Provider dashboard:** Manual enrollment, assignment queue, review/approve, notes, PDF, messaging with **safety screening** and **Communication Record**
-- **Multi-facility:** Facility-scoped RLS, facility switching, **`warden`** operational role (no clinical PHI)
-- **Security:** RBAC, hash-chained audit log, field-level PHI encryption, brute-force lockout, TOTP MFA (per deployment), PWA hardening
-
-## Offerings
-
-[**Officer & Staff Wellness**](/veridian-motion/officer-staff-wellness) — Veridian
-Health Partners' **approach** to correctional **employee** wellness (voluntary,
-confidential, non-diagnostic). Separate from the patient platform; not a finished
-product certification claim.
+- **Patient portal:** Patient ID + PIN; MSK intake; medical intake; Precision Rehab; Chess Wellness
+- **Provider dashboard:** Enrollment (manual + mass import), programs/licensing, review/approve, messaging with safety screening + Communication Record, admin analytics
+- **Multi-facility:** Facility-scoped RLS, facility switching, `officer` / `warden` operational roles (no clinical PHI)
+- **Officer & Staff Wellness:** Separate confidential employee portal
+- **Security:** RBAC, RLS, hash-chained audit log, field-level PHI encryption (AES-256-GCM), brute-force lockout, TOTP MFA, PWA hardening
 
 ## Compliance posture
 
@@ -68,23 +56,20 @@ See [Security overview](/security/overview).
 | Audience | Start here |
 | --- | --- |
 | **Evaluators** | [For evaluators](/veridian-motion/for-evaluators) |
-| **Administrators** | [Getting started](/veridian-motion/getting-started), [Facility onboarding](/veridian-motion/facility-onboarding) |
-| **Physical therapists** | [Provider dashboard](/veridian-motion/provider-dashboard) |
+| **Administrators** | [Getting started](/veridian-motion/getting-started), [Programs & licensing](/veridian-motion/programs-and-licensing) |
+| **Physical therapists** | [Provider dashboard](/veridian-motion/provider-dashboard), [Precision Rehab](/veridian-motion/precision-rehab) |
 | **Custody staff** | [Patient portal](/veridian-motion/patient-portal) |
 | **IT** | [Deployment and kiosk](/veridian-motion/deployment-and-kiosk) |
-| **Compliance** | [HIPAA](/security/hipaa), [Data model & privacy](/veridian-motion/data-model-privacy) |
+| **Compliance** | [HIPAA](/security/hipaa), [Roadmap](/veridian-motion/roadmap) |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Rollout checklist.
-  </Card>
-  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
-    Employee wellness offering.
+  <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
+    Built today — technical scope.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Planned and in-progress capabilities.
+    Planned enhancements and pilot gates.
   </Card>
   <Card title="Request access" icon="envelope" href="https://veridianhp.com/request-access">
     Contact Veridian Health Partners.

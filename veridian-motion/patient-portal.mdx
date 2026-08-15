@@ -12,10 +12,20 @@ The **patient portal** is the patient-facing surface of Veridian Motion on a
 <Warning>
   Patients **never** see un-reviewed AI output or exercise plans. After submit
   they see confirmation and plain-language safety guidance only. Approved
-  content appears after a licensed PT reviews and releases the assessment.
+  content appears after a licensed clinician reviews and releases the assessment.
 </Warning>
 
-## Full flow
+## Other programs on the portal
+
+When licensed and feature-flagged for the facility, patients may also access:
+
+- **[Medical intake](/veridian-motion/medical-intake)** — one-time medical profile
+- **[Precision Rehab](/veridian-motion/precision-rehab)** — course, guided self-treatment, daily routines
+- **[Chess Wellness](/veridian-motion/chess-wellness)** — play, puzzles, academy (offline engine)
+
+At registration, patients accept **[versioned Terms](/veridian-motion/legal-terms)**.
+
+## Full MSK intake flow
 
 <Steps>
   <Step title="Sign in">
@@ -105,9 +115,10 @@ When status is **Reviewed**, the patient may view:
 ## What patients cannot do on the portal
 
 - Self-create an account
-- View AI output or draft plans before PT review
+- View AI output or draft plans before clinician review
 - Open external websites, links, or messaging outside the app
 - Access other patients' records
+- Chat or matchmake with other patients
 
 ## Locked kiosk behavior
 
@@ -117,6 +128,7 @@ Veridian Motion applies **app-level hardening** for facility kiosks:
 - Strict Content Security Policy (CSP)
 - Self-hosted fonts (no third-party font loads)
 - Idle **auto-reset** to clear patient session state
+- Offline-capable loops for chess engine, puzzles, and rehab where designed
 
 **Agency-provided** controls — MDM profile, device lockdown, network
 filtering, physical supervision — are required for true kiosk lockdown in a
@@ -126,9 +138,9 @@ correctional facility. See [Deployment and kiosk](/veridian-motion/deployment-an
 
 | Role | Typical action |
 | --- | --- |
-| **Admin** | Enroll patient, hand over Patient ID + PIN, assign case to PT |
+| **Admin** | Enroll patient, hand over Patient ID + PIN, assign case, manage program seats |
 | **Custody staff** | Escort to kiosk, monitor session, respond to safety concerns |
-| **PT** | Reviews in dashboard; approves and releases plan when ready |
+| **Clinician (`pt`)** | Reviews in dashboard; approves and releases plan when ready |
 
 ## Session and privacy on device
 
@@ -142,13 +154,13 @@ session requires.
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
     What happens after the patient submits.
   </Card>
-  <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
-    Status labels and handoffs.
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Self-directed rehab program.
+  </Card>
+  <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
+    Cognitive wellness program.
   </Card>
   <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
     Secure clinician-to-patient follow-up.
-  </Card>
-  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
-    Camera, PIN, and session issues.
   </Card>
 </CardGroup>

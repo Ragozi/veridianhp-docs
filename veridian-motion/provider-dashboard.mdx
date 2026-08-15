@@ -1,48 +1,42 @@
 ---
 title: "Provider dashboard"
-description: "Staff workflow — patient roster, enrollment, assignment queue, review/approve, messaging, PDF export."
+description: "Staff workflow — roster, programs, review/approve, messaging, analytics, PDF export."
 ---
 
 # Provider dashboard
 
-The provider dashboard is the staff-facing surface of Veridian Motion. Licensed
-PTs retain **clinical authority** — AI output is triage support only and does
-not reach patients until **approved**.
+The provider dashboard is the staff-facing surface of Veridian Motion.
+Licensed clinicians retain **clinical authority** — AI output is triage support
+only and does not reach patients until **approved**.
 
 ## Sign-in and first login
 
-Staff sign in with **email**, **password**, and **TOTP MFA** (available;
-**enforced per deployment**). On first login, staff enroll an authenticator app
-if MFA is required for their deployment. An **admin** grants roles at `/staff`
-and may reset MFA (break-glass). See
+Staff sign in with **email**, **password**, and **TOTP MFA** (enforced per
+deployment). An **admin** grants roles and facility membership. See
 [Roles and access](/veridian-motion/roles-and-access).
 
 ## Patient roster
 
-A **searchable, filterable patient roster** lists manually enrolled patients
-for the **selected facility**. Staff with multi-facility access **switch
-facilities** before opening clinical records. **`warden`** users do not receive
-clinical roster views — operational metrics only. See
-[Role permissions](/veridian-motion/role-permissions).
+A **searchable, filterable patient roster** lists enrolled patients for the
+**selected facility**. Multi-facility staff **switch facilities** before opening
+clinical records. **`warden`** / **`officer`** users do not receive clinical
+roster views by default — operational metrics only.
 
-## Enroll patient (manual)
+## Enroll patient
 
-Today, enrollment is **one patient at a time**:
-
-1. An **admin** uses **Enroll patient** to create the patient record
+1. An **admin** uses **Enroll patient** or **mass import** to create records
 2. The system returns **Patient ID** and **initial PIN** for staff handoff
-3. The patient completes intake on the kiosk
+3. Admins enroll patients into licensed
+   [programs](/veridian-motion/programs-and-licensing) within seat caps
+4. The patient completes intake on the kiosk
 
-Staff **reset PINs** from the patient record when needed. Bulk CSV import and
-JMS sync are **planned** — see [Roadmap](/veridian-motion/roadmap).
-
-For deployment and onboarding, see
-[Facility onboarding & integration](/veridian-motion/facility-onboarding).
+Staff **reset PINs** from the patient record when needed. **JMS** sync remains
+**planned** — see [Roadmap](/veridian-motion/roadmap).
 
 ## Assignment queue
 
-New submissions appear in an **assignment queue** until an **admin assigns a
-PT**. See [Status and workflow](/veridian-motion/status-and-workflow).
+New MSK submissions appear in an **assignment queue** until an **admin assigns
+a clinician**. See [Status and workflow](/veridian-motion/status-and-workflow).
 
 ## Assessment review and approve
 
@@ -50,31 +44,29 @@ Opening an assessment shows:
 
 - **Body-map selections**, complaint, and **questionnaire** responses
 - **Posture photos** (up to four views)
-- **AI-generated exercise plan** — name, why, steps, dosage, cautions — for PT
-  review (non-diagnostic)
-- **Red-flag callouts** — **review first** in the dashboard; patients may see
-  calm **see medical staff** guidance, never a diagnosis
-- **PT notes** — mark **shared with patient** only when appropriate
+- **AI-generated exercise plan** — name, why, steps, dosage, cautions — for
+  clinician review (non-diagnostic)
+- **Red-flag callouts** — **review first**; patients may see calm **see medical
+  staff** guidance, never a diagnosis
+- **Clinician notes** — mark **shared with patient** only when appropriate
+- When enabled: **[Medical intake](/veridian-motion/medical-intake)** profile +
+  flags; **[Precision Rehab](/veridian-motion/precision-rehab)** session logs
+  and routine completions
 
-The PT **approves** the assessment when ready. Until then, **nothing** from AI
-or the draft plan is visible to the patient.
+The clinician **approves** the assessment when ready. Until then, **nothing**
+from AI or the draft plan is visible to the patient.
 
 <Warning>
   Red-flag alerts are **AI-assisted triage support**, not a diagnosis or
   emergency dispatch system.
 </Warning>
 
-### Releasing the exercise plan
-
-On **approve**, the patient may view the edited exercise plan in **My plan /
-progress** — name, why, steps, dosage, cautions — plus any **shared PT notes**.
-
 ## Tools (built today)
 
 ### PDF export
 
-Export a **plain PDF** of an assessment for records or handoff. Generation
-occurs server-side.
+Export a **plain PDF** of an assessment for records or handoff. Where
+configured, send to an **allowlisted email**. Generation occurs server-side.
 
 ### Secure messaging
 
@@ -83,25 +75,31 @@ occurs server-side.
 blocked). Admins may access the immutable **Communication Record** (PDF export;
 every access audit-logged). See [Messaging](/veridian-motion/messaging).
 
-### Admin analytics (rolling out)
+### Admin analytics
 
-A per-facility, **admin-only** engagement and outcomes dashboard — **measured**
-vs **estimated** cost figures, no individual PHI. Confirm availability with
-Veridian. See [Admin analytics](/veridian-motion/admin-analytics).
+Per-facility, **admin-only** engagement and outcomes dashboard — **measured**
+vs clearly labeled **estimated** cost figures; no individual PHI. See
+[Admin analytics](/veridian-motion/admin-analytics).
+
+### Programs & Access
+
+License programs on/off, set seats and price, run the pricing calculator, bulk
+enroll, and export monthly billing snapshots / invoice PDFs. See
+[Programs & licensing](/veridian-motion/programs-and-licensing).
 
 ## What's next
 
 <CardGroup cols={2}>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Rehab review panel.
+  </Card>
+  <Card title="Medical intake" icon="notes-medical" href="/veridian-motion/medical-intake">
+    Profile and red flags.
+  </Card>
   <Card title="Status and workflow" icon="diagram-project" href="/veridian-motion/status-and-workflow">
     Status labels and handoffs.
   </Card>
   <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
     Permission matrix.
-  </Card>
-  <Card title="AI and clinical safety" icon="brain" href="/veridian-motion/ai-and-clinical-safety">
-    Non-diagnostic AI and red flags.
-  </Card>
-  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
-    Manual enrollment and deployment.
   </Card>
 </CardGroup>

@@ -1,0 +1,70 @@
+---
+title: "Chess Wellness"
+description: "License-gated cognitive wellness program — play, puzzles, academy, and solo competition without patient-vs-patient matchmaking."
+---
+
+# Chess Wellness
+
+**Chess Wellness** is a **subscribable cognitive-wellness program** —
+play, puzzles, lessons, and solo competition — licensed **per facility** and
+**per patient**. It is designed for locked facility networks: the engine and
+puzzles run **on-device** with **no chess API** and **no external matchmaking**.
+
+<Note>
+  Controlled by the **`CHESS_ENABLED`** feature flag (on by default in current
+  builds). Facility access requires an active
+  [program entitlement](/veridian-motion/programs-and-licensing) and patient
+  enrollment with available seats.
+</Note>
+
+## What patients get
+
+| Area | Detail |
+| --- | --- |
+| **Play** | Vs a bundled on-device engine (3 levels); save / resume; **offline** |
+| **Puzzles** | 36 tactics puzzles; each proven a unique mate |
+| **Challenges** | Daily puzzle (streaks), Puzzle Rush (timed), Ladder |
+| **Ranking & seasons** | Personal rating, tiers (Bronze→Platinum), season points, streaks — **solo only**, no patient-vs-patient |
+| **Chess Academy** | Curriculum from **Dr. Mikhail Korenman's** handbook — lessons across 4 units, checkmate drills vs the engine, **Certificate of Completion**, interactive teaching games |
+| **Instructor assignment** | Staff can assign specific activities to a patient |
+
+## Security design (corrections)
+
+- **No chat** and **no matchmaking** between patients
+- Engine and puzzle content run **without outbound chess-API calls**
+- Rules via **chess.js** (BSD); Veridian's bundled engine avoids GPL constraints.
+  Stronger play via Stockfish is a **documented later upgrade** (separate process,
+  GPLv3 compliance) if needed — see [Roadmap](/veridian-motion/roadmap)
+
+## Licensing
+
+`hasProgramAccess(patient, program)` requires:
+
+1. The facility holds an **active entitlement**, and
+2. The patient holds an **active enrollment** within the purchased **seat cap**
+
+See [Programs & licensing](/veridian-motion/programs-and-licensing).
+
+## Engagement metrics
+
+Chess engagement appears on the **admin analytics** dashboard at the facility /
+program level — not as individual clinical PHI.
+
+## Why it exists
+
+Patience, focus, and cognitive engagement — a facility-safe, offline program
+with curriculum from a titled chess authority.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Seats and enrollments.
+  </Card>
+  <Card title="Admin analytics" icon="chart-line" href="/veridian-motion/admin-analytics">
+    Engagement reporting.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Leaderboards, two-player, fuller curriculum.
+  </Card>
+</CardGroup>

@@ -10,14 +10,19 @@ introduction.mdx
 veridian-motion/
   for-evaluators.mdx
   product.mdx
-  officer-staff-wellness.mdx            Employee wellness offering (not patient care)
   overview.mdx
-  roadmap.mdx                           Rolling out and planned capabilities
+  programs-and-licensing.mdx            Entitlements, seats, invoice-support
+  precision-rehab.mdx
+  medical-intake.mdx
+  chess-wellness.mdx
+  officer-staff-wellness.mdx            Employee wellness portal
+  roadmap.mdx                           Planned enhancements + compliance migration
   getting-started.mdx
-  facility-onboarding.mdx               Manual enrollment, deployment runbook
-  patient-portal.mdx                    Patient kiosk intake
+  facility-onboarding.mdx
+  patient-portal.mdx
   provider-dashboard.mdx
-  admin-analytics.mdx                   Admin ROI dashboard (rolling out)
+  admin-analytics.mdx
+  legal-terms.mdx
   status-and-workflow.mdx
   messaging.mdx
   roles-and-access.mdx
@@ -33,7 +38,7 @@ docs.json
 
 | Product | Status |
 | --- | --- |
-| **Veridian Motion** | Flagship — patient portal + provider dashboard at [veridianhp.com](https://veridianhp.com) |
+| **Veridian Motion** | Flagship — patient portal + provider dashboard + licensed programs at [veridianhp.com](https://veridianhp.com) |
 
 ## Local preview
 

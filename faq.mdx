@@ -7,15 +7,16 @@ description: "Common questions about Veridian Health Partners and Veridian Motio
 
 ## What is Veridian Motion?
 
-Veridian Health Partners' **flagship PT platform** for correctional facilities —
-patient portal (kiosk) plus provider dashboard. See
-[Veridian Motion](/veridian-motion/product).
+Veridian Health Partners' **flagship AI-assisted, clinician-reviewed
+correctional wellness platform** — patient portal (kiosk) plus provider
+dashboard, with licensed programs (MSK, Precision Rehab, medical intake, Chess
+Wellness). See [Veridian Motion](/veridian-motion/product).
 
 ## How are patients enrolled?
 
-**Manually**, one at a time, by an **admin** for a **single-facility**
-deployment. Bulk CSV import and JMS sync are **planned** —
-[Roadmap](/veridian-motion/roadmap).
+By an **admin** — **manually** or via **mass import**. Program seats are
+enforced when a patient is enrolled in a licensed program. **JMS** sync is
+**planned** — [Roadmap](/veridian-motion/roadmap).
 
 ## How do patients sign in?
 
@@ -24,8 +25,8 @@ deployment. Bulk CSV import and JMS sync are **planned** —
 
 ## Do patients see AI results immediately?
 
-No. Confirmation and safety guidance only until a PT **approves**. AI generates
-a PT-reviewable plan in the dashboard immediately after processing.
+No. Confirmation and safety guidance only until a clinician **approves**. AI
+generates a clinician-reviewable plan in the dashboard after processing.
 
 ## How do staff sign in?
 
@@ -34,30 +35,40 @@ SSO is **planned** — [Roadmap](/veridian-motion/roadmap).
 
 ## What staff roles exist?
 
-`pt`, `admin`, `warden`, and `it_admin`. **`warden`** is operational oversight only
-(enrollment counts, activity, safety escalations) — **no clinical PHI**. See
+`pt`, `admin`, `officer`, `warden`, `it_admin`, and `wellness_participant`.
+**`officer` / `warden`** are operational (no clinical PHI by default).
+`wellness_participant` is for the employee wellness portal. See
 [Role permissions](/veridian-motion/role-permissions).
 
 ## Does Veridian Motion support multiple facilities?
 
 Yes. Each facility's patients and staff are isolated via **row-level security**
-scoped by facility membership. Multi-facility staff can **switch facilities** before
-working in the dashboard. See [Roles and access](/veridian-motion/roles-and-access).
+scoped by facility membership. Multi-facility staff can **switch facilities**.
+See [Roles and access](/veridian-motion/roles-and-access).
+
+## What programs are available?
+
+MSK Assessment & PT review, [Precision Rehab](/veridian-motion/precision-rehab),
+[Medical intake](/veridian-motion/medical-intake), and
+[Chess Wellness](/veridian-motion/chess-wellness) — license-gated and
+feature-flagged. See [Programs & licensing](/veridian-motion/programs-and-licensing).
 
 ## Is live video, EHR, or API included?
 
-No. **Planned** or future — [Roadmap](/veridian-motion/roadmap).
+No. **Planned** — [Roadmap](/veridian-motion/roadmap).
 
 ## Is Veridian Motion HIPAA-certified?
 
 **No.** **HIPAA-aligned, not HIPAA-certified.** **Not CJIS-authorized or
 FedRAMP-authorized.** Agency provides hosting, MDM, network, personnel screening.
+Current Lovable builds use **synthetic data only**.
 [Security overview](/security/overview).
 
 ## Does the app diagnose patients?
 
-No. Non-diagnostic triage; PT approves all plans. Red flags show **see medical
-staff** — not diagnosis. [AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+No. Non-diagnostic triage and education; clinicians approve clinical materials.
+Red flags show **see medical staff** — not diagnosis.
+[AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
 
 ## Contact
 
@@ -74,7 +85,7 @@ staff** — not diagnosis. [AI and clinical safety](/veridian-motion/ai-and-clin
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
     Planned capabilities.
   </Card>
-  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
-    Manual enrollment and deployment.
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
   </Card>
 </CardGroup>

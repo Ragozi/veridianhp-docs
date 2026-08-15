@@ -5,75 +5,55 @@ description: "Staff roles, multi-facility access, TOTP MFA, and provisioning."
 
 # Roles and access
 
-Veridian Motion uses **role-based access control (RBAC)** and **row-level
-security (RLS)** on every table, scoped by **facility membership**. Staff
-roles are granted **only by an admin**.
-
 ## Multi-facility access
 
-Each facility's **patients and staff** are isolated through RLS. Staff who
-work across sites can **switch between facilities** in the dashboard after an
-admin grants the appropriate roles and facility membership.
+Each facility's patients and staff are isolated via **row-level security**
+scoped by **facility membership**. Staff granted membership in more than one
+facility **switch facilities** in the dashboard before working with that site's
+data.
 
-| Scope | Who | Access |
+| Access type | Who | What they see |
 | --- | --- | --- |
-| **Clinical (`pt`)** | Assigned PT/clinician | Clinical data for **their facility only** |
-| **Operational (`warden`)** | Facility oversight | Counts, workflow activity, safety escalations — **no clinical PHI** |
-| **Admin (`admin`)** | Facility administrator | Full operational + clinical admin for assigned facilities |
-
-See [Role permissions](/veridian-motion/role-permissions) for the full matrix.
-
-## Staff roles
-
-| Role | ID | Access |
-| --- | --- | --- |
-| **Physical Therapist** | `pt` | Assigned assessments — review, approve, notes, messaging (facility-scoped) |
-| **Administrator** | `admin` | Enrollment, assignment, roles, MFA reset, roster, Communication Record |
-| **Warden / facility oversight** | `warden` | **Operational only** — no clinical PHI (minimum-necessary) |
-| **IT Admin** | `it_admin` | Security settings, compliance views, technical administration |
-
-<Note>
-  Patient access is separate: patients authenticate with **Patient ID + PIN**.
-  Patients see only their own submissions and approved/shared content.
-</Note>
+| **Clinical (`pt`)** | Licensed clinicians | Clinical data for **their facility only** (assignments) |
+| **Admin (`admin`)** | Facility administrators | Roster, enrollment, programs, analytics (facility-scoped) |
+| **Operational (`officer`, `warden`)** | Facility oversight | Counts, workflow activity, safety escalations — **no clinical PHI** by default |
+| **IT (`it_admin`)** | Technical admins | Security / compliance tooling |
+| **Employee wellness (`wellness_participant`)** | Staff participants | Confidential officer wellness portal only |
 
 ## Staff authentication
 
-Staff accounts use:
+- **Email + password**
+- **TOTP MFA** available; enforcement controlled per deployment (`MFA_ENFORCED`)
+- **SSO** remains planned — [Roadmap](/veridian-motion/roadmap)
 
-1. **Email + password**
-2. **TOTP MFA** — available on all staff accounts, **enforced per deployment**
+## Patient authentication
 
-Staff SSO (SAML/OIDC) is **planned** — see [Roadmap](/veridian-motion/roadmap).
+- **Patient ID + PIN** (staff-provisioned)
+- No personal email required from the patient; synthetic identifiers may be used
+  under the hood for auth plumbing
+- No self sign-up
 
-## Role provisioning
+## Provisioning
 
-Admins manage roles at **`/staff`**:
+Admins:
 
-- **Grant** — assign `pt`, `admin`, `warden`, or `it_admin`
-- **Revoke** — remove a role; access ends on next session
+- **Grant** roles (`pt`, `admin`, `officer`, `warden`, `it_admin`,
+  `wellness_participant`)
 - Configure **facility membership** for multi-facility staff
+- **Mass-import** staff and patients where enabled
+- Assign **program enrollments** within seat caps
 
-Role changes are recorded in the **hash-chained audit log**.
-
-## Break-glass MFA reset
-
-An **admin** or **it_admin** may **reset MFA** when a device is lost. The user
-must re-enroll at next sign-in.
-
-## Patient credentials
-
-| Action | Who | Result |
-| --- | --- | --- |
-| **Enroll patient** | `admin` | Patient ID + initial PIN returned to staff |
-| **Reset patient PIN** | `admin` | New PIN shown once for handoff |
-| **Sign in** | Patient at kiosk | Access to own submissions only |
+See [Role permissions](/veridian-motion/role-permissions) and
+[Programs & licensing](/veridian-motion/programs-and-licensing).
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
     Full permission matrix.
+  </Card>
+  <Card title="Officer & Staff Wellness" icon="heart-pulse" href="/veridian-motion/officer-staff-wellness">
+    Employee wellness portal.
   </Card>
   <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
     Enrollment and deployment.

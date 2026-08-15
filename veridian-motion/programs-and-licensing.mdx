@@ -1,0 +1,84 @@
+---
+title: "Programs & licensing"
+description: "Contract-first program entitlements, seat caps, enrollments, and invoice-support snapshots."
+---
+
+# Programs & licensing
+
+Veridian Motion uses a shared **program / entitlement / billing spine** so every
+licensed program (MSK assessment, Precision Rehab, Chess Wellness, and others)
+is gated the same way: **contract-first**, **seat-capped**, and
+**invoice-supportable**.
+
+<Warning>
+  This is **facility program licensing** — not medical coding, insurance
+  billing, or credit-card checkout. Facilities license programs under contract;
+  the platform meters enrollments and produces **invoice-support** artifacts.
+</Warning>
+
+## How access works
+
+A patient can use a program only when **both** are true:
+
+1. The facility has an **active program entitlement**, and
+2. The patient has an **active program enrollment** within the purchased
+   **seat cap**
+
+Enrolling past purchased seats is **blocked** (`assertSeatAvailable`).
+
+## Admin console capabilities
+
+| Capability | Detail |
+| --- | --- |
+| **Programs & Access** | License on/off, seats, price per facility entitlement |
+| **Pricing calculator** | Support for quoting seat / program configurations |
+| **Mass import** | Bulk import of staff and patients (roster provisioning) |
+| **Enrollment** | Per-patient and **bulk** program enrollment |
+| **Billing snapshots** | Immutable monthly snapshots + **invoice PDF** support |
+| **Legal forms** | Admin console for versioned terms (see [Legal terms](/veridian-motion/legal-terms)) |
+
+## Conceptual data model
+
+| Entity | Purpose |
+| --- | --- |
+| **programs** | Catalog of licensable programs |
+| **program_entitlements** | Per-facility license, seat cap, price |
+| **program_enrollments** | Per-patient seat |
+| **program_billing_snapshots** | Immutable monthly metering |
+| **program_usage_events** | Usage events for metering / audit |
+
+## Feature flags
+
+Programs also sit behind application feature flags (additive; off until cleared
+for a build). Current public flags include:
+
+| Flag | Typical default (current builds) |
+| --- | --- |
+| `PRECISION_REHAB_ENABLED` | On |
+| `CHESS_ENABLED` | On |
+| `MEDICAL_INTAKE_ENABLED` | On |
+| `MFA_ENFORCED` | Per deployment |
+| Behavioral-health modules | **Not documented / not enabled** in public releases |
+
+## What it is not
+
+- **Not** medical billing or coding workflows
+- **Not** self-serve credit-card checkout
+- **Not** a guarantee of any specific ROI or savings figure
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Licensed MSK rehab program.
+  </Card>
+  <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
+    Licensed cognitive program.
+  </Card>
+  <Card title="Admin analytics" icon="chart-line" href="/veridian-motion/admin-analytics">
+    Engagement and value reporting.
+  </Card>
+  <Card title="Legal terms" icon="file-contract" href="/veridian-motion/legal-terms">
+    Versioned patient terms acceptance.
+  </Card>
+</CardGroup>

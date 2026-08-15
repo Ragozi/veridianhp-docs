@@ -1,0 +1,67 @@
+---
+title: "Precision Rehab"
+description: "Self-directed MSK rehab from the Precision Manual Therapy Model — course, guided self-treatment, and daily movement routines."
+---
+
+# Precision Rehab
+
+**Precision Rehab** is a feature-flagged program that delivers
+**self-directed musculoskeletal rehab** based on Leon Cherbukhovsky, PT,
+DPT's **Precision Manual Therapy Model**. It is **non-diagnostic**: patients
+learn self-care and log their own data; licensed clinicians retain review
+authority.
+
+<Note>
+  Controlled by the **`PRECISION_REHAB_ENABLED`** feature flag (on by default
+  in current builds). Facility access also requires an active
+  [program entitlement](/veridian-motion/programs-and-licensing) and patient
+  enrollment.
+</Note>
+
+## What patients get
+
+| Track | Detail |
+| --- | --- |
+| **Course** | Lessons and quick checks → **competency check** → printable **Certificate of Competency** |
+| **Guided self-treatment** | The **9-step method**: comparable sign (0–10) → localize → fiber direction → position → contact → dose → retest → load |
+| **Safety screen** | If any safety flag is checked, the session **stops** and routes the patient toward an **in-person sick call** |
+| **Daily Movement routines** | Four equipment-free correctional programs: Cell Mobility, Morning Reset, Prolonged-Sitting Reset, Evening Recovery |
+
+## Clinician review
+
+On the patient page, clinicians see:
+
+- Logged self-treatment sessions
+- Routine completions
+- Space for **review notes**
+
+Nothing here replaces licensed clinical judgment or diagnoses a condition.
+
+## Offline capability
+
+Rehab content is designed to work on a facility's **locked network** without
+external API calls where it matters for session continuity.
+
+## What it is not
+
+- **Not a diagnosis** or therapy substitute for hands-on care
+- **Not** AI emotional or behavioral-health assessment
+- **Not** a claim of specific clinical outcomes or dollar savings
+
+## Attribution
+
+Clinical model and curriculum credit: **Leon Cherbukhovsky, PT, DPT**.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seat caps.
+  </Card>
+  <Card title="Medical intake" icon="notes-medical" href="/veridian-motion/medical-intake">
+    Layer-1 medical profile and red flags.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Region library and video planned.
+  </Card>
+</CardGroup>

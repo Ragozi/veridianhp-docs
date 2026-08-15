@@ -1,90 +1,105 @@
 ---
 title: "Platform overview"
-description: "Technical scope and features built today for Veridian Motion."
+description: "What Veridian Motion builds today — programs, security, and feature-flagged modules."
 ---
 
 # Platform overview
 
-For product vision and case flow, start with
-[Veridian Motion](/veridian-motion/product). This page lists what is **built
-today**.
+For product vision, start with [Veridian Motion](/veridian-motion/product).
+This page lists what is **built today** on the Lovable build (TanStack Start +
+Supabase), running on **synthetic data**. Modules are **additive and
+feature-flagged**.
+
+<Note>
+  **Non-diagnostic.** AI and program content organize the patient's own data and
+  teach self-care; a **licensed clinician** (PT/PA as applicable) reviews before
+  clinical materials reach a patient. **HIPAA-aligned, not HIPAA-certified.**
+</Note>
 
 ## What it is
 
 | Surface | Users | Purpose |
 | --- | --- | --- |
-| **Patient portal (kiosk)** | Patients (Patient ID + PIN) | Body map, complaint, questionnaire, up to 4 photos, status and approved plan |
-| **Provider dashboard** | Staff (`pt`, `admin`, `warden`, `it_admin`) | Roster, enrollment, assignment, review/approve, messaging, PDF, multi-facility |
+| **Patient portal (kiosk)** | Patients (facility ID + PIN) | MSK intake, medical intake, Precision Rehab, Chess Wellness, messaging, approved plans |
+| **Provider dashboard** | Staff (`pt`, `admin`, `officer`, `warden`, `it_admin`, …) | Roster, programs, review, messaging, analytics, multi-facility |
+| **Officer wellness portal** | Staff participants | Separate confidential employee wellness portal |
 
-TanStack Start web app (React 19), installable **PWA**, USWDS-aligned UI,
-backed by Supabase (Postgres, Auth, Storage) via Lovable Cloud.
+TanStack Start (React 19), installable **PWA**, USWDS-aligned UI, Supabase
+(Postgres, Auth, Storage) via Lovable Cloud.
 
 ## Built today
 
-**Patient portal**
+### Accounts, roles & security
 
-- Sign-in with **Patient ID + PIN** (staff-provisioned)
-- Body-map region selector, complaint, plain-language **questionnaire**
-- Up to **four guided posture photos**
-- Post-submit confirmation; **My plan / progress** status tracking
-- Approved exercise plan and shared PT notes **only after PT approval**
-- Red-flag inputs → calm **see medical staff** safety action (not diagnosis)
+- **Staff:** email + password + **TOTP MFA** (enforced per deployment)
+- **Patients:** facility **Patient ID + PIN** (no self sign-up)
+- Roles include `pt`, `admin`, `officer`, `warden`, `it_admin`, and
+  `wellness_participant` (employee wellness)
+- **RLS** on every table; facility membership helpers
+- **Append-only, hash-chained audit log**; field-level PHI encryption (AES-256-GCM)
+- **Multi-facility isolation** — staff can **switch facilities**; `warden` sees
+  **operational** data only (**no clinical PHI**)
 
-**Provider dashboard**
+### Programs (license-gated)
 
-- Roles: `pt`, `admin`, `warden`, `it_admin`
-- **Manual** patient enrollment
-- **Multi-facility isolation** — RLS scoped by facility membership; staff can **switch facilities**
-- **`warden`** — operational visibility only (counts, activity, safety escalations) — **no clinical PHI**
-- **Assignment queue** → assessment **review/approve**
-- PT notes, **PDF export**
-- **Secure messaging** with **safety screening** and admin **Communication Record** (PDF, audit-logged access)
+| Program | Status | Docs |
+| --- | --- | --- |
+| **MSK Assessment & PT review** | Built (core) | [Patient portal](/veridian-motion/patient-portal), [Provider dashboard](/veridian-motion/provider-dashboard) |
+| **Precision Rehab** | Built (`PRECISION_REHAB_ENABLED`) | [Precision Rehab](/veridian-motion/precision-rehab) |
+| **Medical intake** | Built (`MEDICAL_INTAKE_ENABLED`) | [Medical intake](/veridian-motion/medical-intake) |
+| **Chess Wellness** | Built (`CHESS_ENABLED`) | [Chess Wellness](/veridian-motion/chess-wellness) |
 
-**AI**
+Shared [Programs & licensing](/veridian-motion/programs-and-licensing) spine:
+entitlements, seat caps, enrollments, monthly billing snapshots, invoice PDF
+support. **Contract-first — no credit cards.**
 
-- Non-diagnostic triage → immediate **PT-reviewable exercise plan** (name / why / steps / dosage / cautions)
-- Licensed PT retains clinical authority
+### Operations
 
-**Security**
+- **Admin console:** Programs & Access, pricing calculator, **mass import**
+  (staff + patients), per-patient and bulk enrollment, billing snapshots,
+  legal-forms console
+- **Secure messaging** with **safety screening** and admin **Communication Record**
+- **Admin analytics** — facility engagement / value reporting (measured vs
+  clearly labeled estimated figures; no individual PHI)
+- **Legal Terms** — versioned acceptance at registration
+- **Offline-capable** where it matters (chess engine, puzzles, rehab) on locked
+  facility networks
 
-- RBAC, RLS on every table (facility-scoped)
-- Hash-chained audit log, field-level PHI encryption, brute-force lockout
-- PWA/kiosk hardening; staff **TOTP MFA** (enforced per deployment)
+## Design principles
 
-## Rolling out
+- **Non-diagnostic** — clinician review before clinical content reaches patients
+- **Safety-gated** — red-flag screens route worrying cases toward in-person sick call
+- **Additive + flag-gated** — modules ship behind flags, off until cleared
+- **Offline where it matters** — no external chess/rehab API calls required for
+  core program loops
 
-| Capability | Status |
-| --- | --- |
-| **Admin analytics / ROI dashboard** | [Rolling out](/veridian-motion/admin-analytics) — confirm with Veridian |
-
-## Offerings (separate from built platform)
-
-| Offering | Status |
-| --- | --- |
-| **[Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)** | Approach / offering — not a finished certified product claim |
-
-## What it is not (current release)
+## What it is not (current public release)
 
 - **Not a diagnosis tool**
-- **Not live video, EHR, or partner API** — see [Roadmap](/veridian-motion/roadmap)
-- **Not SSO, bulk roster import, or JMS integration**
-- **Not HIPAA-certified, CJIS-authorized, or FedRAMP-authorized** — see [Security overview](/security/overview)
-- **Not AI behavioral-health or emotional-assessment modules**
+- **Not HIPAA-certified, CJIS-authorized, or FedRAMP-authorized**
+- **Not SSO, JMS, EHR, partner API, or live video** — see [Roadmap](/veridian-motion/roadmap)
+- **Not medical coding / insurance billing** (program seat licensing ≠ medical billing)
+- **Not AI behavioral-health, psychiatric, mood, or emotional-assessment modules**
+  — those are **not documented** in public docs and remain disabled
 
-## PT-review authority
+## Compliance & synthetic data
 
-Nothing from AI reaches a patient until a licensed PT **approves** the assessment.
+Current Lovable builds use **synthetic data only** and will not hold real PHI.
+Before a real pilot: owned Supabase (HIPAA add-on + BAA), compliant host, BAA-
+covered/self-hosted AI screener where required, counsel-finalized Terms/MSA/BAA,
+IRB determination (program-evaluation framing), and clinical sign-offs. See
+[Security overview](/security/overview).
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    Multi-facility roles and `warden`.
-  </Card>
-  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Safety screening and Communication Record.
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Admin analytics and planned items.
+    Planned enhancements and compliance migration.
+  </Card>
+  <Card title="Role permissions" icon="table" href="/veridian-motion/role-permissions">
+    Staff roles and RLS.
   </Card>
 </CardGroup>
