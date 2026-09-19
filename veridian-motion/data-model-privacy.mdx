@@ -1,81 +1,109 @@
 ---
 title: "Data model & privacy"
-description: "Core entities, PHI boundaries, RLS, encryption, and audit log."
+description: "Core entities across MSK, rehab, chess, medical intake, licensing, and legal acceptances."
 ---
 
 # Data model & privacy
 
-Veridian Motion uses Supabase Postgres with **row-level security (RLS) on
-every table**, **field-level PHI encryption**, and a **hash-chained audit
-log**.
+Veridian Motion uses **row-level security (RLS) on every table**, scoped by
+**facility membership**, plus **field-level PHI encryption** (AES-256-GCM where
+PHI) and a **hash-chained audit log**.
 
-**HIPAA-aligned, not HIPAA-certified.** A **BAA** is required with the
-health provider before production PHI.
+**HIPAA-aligned, not HIPAA-certified.** A **BAA** is required before production PHI.
+Current Lovable builds use **synthetic data only**.
 
-## Core entities
+## Core clinical / portal entities
 
 | Entity | Description | PHI |
 | --- | --- | --- |
-| **Patient** | Manually enrolled — Patient ID, internal ID | Yes |
-| **Assessment** | One portal submission (body map, complaint, questionnaire, photos, AI plan) | Yes |
-| **Photos** | Up to four posture images per assessment | Yes |
-| **Questionnaire responses** | Plain-language intake answers | Yes |
-| **Exercise plan** | AI draft and PT-approved plan (name, why, steps, dosage, cautions) | Yes |
-| **PT notes** | Clinical notes; optional share-with-patient flag | Yes |
-| **Messages** | Append-only clinician ↔ patient thread | Yes |
-| **Staff roles** | `pt`, `admin`, `it_admin` assignments | Metadata |
-| **Audit log** | Hash-chained action record (no PHI in payload) | No PHI in logs |
+| **Patient** | Enrolled — Patient ID, facility membership | Yes |
+| **Assessment** | MSK portal submission (body map, complaint, questionnaire, photos, AI plan) | Yes |
+| **Photos** | Up to four posture images | Yes |
+| **Exercise plan** | AI draft and clinician-approved plan | Yes |
+| **Clinician notes** | Clinical notes; optional share-with-patient flag | Yes |
+| **Messages** | Append-only clinician ↔ patient thread (safety-screened) | Yes |
+| **Communication Record** | Admin-only immutable messaging export | Yes (controlled) |
+| **Staff roles** | `pt`, `admin`, `it_admin`, `officer`, `warden`, `bh_clinician`, `wellness_participant` + facility membership | Metadata |
+| **Audit log** | Hash-chained actions (no PHI in payload) | No PHI in logs |
 
-## Data flow
+## Medical Intake
 
-```
-Manual enroll (admin) → Patient ID + PIN
-       ↓
-Patient portal → Assessment (body map, complaint, questionnaire, photos)
-       ↓
-Server AI → PT-reviewable exercise plan (dashboard only)
-       ↓
-Assign (admin) → PT review → Approve
-       ↓
-Patient view → Approved plan + shared notes only
-```
+| Entity | Description | PHI |
+| --- | --- | --- |
+| **`medical_profiles`** | One-time history, meds + side-effect screen, allergies, surgical, social + red-flag markers | Yes |
 
-## Row-Level Security
+Emergency contact is **intentionally omitted** (facility security).
+
+## Precision Rehab (`rehab_*`)
+
+| Table group | Purpose | PHI |
+| --- | --- | --- |
+| `rehab_modules`, `rehab_techniques` | Course / technique content | Content |
+| `rehab_safety_flags` | Safety-screen flags that stop a session | Yes when tied to a session |
+| `rehab_certifications` | Certificate of Competency artifacts | Yes |
+| `rehab_sessions` | Guided self-treatment session logs | Yes |
+| `rehab_routines` (+ steps, logs) | Daily Movement routines and completions | Yes |
+
+## Chess Wellness (`chess_*`)
+
+| Table group | Purpose | PHI / sensitivity |
+| --- | --- | --- |
+| `chess_games` | On-device play vs engine | Patient activity |
+| `chess_puzzles`, `chess_puzzle_attempts` | Tactics puzzles and attempts | Patient activity |
+| `chess_seasons`, `chess_progress` | Solo ranking / tiers / seasons | Patient activity |
+| `chess_challenge_runs` | Daily / Rush / Ladder runs | Patient activity |
+| `chess_assignments` | Instructor-assigned activities | Yes (assignment) |
+| `chess_lessons`, `chess_lesson_progress` | Academy curriculum progress | Patient activity |
+| `chess_academy_certs` | Certificate of Completion | Yes |
+
+No patient-vs-patient matchmaking or chat tables.
+
+## Programs & licensing
+
+| Entity | Purpose |
+| --- | --- |
+| `programs` | Catalog of licensable programs |
+| `program_entitlements` | Per-facility license, seat cap, contract price |
+| `program_enrollments` | Per-patient seat |
+| `program_billing_snapshots` | Immutable monthly metering |
+| `program_usage_events` | Usage events for metering / audit |
+
+Access rule: facility has an **active entitlement** AND patient has an **active
+enrollment** within the seat cap. See
+[Programs & licensing](/veridian-motion/programs-and-licensing).
+
+## Legal documents & consent
+
+| Entity | Purpose |
+| --- | --- |
+| `legal_documents` | Versioned Terms & Policies |
+| `legal_acceptances` | Patient acceptance with version + timestamp |
+
+See [Terms & patient consent](/veridian-motion/terms-and-consent).
+
+## Multi-facility isolation (rolling out)
+
+When enabled, each facility's patients and staff are isolated through **RLS** by
+facility membership (`private.has_role()`, `private.is_facility_member()`).
+**`warden` / `officer`** see operational data only — **no clinical PHI**.
+
+## Row-Level Security (summary)
 
 | Actor | Access |
 | --- | --- |
-| **Patient** | Own record, own assessments/messages; plans **only after PT approval**; notes **only if shared** |
-| **PT** | Assigned assessments and related patients |
-| **Admin** | Roster, assignment, enrollment, roles for this facility |
+| **Patient** | Own record only; plans after clinician approval; notes if shared |
+| **PT** | Assigned patients in their facility |
+| **Admin** | Roster, enrollment, programs, Communication Record, analytics (facility-scoped) |
+| **Officer / Warden** | Operational metrics and escalations — **no clinical PHI** |
 | **IT admin** | Security/compliance views per role |
-
-Cross-patient access is denied at the database layer.
-
-<Note>
-  **Multi-facility isolation, `warden` oversight, and Communication Record
-  access controls are rolling out** — not assumed in all deployments today.
-  Current production: **single-facility**. See [Roadmap](/veridian-motion/roadmap).
-</Note>
-
-## Photos
-
-- Stored in a **private** bucket
-- Authorized staff access only; patients do not receive storage URLs for other
-  patients' images
-
-## Session and client storage
-
-- **No PII in browser `localStorage`** on kiosk
-- Patient session state is **in-memory**; idle auto-reset clears it
+| **Wellness participant** | Own employee wellness data only |
+| **BH clinician** | Reserved — BH module not publicly available |
 
 ## Audit log
 
-Hash-chained, append-only entries for: enroll, assign, review/approve, notes,
-roles, MFA reset, messages. **No PHI in audit payload.**
-
-## Messaging
-
-Append-only, monitored, internal only — part of the medical record under RLS.
+Hash-chained entries for: enroll, assign, review/approve, notes, roles, MFA
+reset, messages, Communication Record access, program enrollment changes, legal
+acceptances. No clinical content in audit payload.
 
 ## Agency vs. application
 
@@ -89,10 +117,13 @@ Append-only, monitored, internal only — part of the medical record under RLS.
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
-    BAA framing.
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
   </Card>
   <Card title="Security overview" icon="shield-check" href="/security/overview">
-    Full posture summary.
+    Compliance posture.
+  </Card>
+  <Card title="HIPAA" icon="file-shield" href="/security/hipaa">
+    PHI types and BAA framing.
   </Card>
 </CardGroup>

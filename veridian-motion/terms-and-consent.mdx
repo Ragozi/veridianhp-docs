@@ -1,0 +1,57 @@
+---
+title: "Terms & patient consent"
+description: "Versioned Terms acceptance at first login and non-diagnostic disclaimers."
+---
+
+# Terms & patient consent
+
+Patients accept **Terms & Policies** at **first login** before using the
+portal. Acceptance is required, versioned, and timestamped.
+
+<Note>
+  Current builds are **pre-production / synthetic-data**. Terms are versioned
+  for demo and pilot readiness; counsel finalization is tracked internally and
+  must complete before real-PHI use.
+</Note>
+
+## First-login acceptance
+
+| Item | Detail |
+| --- | --- |
+| **Public `/terms` page** | Versioned Terms & Policies available **pre-login** |
+| **Required checkbox** | Patient must accept before continuing into the portal |
+| **Logged acceptance** | Each acceptance stores **document version + timestamp** |
+| **Counsel review (internal)** | Admin-only **"Pending counsel review"** status — **never shown to patients** |
+
+## Non-diagnostic disclaimers
+
+Plain-language **non-diagnostic** disclaimers appear throughout the product,
+including:
+
+- **Registration / first login**
+- **Per-suggestion** surfaces (e.g., AI plan and program guidance context for
+  clinicians/patients as applicable)
+- **Footer** reminders on patient and staff surfaces
+
+The product **does not diagnose**. Educational and triage content organizes the
+patient's own data; licensed clinicians retain review authority for clinical
+materials.
+
+## Admin console
+
+Admins manage versioned legal documents via the legal-forms console. See
+[Programs & licensing](/veridian-motion/programs-and-licensing).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
+    First-login Terms gate.
+  </Card>
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    HIPAA-aligned posture.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Counsel finalization before real-PHI pilots.
+  </Card>
+</CardGroup>

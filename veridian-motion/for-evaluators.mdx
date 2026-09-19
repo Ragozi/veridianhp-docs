@@ -1,116 +1,90 @@
 ---
 title: "For evaluators"
-description: "One-page guide for jail leaders, PTs, IT, and compliance reviewers evaluating Veridian Motion."
+description: "One-page guide for jail leaders, clinicians, IT, and compliance reviewers evaluating Veridian Motion."
 ---
 
 # For evaluators
 
 For **jail medical directors, physical therapists, IT, and compliance staff**
-evaluating Veridian Motion. This page reflects **what is built today** only.
-Planned items are on the [Roadmap](/veridian-motion/roadmap).
+evaluating Veridian Motion. This page reflects **what is built today**
+(pre-production / synthetic data). Treat modules as **rolling out** until
+Veridian confirms activation. Planned items are on the
+[Roadmap](/veridian-motion/roadmap).
 
 ## What Veridian Motion is
 
-Veridian Health Partners' **flagship PT platform** for **correctional
-facilities**:
+A **correctional wellness platform** delivering multiple **licensed,
+non-diagnostic, clinician-reviewed programs**:
 
-- **Patient portal (kiosk)** — body map, complaint, questionnaire, up to four
-  posture photos (Patient ID + PIN)
-- **Provider dashboard** — assignment queue, assessment review/**approve**, PT
-  notes, PDF export, secure messaging
+- **MSK Assessment & PT review** — flagship triage workflow
+- **Precision Rehab** — self-directed MSK rehab with safety screen + PT review panel
+- **Medical Intake** — one-time profile with rules-based clinician red flags
+- **Chess Wellness** — non-clinical cognitive wellness (offline engine; no matchmaking)
+- **Programs & licensing** — contract-first entitlements, seat caps, invoice-support
+- **Terms & consent** — versioned acceptance at first login
+- **Officer & Staff Wellness** — separate confidential employee portal
 
-AI produces **non-diagnostic**, **PT-reviewable** exercise plans (name / why /
-steps / dosage / cautions). A licensed PT **approves** before anything reaches
-the patient.
+AI and program logic are **non-diagnostic**. Licensed clinicians approve clinical
+materials before patients see them. **HIPAA-aligned, not HIPAA-certified.**
 
 ## Why facilities consider it
 
-Structured MSK triage and PT-approved movement care can improve **patient
-wellbeing** and reduce escalations that drive emergency care, chronic
-disability, and litigation costs — while keeping clinical authority with
-on-site licensed PTs.
+Structured MSK triage plus licensed education and wellness programs can improve
+**patient wellbeing** and help facilities address needs before they escalate —
+while keeping humans in the loop. Do not treat marketing ROI figures as
+guarantees; analytics separates **measured** metrics from **estimated** cost
+framing.
 
-## How it works (built today)
+## How MSK intake works (built today)
 
 <Steps>
-  <Step title="Admin enrolls patient manually">
-    Single-facility, one-at-a-time enrollment → **Patient ID + PIN** for staff
-    handoff.
+  <Step title="License programs and enroll">
+    Facility entitlement + patient seats; enroll via manual or **bulk roster
+    import** → **Patient ID + PIN**.
   </Step>
 
-  <Step title="Patient completes portal intake">
-    Body map → complaint → questionnaire → up to four photos → submit. Patient
-    sees **confirmation only** — no AI plan.
+  <Step title="Terms then portal intake">
+    Patient accepts Terms → MSK intake → submit. Sees **confirmation only** —
+    no AI plan before approval.
   </Step>
 
-  <Step title="AI generates PT-reviewable plan">
-    Server-side, non-diagnostic plan appears in the dashboard for PT review.
-  </Step>
-
-  <Step title="Admin assigns PT">
-    Submission moves through the **assignment queue**.
-  </Step>
-
-  <Step title="PT approves">
-    PT reviews red flags, edits plan, **approves**. Patient sees plan in **My
-    plan / progress**.
+  <Step title="Clinician reviews and approves">
+    Assignment queue → red flags → edit plan → **approve**.
   </Step>
 </Steps>
 
-## Not built today
+## Not generally available / planned
 
 | Capability | Status |
 | --- | --- |
-| Staff SSO (SAML/OIDC) | Planned |
-| Bulk CSV roster import | Planned |
+| Multi-facility isolation | Rolling out |
+| Staff SSO | Planned |
 | JMS / booking-system API | Planned |
-| EHR / EMR integration | Planned |
-| Partner API | Planned |
-| Live video | Planned |
-
-## Rolling out
-
-Confirm with Veridian Health Partners before treating these as live in your
-deployment. Details on [Roadmap](/veridian-motion/roadmap).
-
-| Capability | Status |
-| --- | --- |
-| Multi-facility isolation + facility switching | Rolling out |
-| `warden` facility-oversight role (no clinical PHI) | Rolling out |
-| Messaging safety screening + Communication Record (PDF) | Rolling out |
+| EHR / EMR, partner API, live video | Planned |
+| Behavioral Health product | Planned pending legal (WOPR) — **no public BH page** |
+| Real-PHI production hosting | Compliance migration required |
 
 ## Limitations
 
-- **Not diagnostic** — triage support only; PT retains authority
-- **Not emergency response** — red flags prompt **see medical staff**; facility protocols govern urgent care
-- **HIPAA-aligned, not HIPAA-certified**; **not CJIS/FedRAMP-authorized**
-- **Agency provides** CJIS/FedRAMP/GovCloud hosting, MDM, network, personnel screening
-- **Limited offline** — submit requires connectivity
-- **AI can be wrong** — PT review mandatory
+- **Not diagnostic** — clinician retains authority
+- **Not emergency response**
+- **Not HIPAA-certified / CJIS / FedRAMP-authorized**
+- **Synthetic data** on current Lovable builds
+- **Not clinically proven / IRB-approved** claims
+- Agency provides hosting, MDM, network, personnel screening
 
 ## Security (built today)
 
 | Control | In app |
 | --- | --- |
-| RBAC (`pt`, `admin`, `it_admin`) | Yes |
+| RBAC (expanded roles) | Yes |
+| Program entitlements + seat caps | Yes |
 | RLS on every table | Yes |
 | Hash-chained audit log | Yes |
 | Field-level PHI encryption | Yes |
-| Brute-force login lockout | Yes |
 | TOTP MFA (per deployment) | Yes |
 | PWA/kiosk hardening | Yes |
 | CJIS/FedRAMP hosting | Agency |
-
-See [Security overview](/security/overview).
-
-## Read next by role
-
-| Role | Start here |
-| --- | --- |
-| **Medical director / admin** | [Facility onboarding](/veridian-motion/facility-onboarding), [Getting started](/veridian-motion/getting-started) |
-| **Physical therapist** | [Provider dashboard](/veridian-motion/provider-dashboard), [AI and clinical safety](/veridian-motion/ai-and-clinical-safety) |
-| **IT** | [Deployment and kiosk](/veridian-motion/deployment-and-kiosk), [Data model & privacy](/veridian-motion/data-model-privacy) |
-| **Compliance** | [HIPAA](/security/hipaa), [Data handling](/security/data-handling) |
 
 ## Contact
 

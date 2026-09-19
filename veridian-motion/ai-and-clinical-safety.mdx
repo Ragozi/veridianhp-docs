@@ -1,107 +1,130 @@
 ---
 title: "AI and clinical safety"
-description: "Non-diagnostic AI triage, PT-review gate, exercise plans, and red-flag safety."
+description: "Non-diagnostic AI drafts for clinician review; rules-based safety gates for neck check-in, rehab outcomes, intake, messaging, and chess lines."
 ---
 
 # AI and clinical safety
 
-Veridian Motion uses **AI-assisted, non-diagnostic triage** to produce an
-**immediate PT-reviewable exercise plan** for licensed physical therapists.
-AI output **never** goes directly to patients and **never** constitutes a
-diagnosis.
+Veridian Motion keeps **AI out of the patient's path**. Where AI is used, it
+drafts material for **staff review**. Safety routing, rehab outcomes, intake
+flags, message screening, and chess opponent lines are **rules-based or
+pre-written** — **no AI**.
+
+Nothing constitutes a **diagnosis**. Clinical materials reach patients only
+after **licensed clinician review** where the workflow requires it.
 
 ## Design principles
 
-1. **Triage support, not diagnosis.** The product uses *assessment*,
-   *observations*, and *PT-reviewed recommendations* — never *diagnosis*.
-2. **PT-review gate.** AI generates a draft exercise plan in the provider
-   dashboard immediately after intake processing. A licensed PT **reviews and
-   approves** before any plan reaches the patient.
-3. **Red-flag safety.** Red-flag inputs surface a calm **see medical staff**
-   safety action for the patient — never a diagnosis or automated emergency
-   dispatch.
-4. **Clinical authority.** The PT retains full authority to edit, approve, or
-   reject AI output.
+1. **Triage / education support, not diagnosis.** Use *assessment*,
+   *observations*, and *clinician-reviewed recommendations* — never *diagnosis*.
+2. **Clinician-review gate (posture / MSK).** Server-side AI may draft
+   observations and an exercise plan for **clinician review**. Nothing reaches
+   the patient without **clinician approval**.
+3. **Safety gates are rules-based.** Red-flag and outcome trees route patients
+   toward **in-person sick call** / **see medical staff** — never automated
+   emergency dispatch, and **not AI**.
+4. **Clinical authority.** Clinicians retain full authority to edit, approve, or
+   reject drafts and program outputs.
 
 <Note>
-  AI processing runs **server-side** — not in the patient portal browser.
+  Current builds are **synthetic-data / pre-production**. Do not claim clinical
+  efficacy, validation studies, or certifications.
 </Note>
 
-## What AI produces (for PT review)
+## Where AI is used (staff-facing only)
 
-For each submitted assessment, AI generates a **PT-reviewable exercise plan**
-with:
-
-| Field | Purpose |
+| Use | Detail |
 | --- | --- |
-| **Name** | Exercise or movement name |
-| **Why** | Plain-language rationale (non-diagnostic) |
-| **Steps** | How to perform the movement safely |
-| **Dosage** | Reps, sets, duration, or frequency guidance |
-| **Cautions** | Contraindications or custody-appropriate warnings |
+| **Posture assessment draft** | Server-side AI drafts **observations** and an **exercise plan** for clinician review. Patients never see drafts until a clinician approves. |
+| **Staff clinical summary (optional)** | Staff can generate an **AI-drafted plain-language clinical summary** for paperwork. Staff-triggered; **reviewed before use**. |
 
-AI may also surface **observations** from the body map, questionnaire, and
-photos for PT consideration — all labeled **non-diagnostic**.
+### What is no longer AI
 
-## Red flags
+| Area | Current behavior |
+| --- | --- |
+| **Follow-up clarifying questions** (during posture assessment) | Fixed, **non-diagnostic** question list — **no AI** |
+| **Message screening** | **Rules-based only**; message text is **not** sent to any AI service |
 
-When intake responses or AI analysis suggest patterns that warrant in-person
-evaluation, the system surfaces:
+Public docs do **not** name AI vendors or models.
 
-- A prominent **review first** callout in the **provider dashboard** for the PT
-- A calm **see medical staff** safety action for the **patient** — not a
-  diagnosis
+## Rules-based / pre-written (no AI)
 
-PTs and custody staff follow facility acute-care protocols. Veridian Motion
-does not dispatch emergency services.
+| Area | Behavior |
+| --- | --- |
+| **[Neck check-in](/veridian-motion/neck-check-in) safety gate** | Deterministic, server-side routing (emergency locked screen; urgent medical-request guidance); audit-logged |
+| **[Precision Rehab](/veridian-motion/precision-rehab) after-treatment outcomes** | Deterministic decision tree (resolved / better / no change / worse + warning-sign check) |
+| **[Medical Intake](/veridian-motion/medical-intake) red flags** | Rules-based clinician review prompts |
+| **Chess opponent lines** | Pre-written, encouraging lines — **no AI** |
 
-## What AI does not do
+## Messaging safety screening
 
-- Diagnose conditions or replace PT clinical judgment
-- Send exercise plans to patients without PT approval
-- Initiate external communications
+Secure messaging may screen for custody/safety concerns (e.g., self-harm
+escalation to facility staff; threats/contraband blocked). Screening is
+**rules-based** — **message text is not sent to any AI service**. This is
+**operational safety screening**, not psychiatric assessment. See
+[Messaging](/veridian-motion/messaging).
+
+## Chess Academy (non-clinical)
+
+[Chess Academy](/veridian-motion/chess-wellness) is a **non-clinical cognitive
+wellness** activity. Opponent lines are pre-written. Game recap accuracy is a
+game measure only (approximate with the light on-device engine). It is **not** a
+clinical assessment or behavioral-health module.
+
+## What these systems do not do
+
+- Diagnose conditions or replace clinician judgment
+- Send MSK / posture exercise plans to patients without clinician approval
+- Run AI on clarifying questions, message bodies, neck check-in answers, rehab
+  outcomes, or chess chat lines
+- Provide AI emotional / behavioral-health assessment (not a public product)
+- Initiate external emergency dispatch
 - Store clinical content in application logs
 
-## PT workflow
+## Clinician workflow (MSK / posture)
 
 <Steps>
   <Step title="Review red flags first">
-    Address any **see medical staff** / red-flag callouts before approving a
-    plan.
+    Address any **see medical staff** / red-flag callouts before approving a plan.
   </Step>
 
-  <Step title="Review intake and AI plan">
-    Compare AI output to body map, questionnaire, and photos. Edit name, why,
-    steps, dosage, and cautions as clinical judgment requires.
+  <Step title="Review intake and AI draft">
+    Compare the AI draft to body map, questionnaire, photos, and fixed follow-up
+    answers. Edit as clinical judgment requires.
   </Step>
 
-  <Step title="Add PT notes">
-    Document the assessment. Mark notes **shared with patient** only when
-    appropriate.
+  <Step title="Review related program data">
+    When enabled, review Medical Intake flags, Precision Rehab session outcomes,
+    and Neck check-in staff review notes on the patient page.
   </Step>
 
   <Step title="Approve and release">
-    **Approve** the assessment when ready. The approved plan and shared notes
-    become visible in the patient's **My plan / progress** view.
+    **Approve** when ready. Approved plan and shared notes become visible in
+    **My plan / progress**. Optionally generate a staff clinical summary for
+    paperwork and review it before use.
   </Step>
 </Steps>
 
 ## Limitations
 
-Veridian Motion is **not** FDA-cleared software as a medical device. AI may
-be wrong, incomplete, or biased. PTs and facilities remain responsible for all
-clinical decisions and patient safety.
+Veridian Motion is **not** FDA-cleared software as a medical device. AI drafts
+and rules engines may be wrong, incomplete, or biased. Clinicians and facilities
+remain responsible for clinical decisions and patient safety. Do not claim the
+product is **clinically proven** or **IRB-approved**.
 
 ## What's next
 
 <CardGroup cols={2}>
+  <Card title="Neck check-in" icon="head-side" href="/veridian-motion/neck-check-in">
+    Deterministic cervical safety gate.
+  </Card>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    After-treatment decision tree.
+  </Card>
+  <Card title="Medical Intake" icon="notes-medical" href="/veridian-motion/medical-intake">
+    Rules-based red flags.
+  </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Review and approve workflow.
-  </Card>
-  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
-    What patients experience during intake.
-  </Card>
-  <Card title="Data model & privacy" icon="database" href="/veridian-motion/data-model-privacy">
-    PHI, RLS, and audit log.
+    Review workflows.
   </Card>
 </CardGroup>

@@ -1,0 +1,62 @@
+---
+title: "Medical Intake"
+description: "One-time medical profile with rules-based clinician red-flag review — non-diagnostic."
+---
+
+# Medical Intake
+
+**Medical Intake** is a feature-flagged, **one-time medical profile** patients
+self-complete on the portal. A **rules-based red-flag engine** surfaces review
+prompts for the clinician. The profile is **non-diagnostic**.
+
+<Note>
+  Controlled by **`MEDICAL_INTAKE_ENABLED`**. Clinical model credit: Dominic
+  Marchiafava, PA-C. Built / rolling out — confirm activation for your
+  deployment.
+</Note>
+
+## What patients complete
+
+| Section | Examples |
+| --- | --- |
+| **History** | Relevant medical history |
+| **Medications** | Current meds plus a **side-effect screen** |
+| **Allergies** | Including severe allergy flags |
+| **Surgical** | Recent surgery indicators |
+| **Social** | Activity and sleep context |
+
+**Emergency contact is intentionally omitted** for facility security.
+
+## Red-flag engine
+
+After submission, the platform raises clinician-facing review prompts such as:
+
+- Cardiac / cancer / clot / fracture history signals
+- Statin / steroid / new-medication signals
+- Severe allergy
+- Recent surgery
+- Activity / sleep concerns
+
+Clinicians see the **profile plus highlighted flags** on the patient page and
+mark the intake **reviewed**.
+
+## What it is not
+
+- **Not a diagnosis** or treatment plan
+- **Not** a full EHR chart
+- **Not** behavioral-health or psychological assessment
+- **Not** a substitute for facility sick-call protocols
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Review + red flags on the patient page.
+  </Card>
+  <Card title="AI and clinical safety" icon="brain" href="/veridian-motion/ai-and-clinical-safety">
+    Non-diagnostic safety gates.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Workflow decisions and clinical sign-off.
+  </Card>
+</CardGroup>

@@ -8,19 +8,27 @@ description: "What Veridian Motion collects, retains, and deletes."
 Summary of data in **Veridian Motion**. See
 [Data model & privacy](/veridian-motion/data-model-privacy) for detail.
 
+<Note>
+  Current Lovable builds use **synthetic data only**. Retention and deletion
+  for real PHI follow the agency agreement after compliance migration.
+</Note>
+
 ## What we collect
 
 | Data | Source | Purpose |
 | --- | --- | --- |
-| Patient record | Manual admin enrollment | Authentication, roster |
+| Patient record | Admin enrollment / bulk import | Authentication, roster |
 | Patient ID + PIN hash | Enrollment | Portal sign-in |
-| Body-map selections | Patient portal | Triage context |
-| Complaint text | Patient portal | Triage context |
-| Questionnaire responses | Patient portal | Triage context |
-| Posture photos (up to 4) | Patient portal | PT review |
-| AI exercise plan | Server | PT review until approved |
-| PT notes | PT | Clinical record; optional patient share |
+| Legal acceptances | First login | Versioned Terms consent |
+| Body-map, complaint, questionnaire | Patient portal (MSK) | Triage context |
+| Posture photos (up to 4) | Patient portal | Clinician review |
+| AI exercise plan | Server | Clinician review until approved |
+| Clinician notes | Clinician | Clinical record; optional patient share |
 | Messages | Staff + patient | Append-only internal record |
+| Medical Intake profile | Patient portal | Clinician red-flag review |
+| Precision Rehab sessions / routines / certs | Patient portal | Self-directed rehab + PT review |
+| Chess games / puzzles / progress / assignments / certs | Patient portal | Non-clinical cognitive wellness |
+| Program entitlements / enrollments / billing snapshots | Admin | Licensing and invoice-support |
 | Staff accounts + roles | Admin | Dashboard access |
 | Audit events | Platform | Hash-chained; no PHI in payload |
 
@@ -42,8 +50,9 @@ and certificates on request.
 
 ## PDF export
 
-Staff may export assessment **PDF** from the dashboard. No automated email
-export in the current release.
+Staff may export assessment **PDF** from the dashboard. Where configured, send
+to an **allowlisted email**. Communication Record PDF is admin-only and
+audit-logged.
 
 ## What's next
 

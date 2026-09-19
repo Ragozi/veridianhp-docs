@@ -1,0 +1,78 @@
+---
+title: "Neck check-in"
+description: "Guided cervical symptom-history check-in with deterministic safety routing, save-and-resume, and clinician review."
+---
+
+# Neck check-in
+
+**Neck check-in** is a guided **cervical symptom-history** flow a patient starts
+from [Precision Rehab](/veridian-motion/precision-rehab) (**Start a new
+assessment**). It collects structured history (114 questions), applies a
+**deterministic, server-side safety gate** (no AI), and produces a
+**non-diagnostic** patient summary. Clinician-only reasoning notes are stored
+separately and **never sent to the patient's device**.
+
+<Note>
+  **Built / rolling out** on synthetic (pre-production) data. Confirm activation
+  for your deployment. Status labels: **Built** capabilities below; **Roadmap**
+  items are called out explicitly.
+</Note>
+
+## How a patient starts
+
+1. Open **Precision Rehab**
+2. Choose **Start a new assessment**
+3. Complete the guided cervical symptom-history check-in
+
+## Save & finish later
+
+Patients can **save and resume** where they left off. The UI shows
+**Question X of N** progress so they know how far they have gone.
+
+## Deterministic safety gate (no AI)
+
+Specific answers or red-flag words in free text are evaluated **server-side**
+with **rules only** — no AI models.
+
+| Route | What the patient sees | System behavior |
+| --- | --- | --- |
+| **Emergency** | A **locked screen** telling them to get help from staff or onsite medical **now** | Patient **cannot continue** the check-in |
+| **Urgent** | Direction to tell staff promptly through the facility's **medical-request** process | Check-in handling follows facility protocol |
+
+Every safety trigger is written to the **audit log** with a **timestamp**.
+
+## What patients and clinicians see
+
+| Audience | Content |
+| --- | --- |
+| **Patient** | A **non-diagnostic summary** only |
+| **Clinician** | Completed check-ins in a **staff review** view, plus **clinician-only reasoning notes** stored separately |
+
+Clinician-only notes use **database-level separation** and are **never** delivered
+to the patient portal or patient device.
+
+## Roadmap
+
+- Shorter **adaptive branching** (skip irrelevant sections)
+- Other **body regions** beyond neck
+- A **tap-the-sore-muscle** body map
+
+## What it is not
+
+- **Not a diagnosis** or clinical decision for the patient
+- **Not** AI-scored symptom interpretation
+- **Not** a claim of clinical efficacy or certification
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Where patients start a neck check-in.
+  </Card>
+  <Card title="AI and clinical safety" icon="shield-heart" href="/veridian-motion/ai-and-clinical-safety">
+    Rules-based gates vs clinician-reviewed AI drafts.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Adaptive branching and other regions.
+  </Card>
+</CardGroup>

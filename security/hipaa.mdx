@@ -12,28 +12,36 @@ a signed **BAA** is in place.
 <Warning>
   **HIPAA-aligned design is not HIPAA certification.** Veridian Motion is
   **not HIPAA-certified**. Compliance depends on BAAs, agency hosting, and
-  operational practices.
+  operational practices. Current Lovable builds use **synthetic data only**.
 </Warning>
 
 ## Technical safeguards (built today)
 
 - Row-level security on every table
-- Field-level PHI encryption
+- Field-level PHI encryption (AES-256-GCM where PHI)
 - Hash-chained audit log (no PHI in payload)
-- Role-based access (`pt`, `admin`, `it_admin`)
+- Role-based access (`pt`, `admin`, `it_admin`, `officer`, `warden`,
+  `bh_clinician`, `wellness_participant`)
 - TOTP MFA for staff (enforced per deployment)
 - Brute-force login protection
+- Program entitlement / seat enforcement
 
-## PHI in Veridian Motion
+## PHI and sensitive data in Veridian Motion
 
 - Patient identifiers and enrollment records
-- Body-map selections, complaint, questionnaire responses
-- Posture photos (up to four)
-- AI triage output, PT notes, approved exercise plans
-- Clinician-to-patient messages
+- Body-map selections, complaint, questionnaire responses, posture photos
+- AI triage output, clinician notes, approved exercise plans
+- Clinician-to-patient messages and Communication Record exports
+- **Medical Intake** profiles and red-flag markers (`medical_profiles`)
+- **Precision Rehab** sessions, routine logs, certifications (`rehab_*`)
+- **Chess Wellness** progress, assignments, academy certs (`chess_*`) —
+  activity data; not a clinical assessment
+- Program entitlements / enrollments / billing snapshots (licensing metadata)
+- Legal acceptances (version + timestamp)
 
-**Minimum necessary:** patients see only their data; plans only after PT
-approval; notes only if shared.
+**Minimum necessary:** patients see only their data; MSK plans only after
+clinician approval; notes only if shared; `warden` / `officer` do not receive
+clinical PHI by default.
 
 ## Patient rights
 
@@ -50,13 +58,17 @@ personnel screening.
 ## Subprocessors
 
 PHI may be processed by subprocessors including Lovable Cloud / Supabase and
-server-side AI providers. List available to customers on request.
+server-side AI providers. List available to customers on request. Messaging
+screener must be BAA-covered or self-hosted before real-PHI pilots.
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Data handling" icon="database" href="/security/data-handling">
     Collection and retention.
+  </Card>
+  <Card title="Data model & privacy" icon="lock" href="/veridian-motion/data-model-privacy">
+    Entity groups and RLS.
   </Card>
   <Card title="Security overview" icon="shield-check" href="/security/overview">
     Full posture.

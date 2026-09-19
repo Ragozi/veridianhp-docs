@@ -12,35 +12,45 @@ and what **hosting agencies** must provide.
 <Warning>
   Veridian Motion is **HIPAA-aligned, not HIPAA-certified**. It is **not
   CJIS-authorized** or **FedRAMP-authorized**. Agencies choose hosting and
-  operational controls to meet their obligations.
+  operational controls to meet their obligations. Current Lovable builds use
+  **synthetic data only** and will not hold real PHI.
 </Warning>
 
 ## What Veridian Motion enforces (built today)
 
 ### Access control
 
-- **Staff:** Email + password; **TOTP MFA** (available; **enforced per deployment**); RBAC
+- **Staff:** Email + password; **TOTP MFA** (enforced per deployment via
+  `MFA_ENFORCED`); RBAC
 - **Patients:** Patient ID + PIN; access limited to own data via RLS
-- **Roles:** `pt`, `admin`, `it_admin` — granted only by admin
+- **Roles:** `pt`, `admin`, `officer`, `warden`, `it_admin`, `bh_clinician`
+  (reserved — BH not public), `wellness_participant` — granted only by admin
+- **Multi-facility (rolling out):** RLS by facility membership; staff may switch
+  facilities when enabled — confirm activation before assuming live
 - **Brute-force lockout** on patient and staff login identifiers
+- **Program entitlements:** seat-capped enrollments before program access
+- **Terms acceptance:** versioned patient consent logged at first login
 
 ### Data protection
 
 - **Row-level security** on every Postgres table
-- **Field-level PHI encryption**
+- **Field-level PHI encryption** (AES-256-GCM)
 - **Private photo storage**; authorized staff access only
 - **No PII in browser localStorage** on kiosk; in-memory patient session
 - **No PHI in application logs**
-- **Hash-chained audit log** for sensitive actions
+- **Hash-chained, append-only audit log** for sensitive actions
 
 ### Application hardening (kiosk)
 
 - Blocked external navigation, strict CSP, self-hosted fonts, idle auto-reset
-- Internal messaging only — no external egress
+- Internal messaging only — no external patient egress
+- Offline-capable chess/rehab loops without external API calls where designed
 
 ### Clinical safety gate
 
-- AI output is **non-diagnostic** and **PT-approved** before patient release
+- AI output is **non-diagnostic** and **clinician-approved** before patient release
+- Messaging **safety screening**; admin **Communication Record** access is
+  audit-logged
 
 ## What agencies / facilities must provide
 
@@ -53,6 +63,18 @@ and what **hosting agencies** must provide.
 | Personnel screening and security training | Agency |
 | Physical security of kiosk location | Agency |
 
+## Before a real-PHI pilot
+
+1. Owned Supabase (HIPAA add-on + BAA) + compliant host
+2. BAA-covered or self-hosted messaging AI screener
+3. Counsel-finalized Terms / MSA / BAA
+4. IRB determination when required (program-evaluation framing)
+5. Clinical sign-offs for enabled programs
+
+See [Roadmap](/veridian-motion/roadmap). Positioning remains **"HIPAA-aligned"**
+and **"wellness program"** — never "certified," "IRB-approved," or "clinically
+proven" until true.
+
 ## Encryption
 
 - **In transit:** TLS for all connections
@@ -62,13 +84,9 @@ and what **hosting agencies** must provide.
 ## Audit and monitoring
 
 Sensitive actions write to a **hash-chained, append-only audit log** (enroll,
-assign, review, notes, roles, MFA reset, messages). Application logs exclude
-PHI. Audit entries use resource IDs and action types — not clinical content.
-
-<Note>
-  **Rolling out:** audit-logged access to the admin-only **Communication
-  Record** for messaging. See [Roadmap](/veridian-motion/roadmap).
-</Note>
+assign, review, notes, roles, MFA reset, messages, **Communication Record
+access**, program enrollment). Application logs exclude PHI. Audit entries use
+resource IDs and action types — not clinical content.
 
 ## Incident response
 
@@ -84,6 +102,6 @@ See [Incident response](/security/incident-response).
     RLS and entities.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Rolling out and planned capabilities.
+    Compliance migration and planned items.
   </Card>
 </CardGroup>

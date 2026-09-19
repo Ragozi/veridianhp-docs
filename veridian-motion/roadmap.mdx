@@ -1,85 +1,93 @@
 ---
 title: "Roadmap"
-description: "Rolling out, planned, and in-progress Veridian Motion capabilities."
+description: "Rolling out and planned Veridian Motion capabilities."
 ---
 
 # Roadmap
 
-This page lists capabilities that are **not yet generally available** in every
-deployment. For what is **built today**, see
-[Platform overview](/veridian-motion/overview) and
-[Patient portal](/veridian-motion/patient-portal).
+For what is **built today** (pre-production / synthetic data), see
+[Platform overview](/veridian-motion/overview). This page lists **rolling out**
+and **planned** items. Nothing here is **generally available** until Veridian
+Health Partners confirms activation for your facility.
 
 <Warning>
-  Treat **Rolling out** items as available only when your facility has been
-  upgraded and Veridian Health Partners confirms activation. Until then,
-  assume **single-facility** deployments and **basic** secure messaging only.
+  Do not treat roadmap or rolling-out items as production-ready for real PHI
+  until compliance migration and facility activation are confirmed.
 </Warning>
 
 ## Rolling out
 
-Capabilities below are in active rollout. They are **not** documented as
-available on current-capability pages until your deployment is confirmed live.
-
-### Multi-facility isolation and facility oversight
-
-| Item | Detail |
+| Capability | Description |
 | --- | --- |
-| **Facility-scoped data isolation** | Each facility's patients and staff are isolated through row-level security scoped by **facility membership** |
-| **Clinical access (`pt`)** | PT/clinician sees clinical data for **their facility only** |
-| **Facility oversight (`warden`)** | Operational visibility only — enrollment counts, confirmation that care workflows are active, and **safety escalations** — **no clinical PHI** (HIPAA minimum-necessary) |
-| **Facility switching** | Staff with access to multiple facilities can **switch between facilities** in the dashboard |
-
-<Note>
-  The **`warden`** role is part of this rollout. It does **not** grant access to
-  assessments, AI output, exercise plans, clinical notes, or message bodies.
-</Note>
-
-### Secure messaging — safety and records
-
-| Item | Detail |
-| --- | --- |
-| **Message safety screening** | Clinician-to-patient messages are screened for custody and safety concerns. Qualifying content is **escalated to facility staff in real time**. **Threats and contraband-related content are blocked** |
-| **Communication Record** | **Admin-only**, **immutable** record of messaging threads, exportable to **PDF** for records or legal use. **Every access** to the Communication Record is **audit-logged** |
-
-<Note>
-  This is **operational safety screening** for secure messaging — not a
-  behavioral-health, psychiatric, or patient-facing emotional-support module.
-</Note>
+| **Bulk roster provisioning (CSV / mass import)** | Admin bulk import of staff and patients — **built** in the admin console; confirm activation per deployment |
+| **Multi-facility isolation** | Facility-scoped RLS, facility switching, and **`warden`** operational oversight (no clinical PHI) |
+| **Program licensing & facility billing** | Entitlements, seat caps, enrollments, immutable monthly snapshots, invoice-support export — see [Programs & licensing](/veridian-motion/programs-and-licensing) |
+| **Precision Rehab** | 10-lesson course, guided practice with after-treatment decision tree, Understand (Neck) — see [Precision Rehab](/veridian-motion/precision-rehab) |
+| **Neck check-in** | 114-question cervical symptom-history check-in with deterministic safety gate — see [Neck check-in](/veridian-motion/neck-check-in) |
+| **Medical Intake** | Feature-flagged one-time medical profile + red-flag engine — see [Medical Intake](/veridian-motion/medical-intake) |
+| **Chess Academy** | Veridian board, play, puzzles, Game recap, academy — see [Chess Academy](/veridian-motion/chess-wellness) |
+| **Terms & patient consent** | Versioned Terms acceptance at first login — see [Terms & patient consent](/veridian-motion/terms-and-consent) |
+| **Messaging safety + Communication Record** | Rules-based safety screening and admin-only immutable PDF export (audit-logged access) |
+| **Admin analytics + Usage & activity** | Per-facility engagement / value reporting and aggregate usage dashboard — see [Admin analytics](/veridian-motion/admin-analytics) |
 
 ## Planned
 
 | Capability | Description |
 | --- | --- |
-| **Staff SSO (SAML / OIDC)** | Single sign-on via agency identity providers (e.g., Microsoft Entra ID, Google Workspace, Okta) with MFA and IdP group → Motion role mapping |
-| **Bulk roster provisioning (CSV import)** | Admin upload of a roster CSV to create/update patients and issue PINs at scale |
-| **JMS / booking-system integration** | Live or scheduled sync with jail management systems (e.g., Tyler, Spillman/Motorola Solutions, CentralSquare, Securus) — auto-provision on booking, deactivate on release |
+| **Stronger chess engine** | Higher-strength analysis engine pending **license review** (separate process); current on-device engine stays intentionally light |
+| **Larger puzzle library & opening names** | Expanded tactics library and opening-name coverage |
+| **Neck check-in adaptive branching** | Shorter paths that skip irrelevant sections |
+| **Other body regions** | Symptom check-ins and Understand education beyond Neck |
+| **Tap-the-sore-muscle body map** | Interactive body map as an intake front door |
+| **Licensed anatomy & exercise media** | Licensed/original anatomy and exercise media |
+| **Per-muscle neck self-release techniques** | In progress with the clinical lead |
+| **Hub Coming soon tiles** | Sleep, Nutrition, Brain Fitness, Wellness Challenges, Chronic Disease Education, Music Therapy, Art Therapy, Continuing Education |
+| **BAA-covered production hosting** | Required **before any real patient data** |
+| **Staff SSO (SAML / OIDC)** | Agency IdP sign-on with MFA and group → role mapping |
+| **JMS / booking-system integration** | Live or scheduled sync (e.g., Tyler, Spillman/Motorola, CentralSquare, Securus) |
 | **Scheduled SFTP roster feed** | Daily roster file drop for automated reconcile |
-| **EHR / EMR integration** | Automated clinical data exchange with external systems |
-| **Partner API** | Programmatic access for third-party integrations |
+| **EHR / EMR integration** | Automated clinical data exchange |
+| **Partner API** | Programmatic third-party access |
 | **Live video consults** | Synchronous telehealth sessions |
+| **Behavioral Health (pending legal)** | Not publicly documented as a product. Gated pending legal/clinical clearance against the **Illinois WOPR Act**. Role key `bh_clinician` may exist for future use — **no public BH module docs** |
 
-## Explicitly out of scope (current release)
+## Compliance migration (gate to real deployment)
 
-- Medical billing / coding workflows
-- AI output shown to patients before PT review
+Current Lovable builds use **synthetic data only**. Before any real-PHI pilot:
+
+1. Migrate to **owned Supabase** (HIPAA add-on + BAA) and a **compliant host**
+2. Keep message screening **rules-based** (no message text to AI services); move
+   any remaining staff-facing AI drafts to BAA-covered or self-hosted
+   infrastructure as required
+3. Finalize **Terms / MSA / BAA** with counsel
+4. Obtain an **IRB determination** when required (program-evaluation framing)
+5. Obtain clinical sign-offs for enabled programs
+
+Positioning remains **"HIPAA-aligned"** and **"wellness program"** — never
+"certified," "IRB-approved," or "clinically proven."
+
+## Explicitly out of scope (public docs)
+
+- Medical **claims / CPT coding** workflows (program licensing ≠ medical billing)
+- AI output shown to patients before clinician review
 - Self-service patient or staff sign-up
-- External messaging (SMS, email to patients)
-- Behavioral-health, psychiatric, mood/wellness, or emotional-support AI modules
+- External messaging (SMS, email to patients) except allowlisted staff PDF send where configured
+- Patient-vs-patient chat or matchmaking
+- **Public Behavioral Health / AI emotional-assessment product pages** — WOPR-sensitive; see Planned only
 
 ## What's next
 
 <CardGroup cols={2}>
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
-    What is built today.
+    Built today (pre-production).
   </Card>
-  <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
-    Current staff roles (`pt`, `admin`, `it_admin`).
+  <Card title="Neck check-in" icon="head-side" href="/veridian-motion/neck-check-in">
+    Cervical check-in (built / rolling out).
   </Card>
-  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Secure messaging as built today.
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
   </Card>
-  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
-    Manual enrollment and deployment.
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    Compliance posture.
   </Card>
 </CardGroup>

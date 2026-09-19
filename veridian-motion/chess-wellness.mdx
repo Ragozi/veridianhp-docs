@@ -1,0 +1,107 @@
+---
+title: "Chess Academy"
+description: "Licensed cognitive-wellness program — Veridian board, play, puzzles, Game recap, academy. Not clinical. Slug: chess-wellness."
+---
+
+# Chess Academy
+
+**Chess Academy** (app title; docs slug remains `chess-wellness`) is a
+**licensed cognitive-wellness program** focused on patience, focus, and
+problem-solving. It is **explicitly not clinical** — not a diagnosis tool,
+therapy, or behavioral-health module.
+
+<Note>
+  Controlled by **`CHESS_ENABLED`**. Licensed **per facility** and **per
+  patient seat** — see [Programs & licensing](/veridian-motion/programs-and-licensing).
+  **Built / rolling out** on synthetic (pre-production) data — confirm
+  activation for your deployment.
+</Note>
+
+## Board
+
+Original **Veridian piece set** (in-house artwork) with:
+
+- **4 board themes** (saved per device)
+- **Drag-and-drop** and **tap-to-move**
+- Smooth move animation
+- Highlights for last move / check / legal moves
+- Board flip
+- Built-in sounds (generated in the browser — no audio files)
+- Every square remains a **labeled button** for keyboard and screen-reader use
+
+Puzzles, lessons, and drills use the **same board** (drag supported).
+
+## Play
+
+| Feature | Detail |
+| --- | --- |
+| **Practice opponents** | 6 opponents (about **800–1800**), with **pre-written, encouraging lines** (no AI) |
+| **Player cards** | Captured pieces and material count |
+| **Move list** | Clickable, with step-back |
+| **Controls** | Hint (arrow), Takeback, Flip, Resign |
+| **Promotion** | In-board pawn promotion picker |
+
+## Game recap
+
+After a game, **Game recap** lets the patient:
+
+- Step through the game on the board
+- View a **who was ahead** graph
+- See a better-move arrow on mistakes
+- Read standard notation marks (`!`, `?!`, `?`, `??`)
+- **Try it again** from the position before a mistake
+
+Accuracy is a **game measure only**. The on-device engine is intentionally light,
+so recap ratings are **approximate**. A **stronger engine** is **Roadmap**
+(pending license review).
+
+## Puzzles, lessons, and drills
+
+| Area | Detail |
+| --- | --- |
+| **Puzzles** | Tactics puzzles on the Veridian board |
+| **Challenges** | Daily puzzle, **Rush (timed puzzle sprint)**, Ladder |
+| **Ranking & seasons** | Personal rating, tiers, season points, streaks — **solo only**, no patient-vs-patient |
+| **Academy** | Structured curriculum, checkmate drills, interactive teaching games, **Certificate of Completion** |
+| **Instructor assignment** | Staff assign specific activities to a patient |
+
+## Corrections security design
+
+- **No chat** and **no matchmaking** between patients
+- **No patient-vs-patient play**
+- Engine and puzzle content run **without outbound chess API** calls
+- Rules via an open-source rules library (BSD); Veridian's bundled engine avoids
+  GPL constraints. Stronger play via a separate licensed engine process is
+  **Roadmap** (license review)
+
+## Licensing
+
+`hasProgramAccess` requires an active facility **entitlement** and an active
+patient **enrollment** within the seat cap.
+
+## Engagement metrics
+
+Chess engagement appears on [Admin analytics](/veridian-motion/admin-analytics)
+at the facility / program level — not as individual clinical PHI. See also
+**Usage & activity** on that page.
+
+## What it is not
+
+- **Not clinical** assessment or treatment
+- **Not** behavioral health or mood screening
+- **Not** patient-vs-patient competition or messaging
+- **Not** connected to any third-party chess website or API
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Seats and enrollments.
+  </Card>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Instructor assignment.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
+    Stronger engine, larger puzzle library.
+  </Card>
+</CardGroup>

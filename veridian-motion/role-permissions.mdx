@@ -1,87 +1,119 @@
 ---
 title: "Role permissions"
-description: "What each staff role can and cannot do in Veridian Motion."
+description: "What each staff role can and cannot do across Veridian Motion programs."
 ---
 
 # Role permissions
 
-Veridian Motion has **three staff roles** plus separate **patient** kiosk
-access. This page reflects permissions **as built today** for a
-**single-facility** deployment.
-
-<Note>
-  **Rolling out:** multi-facility RLS, facility switching, and **`warden`**
-  (operational visibility only — no clinical PHI). Until your deployment is
-  confirmed, use this matrix for `pt`, `admin`, and `it_admin` only. See
-  [Roadmap](/veridian-motion/roadmap).
-</Note>
+Veridian Motion uses **role-based access** plus **row-level security (RLS)**
+scoped by **facility membership**. Permissions below describe the **built**
+matrix; multi-facility switching and some program modules are **rolling out** —
+confirm activation for your deployment.
 
 <Note>
   Staff require **email + password** and **TOTP MFA** (enforced per deployment).
   Roles are granted only by an **admin**.
 </Note>
 
-## Permission matrix
+## Staff roles
 
-| Action | pt | admin | it_admin |
-| --- | --- | --- | --- |
-| Sign in to dashboard | Yes | Yes | Yes |
-| View patient roster | Assigned + policy | Yes | No |
-| Enroll patient (manual) | No | Yes | No |
-| Reset patient PIN | No | Yes | No |
-| View assignment queue | Assigned | Yes | No |
-| Assign case to PT | No | Yes | No |
-| Review / approve assessment | Yes (assigned) | No | No |
-| View AI output / red flags | Yes (assigned) | Yes | No |
-| Edit and release exercise plan | Yes (assigned) | No | No |
-| PT notes | Yes (assigned) | No | No |
-| Export assessment PDF | Yes | Yes | No |
-| Clinician-to-patient messaging | Yes (assigned) | Policy | No |
-| Grant / revoke staff roles | No | Yes | No |
-| Break-glass MFA reset | No | Yes | Yes |
-| Audit log | No | Yes | Yes |
-| Security / compliance settings | No | Limited | Yes |
+| Role key | Purpose |
+| --- | --- |
+| `pt` | Clinical review (MSK, Precision Rehab, Medical Intake as applicable) |
+| `admin` | Enrollment, program licensing/seats, roles, analytics, Communication Record |
+| `it_admin` | Security / compliance administration |
+| `officer` | Facility operational support — **no clinical PHI by default** |
+| `warden` | Operational oversight only — **no clinical PHI** (minimum-necessary) |
+| `bh_clinician` | Reserved for future Behavioral Health workflows — **BH product not publicly available** (WOPR pending) |
+| `wellness_participant` | Officer & Staff Wellness portal participant (employee wellness) |
+
+Patient kiosk access is separate (Patient ID + PIN) — not a staff role.
+
+## Permission matrix (core)
+
+| Action | pt | admin | officer | warden | it_admin | bh_clinician |
+| --- | --- | --- | --- | --- | --- | --- |
+| Sign in to dashboard | Yes | Yes | Yes | Yes | Yes | Yes |
+| Switch facility (when multi-facility enabled) | If granted | If granted | If granted | If granted | If granted | If granted |
+| View patient roster (clinical) | Assigned | Yes | **No** | **No** | No | Policy* |
+| Enroll patient / bulk roster import | No | Yes | No | No | No | No |
+| Manage program entitlements / seats | No | Yes | No | No | No | No |
+| Enroll patient in programs | No | Yes | No | No | No | No |
+| Review / approve MSK assessment | Yes (assigned) | No | **No** | **No** | No | No |
+| Precision Rehab review panel | Yes (assigned) | Policy | **No** | **No** | No | No |
+| Medical Intake clinician review | Yes (assigned) | Policy | **No** | **No** | No | No |
+| Chess instructor assignment | Policy | Yes | **No** | **No** | No | No |
+| Chess engagement metrics (admin analytics) | No | Yes | **No** | **No** | No | No |
+| Clinician-to-patient messaging | Yes (assigned) | Policy | **No** | **No** | No | Policy* |
+| Communication Record (PDF) | No | Yes | **No** | **No** | No | No |
+| Admin analytics dashboard | No | Yes | **No** | **No** | No | No |
+| View operational metrics / escalations | No | Yes | Policy | **Yes** | No | No |
+| Grant / revoke staff roles | No | Yes | No | No | No | No |
+| Break-glass MFA reset | No | Yes | No | No | Yes | No |
+| Audit log | No | Yes | No | Policy | Yes | No |
+| Security / compliance settings | No | Limited | No | No | Yes | No |
+
+\* `bh_clinician` permissions apply only if/when a Behavioral Health module is
+legally cleared and enabled for a deployment. **No public BH product docs.**
 
 ## Role summaries
 
-### Physical Therapist (`pt`)
+### Physical therapist (`pt`)
 
-Primary **clinical user**. Reviews **assigned** assessments: red flags, intake,
-AI exercise plan (name / why / steps / dosage / cautions). Edits, **approves**,
-adds notes, messages patients, exports PDFs. Cannot enroll patients or grant
-roles.
+Primary **clinical user**. Reviews assigned MSK assessments, Precision Rehab
+session logs / routine completions, and Medical Intake flags. Approves plans,
+notes, messages patients. May assign Chess activities per facility policy.
 
 ### Administrator (`admin`)
 
-**Operational owner** for the facility. Manually enrolls patients, assigns
-cases, resets PINs, grants/revokes roles, performs MFA reset, views roster and
-audit logs. Does not replace PT clinical sign-off unless also holding `pt`.
+**Operational owner** — bulk roster import, program entitlements and seats,
+bulk/per-patient enrollment, roles, MFA reset, Communication Record, admin
+analytics, legal-forms console, billing snapshots.
 
-### IT Admin (`it_admin`)
+### Officer (`officer`)
+
+**Facility operational support** per agency policy. Does **not** receive clinical
+PHI by default.
+
+### Warden (`warden`)
+
+**Operational visibility only** — enrollment counts, workflow activity, safety
+escalations. **No clinical PHI.** HIPAA **minimum-necessary** by design.
+
+### IT admin (`it_admin`)
 
 **Technical administration** — security settings, compliance tooling, MFA
-break-glass with admin. No clinical review or patient enrollment by default.
+break-glass.
 
-## Patient (kiosk — not a staff role)
+### BH clinician (`bh_clinician`)
+
+Role key reserved for future BH workflows. **Behavioral Health is not a public
+product** pending WOPR legal clearance — see [Roadmap](/veridian-motion/roadmap).
+
+### Wellness participant (`wellness_participant`)
+
+Access to the confidential [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)
+portal as an **employee** participant.
+
+## Patient (kiosk)
 
 | Action | Allowed |
 | --- | --- |
+| Accept Terms at first login | Yes (required) |
 | Sign in with Patient ID + PIN | Yes |
-| Complete patient portal intake | Yes |
-| View own submission status | Yes |
-| View approved plan after PT approval | Yes |
-| View PT notes marked **shared with patient** | Yes |
+| Complete MSK / Medical Intake when enabled | Yes |
+| Use enrolled programs (rehab, chess, …) | Yes |
+| View approved plan after clinician approval | Yes |
 | Reply in secure messaging threads | Yes |
-| View AI output before PT approval | **No** |
-| Self sign-up or change PIN | **No** |
-| Access other patients' data | **No** |
+| View AI output before clinician approval | **No** |
+| Self sign-up | **No** |
 
 ## Enforcement
 
-1. **Application UI and API** — role checks on staff actions
-2. **Row-level security** — patient and staff queries scoped at the database;
-   cross-patient access denied even if UI is bypassed
-3. **Hash-chained audit log** — sensitive actions recorded without PHI in payload
+1. **Application UI and API** — role checks
+2. **Row-level security** — facility-scoped queries
+3. **Hash-chained audit log** — sensitive actions; Communication Record access logged
+4. **Program entitlement checks** — seat-capped enrollments
 
 ## What's next
 
@@ -89,7 +121,7 @@ break-glass with admin. No clinical review or patient enrollment by default.
   <Card title="Roles and access" icon="key" href="/veridian-motion/roles-and-access">
     MFA and provisioning.
   </Card>
-  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Rollout checklist.
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
   </Card>
 </CardGroup>

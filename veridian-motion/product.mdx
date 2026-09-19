@@ -1,93 +1,103 @@
 ---
 title: "Veridian Motion"
-description: "Veridian Health Partners' flagship physical therapy platform for correctional musculoskeletal care."
+description: "Correctional wellness platform — MSK triage flagship plus licensed Precision Rehab, Medical Intake, and Chess Wellness programs."
 ---
 
 # Veridian Motion
 
-**Veridian Motion** is the flagship product of **Veridian Health Partners** — a
-physical therapy platform built for **correctional facilities**. It connects
-**patient portal intake** on a locked kiosk with **licensed PT review** on a
-provider dashboard, so musculoskeletal complaints get structured assessment,
-AI-assisted non-diagnostic triage, and **PT-approved exercise recommendations**.
+**Veridian Motion** is Veridian Health Partners' flagship **correctional wellness
+platform**. It delivers multiple **licensed, non-diagnostic, clinician-reviewed
+programs** on a locked patient kiosk and an authenticated staff dashboard.
+
+**MSK Assessment & PT review** remains the flagship clinical workflow. Additional
+programs — [Precision Rehab](/veridian-motion/precision-rehab),
+[Neck check-in](/veridian-motion/neck-check-in),
+[Medical Intake](/veridian-motion/medical-intake), and
+[Chess Academy](/veridian-motion/chess-wellness) — are licensed per facility
+and feature-flagged.
+
+<Note>
+  **Non-diagnostic.** The product teaches self-care and organizes the patient's
+  own data. Licensed clinicians review clinical materials before patients see
+  them. **HIPAA-aligned, not HIPAA-certified.** Capabilities below are **built /
+  pre-production / rolling out** — not generally available for real PHI until
+  compliance migration and facility activation.
+</Note>
 
 ## Why Veridian Motion exists
 
-Correctional facilities handle high volumes of musculoskeletal complaints —
-often with limited on-site PT time. Veridian Motion gives clinical and custody
-staff a repeatable workflow:
+Correctional facilities manage high volumes of musculoskeletal and wellness
+needs with limited clinician time. Veridian Motion gives facilities a
+repeatable, safety-gated workflow across licensed programs:
 
-- Patients report **what hurts**, complete a **questionnaire**, and capture
-  **up to four guided posture photos** on a facility-controlled kiosk.
-- AI produces an **immediate PT-reviewable exercise plan** (name, why, steps,
-  dosage, cautions) — **never shown to the patient before PT approval**.
-- The PT retains **full clinical authority**, edits the plan, and **approves**
-  when ready.
+- Patients complete structured intakes and self-directed education on a
+  facility-controlled kiosk after accepting Terms.
+- AI and program logic produce **observations and plans for clinician review** —
+  never a diagnosis.
+- Licensed clinicians retain **clinical authority** and approve what patients see.
 
-## Facility impact
-
-Structured MSK triage and **PT-approved movement plans** can improve **patient
-wellbeing** and help facilities address complaints before they escalate into
-costlier outcomes — emergency transfers, chronic disability, repeat sick calls,
-and litigation exposure.
-
-<Note>
-  Veridian Motion is a **clinical workflow product** — not billing, EHR, live
-  video, or partner API. Those are on the [Roadmap](/veridian-motion/roadmap)
-  or out of scope.
-</Note>
-
-## Built for physical therapists
-
-| PT capability | What it means in practice |
-| --- | --- |
-| **Assignment queue** | Admin assigns submissions to PTs |
-| **Assessment review** | Body map, questionnaire, photos, AI plan |
-| **Red-flag triage** | Review-first callouts; patient sees **see medical staff** — not diagnosis |
-| **Exercise planning** | Edit AI plan: name, why, steps, dosage, cautions |
-| **Approve and release** | Nothing reaches the patient until PT **approves** |
-| **Messaging** | Secure clinician-to-patient thread |
-| **PDF export** | Plain assessment PDF |
-
-## Two surfaces
+## Programs
 
 <CardGroup cols={2}>
-  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
-    Patient ID + PIN, body map, complaint, questionnaire, photos, status
-    tracking, approved plan after PT review.
+  <Card title="MSK Assessment & PT review" icon="person-running" href="/veridian-motion/patient-portal">
+    Flagship — complaint, photos, non-diagnostic AI findings, PT review, plan,
+    messaging, PDF.
   </Card>
-  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Patient roster, manual enrollment, assignment queue, review/approve,
-    messaging, PDF export.
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    10-lesson course, guided practice with after-treatment decision tree, Understand (Neck).
+  </Card>
+  <Card title="Neck check-in" icon="head-side" href="/veridian-motion/neck-check-in">
+    Cervical symptom-history check-in with deterministic safety gate.
+  </Card>
+  <Card title="Medical Intake" icon="notes-medical" href="/veridian-motion/medical-intake">
+    One-time medical profile with clinician red-flag review.
+  </Card>
+  <Card title="Chess Academy" icon="chess-knight" href="/veridian-motion/chess-wellness">
+    Non-clinical cognitive wellness — Veridian board, play, puzzles, Game recap.
   </Card>
 </CardGroup>
 
-## How a case moves through the system
+Licensing backbone: [Programs & licensing](/veridian-motion/programs-and-licensing)
+(contract-first entitlements, seat caps, enrollments, invoice-support snapshots).
+
+## Two primary surfaces
+
+<CardGroup cols={2}>
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
+    Terms gate, Patient ID + PIN, MSK intake, programs, messaging, approved plans.
+  </Card>
+  <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
+    Roster, licensing/enrollment, review panels, messaging, analytics.
+  </Card>
+</CardGroup>
+
+## How an MSK case moves through the system
 
 <Steps>
-  <Step title="Enroll">
-    An **admin** manually enrolls the patient and receives **Patient ID +
-    initial PIN**.
+  <Step title="License and enroll">
+    Facility holds a program **entitlement**; admin enrolls the patient
+    (manual or bulk import) and issues **Patient ID + PIN**, then assigns
+    program **seats** within the cap.
   </Step>
 
-  <Step title="Intake on kiosk">
-    The patient signs in, selects body-map regions, describes the complaint,
-    completes the questionnaire, and captures up to four posture photos.
+  <Step title="Terms and intake">
+    Patient accepts **Terms** at first login, then completes MSK intake (body
+    map, complaint, questionnaire, up to four posture photos).
   </Step>
 
   <Step title="Submit and wait">
-    The patient sees **confirmation and safety guidance only**. AI generates a
-    PT-reviewable plan in the dashboard — not on the kiosk.
+    Patient sees **confirmation and safety guidance only**. AI generates a
+    clinician-reviewable plan in the dashboard — not on the kiosk before approval.
   </Step>
 
   <Step title="Assign and review">
-    An **admin** assigns a **PT** from the queue. The PT reviews red flags,
-    intake, and the AI plan.
+    Admin assigns a clinician. The clinician reviews red flags, intake, and the
+    AI plan; edits and **approves** when ready.
   </Step>
 
-  <Step title="Approve">
-    The PT **approves** the assessment. The patient may then view the approved
-    plan and shared PT notes in **My plan / progress**.
+  <Step title="Approve and follow up">
+    Patient may view the approved plan, use other enrolled programs, and message
+    staff in the secure thread.
   </Step>
 </Steps>
 
@@ -95,31 +105,41 @@ and litigation exposure.
 
 | Role | Role in Veridian Motion |
 | --- | --- |
-| **Physical therapist (`pt`)** | Review, approve, notes, messaging |
-| **Administrator (`admin`)** | Manual enrollment, assignment, roles, MFA reset |
+| **Physical therapist (`pt`)** | Clinical review, approve, notes, messaging, rehab review |
+| **Administrator (`admin`)** | Enrollment, licensing/seats, roles, Communication Record, analytics |
+| **Officer (`officer`)** | Facility operational support per policy (no clinical PHI by default) |
+| **Warden (`warden`)** | Operational oversight only — no clinical PHI (rolling out with multi-facility) |
 | **IT admin (`it_admin`)** | Security and compliance administration |
-| **Patient** | Portal intake and post-approval plan access |
+| **BH clinician (`bh_clinician`)** | Reserved for future BH workflows — **BH product not publicly available** (WOPR) |
+| **Wellness participant (`wellness_participant`)** | Officer & Staff Wellness portal participant |
+| **Patient** | Portal intake, programs, post-approval plan access |
+
+## Officer & Staff Wellness
+
+A separate confidential [Officer & Staff Wellness](/veridian-motion/officer-staff-wellness)
+portal extends movement-based wellness to **employees** — voluntary,
+confidential, non-diagnostic, under employee-wellness rules (not patient HIPAA).
 
 ## Documentation map
 
 <CardGroup cols={2}>
+  <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
+    Built today — technical scope.
+  </Card>
   <Card title="For evaluators" icon="clipboard-check" href="/veridian-motion/for-evaluators">
     One-page evaluation guide.
   </Card>
-  <Card title="Getting started" icon="rocket" href="/veridian-motion/getting-started">
-    Rollout checklist.
-  </Card>
-  <Card title="Facility onboarding" icon="building" href="/veridian-motion/facility-onboarding">
-    Manual enrollment and deployment.
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements, seats, invoice-support.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Rolling out: multi-facility, `warden`; planned: SSO, bulk import, JMS.
+    Rolling out and planned items.
   </Card>
-  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
-    Step-by-step patient intake.
+  <Card title="Terms & consent" icon="file-contract" href="/veridian-motion/terms-and-consent">
+    First-login Terms acceptance.
   </Card>
-  <Card title="Provider dashboard" icon="stethoscope" href="/veridian-motion/provider-dashboard">
-    Review, approve, messaging, PDF.
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    HIPAA-aligned posture.
   </Card>
 </CardGroup>
 
