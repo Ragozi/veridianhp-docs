@@ -42,6 +42,7 @@
         "icon": "grid-2",
         "pages": [
           "veridian-motion/precision-rehab",
+          "veridian-motion/neck-check-in",
           "veridian-motion/medical-intake",
           "veridian-motion/chess-wellness",
           "veridian-motion/officer-staff-wellness"

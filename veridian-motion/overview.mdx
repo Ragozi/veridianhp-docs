@@ -26,7 +26,7 @@ remains the flagship; other programs are additive and feature-flagged.
 
 | Surface | Users | Purpose |
 | --- | --- | --- |
-| **Patient portal (kiosk)** | Patients (Patient ID + PIN) | Terms acceptance, MSK intake, Medical Intake, Precision Rehab, Chess Wellness, messaging, approved plans |
+| **Patient portal (kiosk)** | Patients (Patient ID + PIN) | Wellness Hub, Terms, MSK intake, Medical Intake, Precision Rehab, Neck check-in, Chess Academy, messaging, approved plans |
 | **Provider dashboard** | Staff (`pt`, `admin`, `officer`, `warden`, `it_admin`, `bh_clinician`, `wellness_participant`) | Roster, program licensing/enrollment, clinician review, messaging, analytics |
 | **Officer wellness portal** | Staff participants | Separate confidential employee wellness portal |
 
@@ -51,8 +51,9 @@ TanStack Start (React 19), installable **PWA**, USWDS-aligned UI, Supabase
 | --- | --- | --- |
 | **MSK Assessment & PT review** | Built (flagship) | [Patient portal](/veridian-motion/patient-portal) |
 | **Precision Rehab** | Built / rolling out (`PRECISION_REHAB_ENABLED`) | [Precision Rehab](/veridian-motion/precision-rehab) |
+| **Neck check-in** | Built / rolling out | [Neck check-in](/veridian-motion/neck-check-in) |
 | **Medical Intake** | Built / rolling out (`MEDICAL_INTAKE_ENABLED`) | [Medical Intake](/veridian-motion/medical-intake) |
-| **Chess Wellness** | Built / rolling out (`CHESS_ENABLED`) | [Chess Wellness](/veridian-motion/chess-wellness) |
+| **Chess Academy** | Built / rolling out (`CHESS_ENABLED`) | [Chess Academy](/veridian-motion/chess-wellness) |
 
 Shared [Programs & licensing](/veridian-motion/programs-and-licensing):
 per-facility **entitlements** (seat cap + contract price), per-patient
@@ -69,8 +70,8 @@ not medical claims/CPT coding.
   timestamp logged)
 - **Secure messaging** with safety screening and admin Communication Record
   (confirm activation per deployment)
-- **Admin analytics** — facility engagement reporting (measured vs clearly
-  labeled estimated figures; no individual PHI)
+- **Admin analytics** — facility engagement reporting plus **Usage & activity**
+  (aggregate only; measured vs clearly labeled estimated figures; no individual PHI)
 - **Offline-capable** where it matters (chess engine, puzzles, rehab) on locked
   facility networks
 

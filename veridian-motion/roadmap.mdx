@@ -22,34 +22,43 @@ Health Partners confirms activation for your facility.
 | **Bulk roster provisioning (CSV / mass import)** | Admin bulk import of staff and patients — **built** in the admin console; confirm activation per deployment |
 | **Multi-facility isolation** | Facility-scoped RLS, facility switching, and **`warden`** operational oversight (no clinical PHI) |
 | **Program licensing & facility billing** | Entitlements, seat caps, enrollments, immutable monthly snapshots, invoice-support export — see [Programs & licensing](/veridian-motion/programs-and-licensing) |
-| **Precision Rehab** | Feature-flagged self-directed MSK rehab — see [Precision Rehab](/veridian-motion/precision-rehab) |
+| **Precision Rehab** | 10-lesson course, guided practice with after-treatment decision tree, Understand (Neck) — see [Precision Rehab](/veridian-motion/precision-rehab) |
+| **Neck check-in** | 114-question cervical symptom-history check-in with deterministic safety gate — see [Neck check-in](/veridian-motion/neck-check-in) |
 | **Medical Intake** | Feature-flagged one-time medical profile + red-flag engine — see [Medical Intake](/veridian-motion/medical-intake) |
-| **Chess Wellness** | Feature-flagged cognitive wellness program — see [Chess Wellness](/veridian-motion/chess-wellness) |
+| **Chess Academy** | Veridian board, play, puzzles, Game recap, academy — see [Chess Academy](/veridian-motion/chess-wellness) |
 | **Terms & patient consent** | Versioned Terms acceptance at first login — see [Terms & patient consent](/veridian-motion/terms-and-consent) |
-| **Messaging safety + Communication Record** | Safety screening and admin-only immutable PDF export (audit-logged access) |
-| **Admin analytics** | Per-facility engagement / value reporting (measured vs estimated; no individual PHI) |
+| **Messaging safety + Communication Record** | Rules-based safety screening and admin-only immutable PDF export (audit-logged access) |
+| **Admin analytics + Usage & activity** | Per-facility engagement / value reporting and aggregate usage dashboard — see [Admin analytics](/veridian-motion/admin-analytics) |
 
 ## Planned
 
 | Capability | Description |
 | --- | --- |
+| **Stronger chess engine** | Higher-strength analysis engine pending **license review** (separate process); current on-device engine stays intentionally light |
+| **Larger puzzle library & opening names** | Expanded tactics library and opening-name coverage |
+| **Neck check-in adaptive branching** | Shorter paths that skip irrelevant sections |
+| **Other body regions** | Symptom check-ins and Understand education beyond Neck |
+| **Tap-the-sore-muscle body map** | Interactive body map as an intake front door |
+| **Licensed anatomy & exercise media** | Licensed/original anatomy and exercise media |
+| **Per-muscle neck self-release techniques** | In progress with the clinical lead |
+| **Hub Coming soon tiles** | Sleep, Nutrition, Brain Fitness, Wellness Challenges, Chronic Disease Education, Music Therapy, Art Therapy, Continuing Education |
+| **BAA-covered production hosting** | Required **before any real patient data** |
 | **Staff SSO (SAML / OIDC)** | Agency IdP sign-on with MFA and group → role mapping |
 | **JMS / booking-system integration** | Live or scheduled sync (e.g., Tyler, Spillman/Motorola, CentralSquare, Securus) |
 | **Scheduled SFTP roster feed** | Daily roster file drop for automated reconcile |
 | **EHR / EMR integration** | Automated clinical data exchange |
 | **Partner API** | Programmatic third-party access |
 | **Live video consults** | Synchronous telehealth sessions |
-| **Chess enhancements** | Facility/pod leaderboard; local two-player; fuller Korenman curriculum; optional Stockfish (GPLv3, separate process) |
-| **Precision Rehab enhancements** | Region library + video |
-| **Medical Intake enhancements** | Workflow decision + clinical sign-off |
-| **Behavioral Health (pending legal)** | Not publicly documented as a product. Gated pending legal/clinical clearance against the **Illinois WOPR Act**. Role key `bh_clinician` may exist in the platform for future use — **no public BH module docs** |
+| **Behavioral Health (pending legal)** | Not publicly documented as a product. Gated pending legal/clinical clearance against the **Illinois WOPR Act**. Role key `bh_clinician` may exist for future use — **no public BH module docs** |
 
 ## Compliance migration (gate to real deployment)
 
 Current Lovable builds use **synthetic data only**. Before any real-PHI pilot:
 
 1. Migrate to **owned Supabase** (HIPAA add-on + BAA) and a **compliant host**
-2. Move messaging AI screener to BAA-covered or self-hosted infrastructure
+2. Keep message screening **rules-based** (no message text to AI services); move
+   any remaining staff-facing AI drafts to BAA-covered or self-hosted
+   infrastructure as required
 3. Finalize **Terms / MSA / BAA** with counsel
 4. Obtain an **IRB determination** when required (program-evaluation framing)
 5. Obtain clinical sign-offs for enabled programs
@@ -71,6 +80,9 @@ Positioning remains **"HIPAA-aligned"** and **"wellness program"** — never
 <CardGroup cols={2}>
   <Card title="Platform overview" icon="layer-group" href="/veridian-motion/overview">
     Built today (pre-production).
+  </Card>
+  <Card title="Neck check-in" icon="head-side" href="/veridian-motion/neck-check-in">
+    Cervical check-in (built / rolling out).
   </Card>
   <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
     Entitlements and seats.

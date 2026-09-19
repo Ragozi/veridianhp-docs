@@ -1,64 +1,80 @@
 ---
 title: "Precision Rehab"
-description: "Self-directed MSK rehab — course, 9-step self-treatment with safety screen, Daily Movement routines, PT review panel."
+description: "Self-directed MSK rehab — 10-lesson course, guided practice with after-treatment decision tree, Understand education, PT review."
 ---
 
 # Precision Rehab
 
 **Precision Rehab** is a feature-flagged program for **self-directed
-musculoskeletal rehab** based on a licensed PT's method (Leon Cherbukhovsky,
-PT, DPT — Precision Manual Therapy Model). It is **educational and
-non-diagnostic**; a **PT review panel** surfaces logged activity for human
+musculoskeletal rehab** based on a licensed PT's method. It is **educational and
+non-diagnostic**. A **PT review panel** surfaces session outcomes for human
 review.
+
+Patients can also start a [Neck check-in](/veridian-motion/neck-check-in) from
+this program (**Start a new assessment**).
 
 <Note>
   Controlled by **`PRECISION_REHAB_ENABLED`**. Facility access also requires an
   active [program entitlement](/veridian-motion/programs-and-licensing) and
-  patient enrollment. Built / rolling out — confirm activation for your
-  deployment.
+  patient enrollment. **Built / rolling out** on synthetic (pre-production)
+  data — confirm activation for your deployment.
 </Note>
 
-## Course and competency
+## Course (10 lessons)
+
+The course now begins with a first lesson, **Knowing the anatomical map**
+(bony landmarks and the neck muscle map, from the program's clinical lead).
+The full course is **10 lessons**, with quick checks and a course check before
+guided practice unlocks.
 
 | Step | Detail |
 | --- | --- |
-| **Lessons + quick checks** | Short course with quiz-style checks |
-| **Competency check** | Confirms understanding before certification |
-| **Certificate of Competency** | Printable certificate on successful completion |
+| **Lessons + quick checks** | 10 lessons, including **Knowing the anatomical map** |
+| **Course check** | Must be passed before guided practice unlocks |
+| **Certificate of Competency** | Printable certificate on successful completion (where enabled) |
 
-## Guided self-treatment (9-step method)
+## Guided practice (end of Course)
 
-1. Pick a **comparable sign** (0–10)
-2. **Localize**
-3. **Fiber direction**
-4. **Position**
-5. **Contact**
-6. **Dose**
-7. **Retest**
-8. **Load**
+**Guided practice** — step-by-step self-release with a before/after **0–10**
+rating — sits at the **end of the Course** and **unlocks after the course check
+is passed**. There is **no separate Self-rehab tab**.
 
-### Safety screen
+### After-treatment decision tree (deterministic, server-side, no AI)
 
-If **any** safety / red-flag item is checked, the session **stops** and routes
-the patient toward an **in-person sick call**. See
-[AI and clinical safety](/veridian-motion/ai-and-clinical-safety).
+| Outcome | System behavior |
+| --- | --- |
+| Symptom went to **0/10** | Resolved — done for today |
+| **Better but not gone** | Flagged for **PT review** (new vs. long-term; keep going or adjust) |
+| **No change** | Logged; try a different spot next time |
+| **Worse** | A short check separates ordinary post-treatment **soreness** from **warning signs** |
 
-## Daily Movement routines
+**Warning signs** (any one): numbness; tingling; electrical or shooting pain;
+marked swelling or bruising; sharp joint pain; harder to move; fever, chills, or
+feeling unwell.
 
-Equipment-free correctional programs:
+| Worse path | Patient guidance | System behavior |
+| --- | --- | --- |
+| **Soreness only** | Don't repeat today; recheck tomorrow; sick call if worse | Session logged |
+| **Any warning sign** | Stop self-treatment; place a sick call | Session **escalated**, written to the **audit log**; patient can send a **one-tap message** to their care team |
 
-- **Cell Mobility**
-- **Morning Reset**
-- **Prolonged-Sitting Reset**
-- **Evening Recovery**
+## Understand tab
+
+**Understand** provides education **by body part**. **Neck** is live; other
+regions are coming soon (Roadmap).
+
+## Posture photos
+
+The posture photo step can be **skipped** when a camera isn't available. The
+assessment continues without photos.
 
 ## PT review panel
 
 On the patient page, clinicians see:
 
-- Logged self-treatment sessions
-- Routine completions
-- Space for **review notes**
+- Each session's **outcome**
+- Any **warning signs**
+- A **needs PT decision** cue when the decision tree flags review
+- Space for review notes
 
 ## Offline capability
 
@@ -74,13 +90,16 @@ external API calls where it matters for session continuity.
 ## What's next
 
 <CardGroup cols={2}>
+  <Card title="Neck check-in" icon="head-side" href="/veridian-motion/neck-check-in">
+    Cervical symptom-history check-in.
+  </Card>
   <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
     Entitlements and seat caps.
   </Card>
   <Card title="Provider dashboard" icon="user-doctor" href="/veridian-motion/provider-dashboard">
-    Review panel on the patient page.
+    PT review panel.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Region library and video planned.
+    Other regions, body map, media.
   </Card>
 </CardGroup>

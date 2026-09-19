@@ -1,6 +1,6 @@
 ---
 title: "Patient portal"
-description: "Authenticated patient intake — body map, complaint, questionnaire, photos, and post-review plan access."
+description: "Wellness Hub, Terms gate, MSK intake, Precision Rehab, Neck check-in, Chess Academy, and post-review plan access."
 ---
 
 # Patient portal
@@ -9,29 +9,49 @@ The **patient portal** is the patient-facing surface of Veridian Motion on a
 **facility-controlled kiosk**. Patients authenticate with a **Patient ID** and
 **PIN** provisioned by staff at enrollment. There is no self sign-up.
 
+After sign-in, patients land on a **Wellness Hub** and choose a program.
+
 <Warning>
   Patients **never** see un-reviewed AI output or exercise plans. After submit
   they see confirmation and plain-language safety guidance only. Approved
   content appears after a licensed clinician reviews and releases the assessment.
 </Warning>
 
-## Programs on the portal
+## Wellness Hub
 
-After **Terms acceptance** at first login, and when licensed/feature-flagged,
-patients may access:
+Patients pick a program from the **Wellness Hub**.
 
-- **MSK Assessment** — flagship intake (body map, complaint, questionnaire, photos)
-- **[Medical Intake](/veridian-motion/medical-intake)** — one-time medical profile
-- **[Precision Rehab](/veridian-motion/precision-rehab)** — course, guided self-treatment, Daily Movement
-- **[Chess Wellness](/veridian-motion/chess-wellness)** — play, puzzles, academy (offline engine)
+### Live / rolling out (when licensed and enabled)
 
-See [Terms & patient consent](/veridian-motion/terms-and-consent).
+| Tile | Program |
+| --- | --- |
+| **MSK Assessment** | Flagship intake (body map, complaint, questionnaire, photos) |
+| **[Medical Intake](/veridian-motion/medical-intake)** | One-time medical profile |
+| **[Precision Rehab](/veridian-motion/precision-rehab)** | Course, guided practice, Understand |
+| **[Neck check-in](/veridian-motion/neck-check-in)** | Cervical symptom-history check-in (started from Precision Rehab) |
+| **[Chess Academy](/veridian-motion/chess-wellness)** | Play, puzzles, Game recap, academy (offline) |
+
+### Coming soon (Roadmap tiles)
+
+Hub tiles marked **Coming soon**:
+
+- Sleep
+- Nutrition
+- Brain Fitness
+- Wellness Challenges
+- Chronic Disease Education
+- Music Therapy
+- Art Therapy
+- Continuing Education
+
+Public Hub docs do **not** list a Mental Wellness / Behavioral Health tile.
 
 ## First login — Terms gate
 
 Before using the portal, the patient must accept **Terms & Policies** via a
 required checkbox linked to the public `/terms` page. Each acceptance is logged
-with **version + timestamp**.
+with **version + timestamp**. See
+[Terms & patient consent](/veridian-motion/terms-and-consent).
 
 ## Full MSK intake flow
 
@@ -39,6 +59,10 @@ with **version + timestamp**.
   <Step title="Accept Terms (first login) then sign in">
     On first use, accept Terms. Then enter **Patient ID** and **PIN** (4–12
     digits). Staff create these at enrollment.
+  </Step>
+
+  <Step title="Choose a program on the Wellness Hub">
+    Select MSK Assessment or another enabled program tile.
   </Step>
 
   <Step title="Select what's hurting (body map)">
@@ -55,21 +79,20 @@ with **version + timestamp**.
   <Step title="Complete the questionnaire">
     A **plain-language questionnaire** collects additional context (onset,
     severity, movement limits, and related items). Required questions must be
-    answered before continuing. If the session resets due to idle timeout,
-    the patient must sign in again and may need to restart intake.
+    answered before continuing. Follow-up clarifying questions during posture
+    assessment are a **fixed, non-diagnostic list** (no AI).
   </Step>
 
-  <Step title="Capture posture photos">
-    Guided capture for **up to four views** (e.g., front, back, left, right).
-    On-screen **silhouette overlays** help positioning. The interface prompts
-    retakes when a photo is unusable. Camera access requires staff assistance
-    if denied.
+  <Step title="Capture posture photos (optional)">
+    Guided capture for **up to four views** when a camera is available.
+    On-screen **silhouette overlays** help positioning. If a camera is **not**
+    available, the patient can **skip** photos and continue the assessment.
   </Step>
 
   <Step title="Submit">
     The patient reviews and submits. The assessment moves into staff workflow.
-    Server-side AI generates a **PT-reviewable exercise plan** — not shown on
-    the kiosk.
+    Server-side AI may draft a **clinician-reviewable** exercise plan — not
+    shown on the kiosk.
   </Step>
 
   <Step title="Confirmation (immediate)">
@@ -87,18 +110,11 @@ with **version + timestamp**.
     - **Under review**
     - **Reviewed**
 
-    After a PT **approves** the assessment, the patient may see the
+    After a clinician **approves** the assessment, the patient may see the
     **approved exercise plan** (name, why, steps, dosage, cautions) and any
-    **PT notes explicitly shared** with them.
+    **notes explicitly shared** with them.
   </Step>
 </Steps>
-
-## After submit
-
-Immediately after submission the patient sees **confirmation** and safety
-guidance only — not AI output or exercise plans. Track progress under **My
-plan / progress**; approved plan content appears only after status reaches
-**Reviewed**.
 
 ## Red-flag safety inputs
 
@@ -110,15 +126,6 @@ dispatch. Custody and clinical staff follow facility protocols.
 
 An enrolled patient may complete **more than one assessment** over time. Each
 submission appears separately in **My plan / progress** with its own status.
-
-## What patients see after review
-
-When status is **Reviewed**, the patient may view:
-
-- **Approved exercise plan** — exercises with **name**, **why**, **steps**,
-  **dosage**, and **cautions** as the PT approved
-- **PT notes** marked **shared with patient** — only notes the PT explicitly
-  released
 
 ## What patients cannot do on the portal
 
@@ -154,7 +161,8 @@ correctional facility. See [Deployment and kiosk](/veridian-motion/deployment-an
 
 Patient session state is held **in memory** — not in browser `localStorage`.
 No PII is persisted locally on the kiosk browser beyond what the active
-session requires.
+session requires. Clinician-only reasoning notes from Neck check-in are **never**
+sent to the patient device.
 
 ## What's next
 
@@ -163,12 +171,12 @@ session requires.
     What happens after the patient submits.
   </Card>
   <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
-    Self-directed rehab program.
+    Course, guided practice, Understand.
   </Card>
-  <Card title="Chess Wellness" icon="chess-knight" href="/veridian-motion/chess-wellness">
-    Cognitive wellness program.
+  <Card title="Neck check-in" icon="head-side" href="/veridian-motion/neck-check-in">
+    Cervical symptom-history check-in.
   </Card>
-  <Card title="Messaging" icon="comments" href="/veridian-motion/messaging">
-    Secure clinician-to-patient follow-up.
+  <Card title="Chess Academy" icon="chess-knight" href="/veridian-motion/chess-wellness">
+    Play, puzzles, Game recap.
   </Card>
 </CardGroup>
