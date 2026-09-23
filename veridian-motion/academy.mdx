@@ -1,0 +1,86 @@
+---
+title: "Veridian Academy"
+description: "Patient-portal teaching surface — Course (Pure Training Roll Book I), Anatomy, Common problems, and Mobility Exercise cards."
+---
+
+# Veridian Academy
+
+**Veridian Academy** is the teaching surface inside the
+[patient portal](/veridian-motion/patient-portal), at **`/academy`**. Patients
+reach it from the PT tool and the Wellness Hub. It holds clinician-authored
+education cards and the [Pure Training Roll — Book I](/veridian-motion/pure-training-roll)
+certification curriculum.
+
+Clinical authority stays with licensed clinicians. The product does **not**
+diagnose. Card material is **educational and non-diagnostic**; cards carry
+explicit **stop** criteria.
+
+<Note>
+  **Built / rolling out** on synthetic (pre-production) data. Current Lovable
+  builds use **synthetic data only**. Confirm activation for your deployment.
+  Academy access rides the existing
+  [program entitlement](/veridian-motion/programs-and-licensing) model.
+</Note>
+
+## Four tabs
+
+| Tab | Contents |
+| --- | --- |
+| **Course** | [Pure Training Roll — Book I](/veridian-motion/pure-training-roll) |
+| **Anatomy** | 19 illustrated muscle cards |
+| **Common problems** | 9 condition cards |
+| **Mobility Exercise** | 16 exercise cards |
+
+**44** clinician-authored teaching cards in total (Anatomy + Common problems +
+Mobility Exercise), filterable by body region: neck, shoulder, mid-back, low
+back & pelvis, hip, knee, foot & ankle, arm.
+
+## Teaching cards
+
+Cards are full-page designed artwork; many are two pages. A single **exercise**
+card carries:
+
+- Level and category
+- Starting position
+- A coaching cue
+- Photographed steps
+- Labelled anatomy
+- Dosage
+- Regression
+- A five-stage progression
+- Stop-or-modify criteria
+- A common-compensations table
+- A **why it matters** section
+
+All card content is authored by **Leon Cherbukhovsky, PT**.
+
+## Access control (RLS)
+
+Card rows are **row-level-security gated**:
+
+- Participants see only rows with `status = 'active'`
+- Staff see drafts
+
+## What it is not
+
+- **Not a diagnosis** or treatment prescription
+- **Not** a substitute for licensed clinician judgment
+- **Not** behavioral-health assessment
+- **Not** clinically proven / certified claims
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Pure Training Roll — Book I" icon="book" href="/veridian-motion/pure-training-roll">
+    Foundations & Science curriculum and examination.
+  </Card>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Self-directed rehab that links to Academy reference.
+  </Card>
+  <Card title="Patient portal" icon="tablet-screen" href="/veridian-motion/patient-portal">
+    Wellness Hub entry to Academy.
+  </Card>
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlement model.
+  </Card>
+</CardGroup>

@@ -1,0 +1,97 @@
+---
+title: "Pure Training Roll — Book I"
+description: "Foundations & Science certification curriculum — 15 modules, knowledge checks, competency examination, and certificate."
+---
+
+# Pure Training Roll — Book I
+
+**Pure Training Roll — Book I: Foundations & Science** is a **15-module
+certification curriculum** by **Leon Cherbukhovsky**, First Edition **2026**.
+Patients access it from the **Course** tab in
+[Veridian Academy](/veridian-motion/academy).
+
+Clinical authority stays with licensed clinicians. The curriculum is
+**educational and non-diagnostic**. The product does **not** diagnose.
+
+<Note>
+  **Built / rolling out** on synthetic (pre-production) data. Current Lovable
+  builds use **synthetic data only**. Confirm activation for your deployment.
+</Note>
+
+## Modules
+
+Fifteen modules cover:
+
+1. How the roll works
+2. Foundations of human movement
+3. Functional anatomy
+4. Co-contraction and joint control
+5. What the roll changes
+6. Controlled instability and motor learning
+7. Isometric exercise
+8. Moving while stabilising
+9. Self-generated perturbation
+10. Reciprocal movement
+11. Multiplanar movement
+12. Progression and regression
+13. Pain and stiffness
+14. Programming and recovery
+15. Safety and responsibility
+
+Each module ends with a **knowledge check** and a **competency objective**.
+
+| Metric | Count |
+| --- | --- |
+| Knowledge-check questions (course-wide) | **376** |
+| Competency objectives | **14** |
+
+Knowledge checks are **open-response** and are **deliberately not scored** —
+they prepare the learner for the examination.
+
+## Book I Participant Competency Examination
+
+| Item | Detail |
+| --- | --- |
+| **Length** | **100** questions |
+| **Format** | **90** multiple choice and **10** true/false |
+| **Coverage** | Six participant-level questions from each of the **15** modules |
+| **Scoring** | One point each |
+| **Attempts** | Unlimited |
+| **Pass mark** | Currently **80/100** — **provisional**, pending clinician confirmation (the source examination does not state a threshold) |
+
+Passing issues a printable **Certificate of Completion** naming **Leon
+Cherbukhovsky** as author.
+
+## Examination security
+
+The **answer key never reaches the browser**. Design:
+
+1. The key lives in a **staff-only, RLS-protected** table
+2. Participants fetch the paper through a **security-definer** function that
+   returns questions **without** the answer column
+3. Submission is graded by a second **security-definer** function **inside the
+   database**
+
+A participant cannot read the key even by querying directly.
+
+## What it is not
+
+- **Not a clinical license** or professional credential beyond the program's own
+  Certificate of Completion
+- **Not a diagnosis** or treatment plan
+- **Not** scored knowledge checks (those prepare for the exam only)
+- **Not** a claim that the provisional 80/100 pass mark is clinician-finalized
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Veridian Academy" icon="graduation-cap" href="/veridian-motion/academy">
+    Teaching cards and Course tab.
+  </Card>
+  <Card title="Precision Rehab" icon="dumbbell" href="/veridian-motion/precision-rehab">
+    Self-directed rehab program.
+  </Card>
+  <Card title="Programs & licensing" icon="id-card" href="/veridian-motion/programs-and-licensing">
+    Entitlements and seats.
+  </Card>
+</CardGroup>

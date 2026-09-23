@@ -1,0 +1,61 @@
+---
+title: "Design system"
+description: "Self-hosted fonts, Veridian palette, and mark — operational constraints for facility tablets."
+---
+
+# Design system
+
+Two points matter operationally for Veridian Motion on facility tablets — not
+only for cosmetics.
+
+<Note>
+  Current Lovable builds use **synthetic data only**. This page documents UI
+  constraints that affect deployment on allow-listed networks.
+</Note>
+
+## Fonts (self-hosted)
+
+Fonts are **self-hosted**. **Source Serif 4** (display) and **IBM Plex Sans**
+(UI) ship with the bundle via `@fontsource`.
+
+The product makes **no external font requests**. Facility tablets run against an
+**allow-listed endpoint with no open internet** — a CDN font link would
+**silently fail**. Anyone extending the UI must **not** add an external font
+CDN.
+
+See also [Deployment and kiosk](/veridian-motion/deployment-and-kiosk).
+
+## Palette
+
+| Token | Hex | Use |
+| --- | --- | --- |
+| Deep navy ground | `#0D151E` | Participant field |
+| Teal | `#3BB9AE` | Interactive elements |
+| Brass | `#C6A664` | Institutional markers — section labels, structural rules, certificate frames |
+
+Light palette exists for **staff surfaces and printing**, with both accents
+darkened for contrast on white:
+
+| Accent on light | Hex |
+| --- | --- |
+| Teal (darkened) | `#1F7A72` |
+| Brass (darkened) | `#8A6E3A` |
+
+The **participant** experience renders on the **dark** field. **Printing** drops
+to light so certificates come out clean.
+
+## Mark
+
+The mark is a **V** in engraved weight contrast crossed by a rule, drawn as
+**single-colour SVG** so it holds at **24px** on a dim tablet screen.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Deployment and kiosk" icon="tablet-screen" href="/veridian-motion/deployment-and-kiosk">
+    PWA and facility network constraints.
+  </Card>
+  <Card title="Pure Training Roll — Book I" icon="book" href="/veridian-motion/pure-training-roll">
+    Certificate printing context.
+  </Card>
+</CardGroup>

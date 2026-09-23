@@ -8,24 +8,14 @@ published at [docs.veridianhp.com](https://docs.veridianhp.com) via Mintlify.
 ```
 introduction.mdx
 veridian-motion/
-  for-evaluators.mdx
-  product.mdx
-  overview.mdx
-  roadmap.mdx
-  getting-started.mdx
-  facility-onboarding.mdx
-  programs-and-licensing.mdx
-  terms-and-consent.mdx
-  precision-rehab.mdx
-  medical-intake.mdx
-  chess-wellness.mdx
-  officer-staff-wellness.mdx
-  patient-portal.mdx
-  provider-dashboard.mdx
-  admin-analytics.mdx
-  ...
+  product.mdx / overview.mdx / roadmap.mdx
+  academy.mdx / pure-training-roll.mdx
+  precision-rehab.mdx / neck-check-in.mdx / medical-intake.mdx
+  chess-wellness.mdx   (titled Chess Academy)
+  design-system.mdx
+  patient-portal.mdx / provider-dashboard.mdx / …
 security/*.mdx
-docs.json
+docs.json              (Platform / Programs / Operations / Reference groups)
 ```
 
 ## Product

@@ -1,6 +1,6 @@
 ---
 title: "Chess Academy"
-description: "Licensed cognitive-wellness program — Veridian board, play, puzzles, Game recap, academy. Not clinical. Slug: chess-wellness."
+description: "Licensed cognitive-wellness program — Veridian board, seven opponents, in-house engine, Game recap, 26-lesson Academy. Not clinical."
 ---
 
 # Chess Academy
@@ -10,11 +10,15 @@ description: "Licensed cognitive-wellness program — Veridian board, play, puzz
 problem-solving. It is **explicitly not clinical** — not a diagnosis tool,
 therapy, or behavioral-health module.
 
+Clinical authority stays with licensed clinicians. This program does **not**
+diagnose.
+
 <Note>
   Controlled by **`CHESS_ENABLED`**. Licensed **per facility** and **per
   patient seat** — see [Programs & licensing](/veridian-motion/programs-and-licensing).
   **Built / rolling out** on synthetic (pre-production) data — confirm
-  activation for your deployment.
+  activation for your deployment. Current Lovable builds use **synthetic data
+  only**.
 </Note>
 
 ## Board
@@ -35,11 +39,55 @@ Puzzles, lessons, and drills use the **same board** (drag supported).
 
 | Feature | Detail |
 | --- | --- |
-| **Practice opponents** | 6 opponents (about **800–1800**), with **pre-written, encouraging lines** (no AI) |
+| **Practice opponents** | **Seven** named opponents (see below) |
 | **Player cards** | Captured pieces and material count |
 | **Move list** | Clickable, with step-back |
 | **Controls** | Hint (arrow), Takeback, Flip, Resign |
 | **Promotion** | In-board pawn promotion picker |
+
+### Opponents
+
+Opponents map to engine skill levels **2, 4, 5, 6, 7, 9, 10** on a **1–10**
+scale whose nominal ratings run **400 to 2200**. Encouraging lines are
+**pre-written** and are **not AI**.
+
+| Opponent | Engine skill (1–10) |
+| --- | --- |
+| Rookie Rick | 2 |
+| Casual Carla | 4 |
+| Steady Sam | 5 |
+| Sharp Sara | 6 |
+| Tactician Tom | 7 |
+| Master Mia | 9 |
+| Grandmaster Grace | 10 |
+
+### Difficulty controls
+
+- A **10-segment opponent-strength control** the patient can raise or lower
+  directly
+- Optional **Adjust to my results** — moves the level automatically based on
+  outcomes
+
+## Engine
+
+Veridian ships an **in-house engine** written for this product. It runs in a
+**Web Worker** so the board stays responsive. Recap analysis uses **genuine
+engine evaluation** (not an approximation).
+
+Engine design includes:
+
+- 0x88 board representation
+- Negamax with principal-variation search
+- Iterative deepening
+- Transposition table
+- Quiescence search
+- Null-move pruning
+- Tapered piece-square evaluation
+- Mate-distance scoring so it finishes won endgames
+
+**Licensing:** the rules library is **BSD**; the bundled engine **avoids GPL
+constraints**. A stronger **separate engine process** remains **Roadmap**
+pending license review.
 
 ## Game recap
 
@@ -51,28 +99,50 @@ After a game, **Game recap** lets the patient:
 - Read standard notation marks (`!`, `?!`, `?`, `??`)
 - **Try it again** from the position before a mistake
 
-Accuracy is a **game measure only**. The on-device engine is intentionally light,
-so recap ratings are **approximate**. A **stronger engine** is **Roadmap**
-(pending license review).
+Accuracy is a **game measure** derived from engine evaluation.
 
-## Puzzles, lessons, and drills
+## Academy curriculum
+
+**26 lessons** across **4 chapters**, drawn from **Dr. Mikhail Korenman's**
+*A Handbook for Chess Players*, with **175 board diagrams** rendered as real,
+playable-looking boards (not static images).
+
+| Chapter | Focus |
+| --- | --- |
+| General Chess Principles | Foundational play |
+| Chess Tactics | Tactical patterns |
+| Basic Endgame Knowledge | Endgame techniques |
+| Basic Principles of Openings | Opening ideas |
+
+Credit: **Dr. Mikhail Korenman**.
+
+## Puzzles, challenges, and ranking
 
 | Area | Detail |
 | --- | --- |
-| **Puzzles** | Tactics puzzles on the Veridian board |
+| **Puzzles** | Currently **36 checkmate-pattern** puzzles on the Veridian board |
 | **Challenges** | Daily puzzle, **Rush (timed puzzle sprint)**, Ladder |
 | **Ranking & seasons** | Personal rating, tiers, season points, streaks — **solo only**, no patient-vs-patient |
-| **Academy** | Structured curriculum, checkmate drills, interactive teaching games, **Certificate of Completion** |
 | **Instructor assignment** | Staff assign specific activities to a patient |
+
+### Seasons
+
+Seasons follow **fiscal quarters (Q1–Q4)**. The current season is resolved by
+**date**, so rollover is automatic. On rollover, **season points reset**;
+**rating** and **streaks** persist.
+
+### Known gap
+
+The puzzle set is currently **36 checkmate-pattern puzzles**, so the tactics
+lessons (pin, skewer, fork, discovered attack) do **not** yet have matching
+practice puzzles. Expanding the puzzle library to match the curriculum is
+**Roadmap**.
 
 ## Corrections security design
 
 - **No chat** and **no matchmaking** between patients
 - **No patient-vs-patient play**
 - Engine and puzzle content run **without outbound chess API** calls
-- Rules via an open-source rules library (BSD); Veridian's bundled engine avoids
-  GPL constraints. Stronger play via a separate licensed engine process is
-  **Roadmap** (license review)
 
 ## Licensing
 
@@ -82,8 +152,7 @@ patient **enrollment** within the seat cap.
 ## Engagement metrics
 
 Chess engagement appears on [Admin analytics](/veridian-motion/admin-analytics)
-at the facility / program level — not as individual clinical PHI. See also
-**Usage & activity** on that page.
+at the facility / program level — not as individual clinical PHI.
 
 ## What it is not
 
@@ -91,6 +160,7 @@ at the facility / program level — not as individual clinical PHI. See also
 - **Not** behavioral health or mood screening
 - **Not** patient-vs-patient competition or messaging
 - **Not** connected to any third-party chess website or API
+- **Not** a diagnosis tool — clinical authority stays with licensed clinicians
 
 ## What's next
 
@@ -102,6 +172,6 @@ at the facility / program level — not as individual clinical PHI. See also
     Instructor assignment.
   </Card>
   <Card title="Roadmap" icon="map" href="/veridian-motion/roadmap">
-    Stronger engine, larger puzzle library.
+    Puzzle library expansion; stronger engine.
   </Card>
 </CardGroup>
