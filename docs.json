@@ -25,15 +25,13 @@
         ]
       },
       {
-        "group": "Veridian Motion",
-        "icon": "person-running",
+        "group": "Platform",
+        "icon": "layer-group",
         "pages": [
           "veridian-motion/product",
           "veridian-motion/overview",
           "veridian-motion/roadmap",
           "veridian-motion/getting-started",
-          "veridian-motion/facility-onboarding",
-          "veridian-motion/programs-and-licensing",
           "veridian-motion/terms-and-consent"
         ]
       },
@@ -44,14 +42,18 @@
           "veridian-motion/precision-rehab",
           "veridian-motion/neck-check-in",
           "veridian-motion/medical-intake",
+          "veridian-motion/academy",
+          "veridian-motion/pure-training-roll",
           "veridian-motion/chess-wellness",
           "veridian-motion/officer-staff-wellness"
         ]
       },
       {
-        "group": "Product surfaces",
-        "icon": "tablet-screen",
+        "group": "Operations",
+        "icon": "screwdriver-wrench",
         "pages": [
+          "veridian-motion/facility-onboarding",
+          "veridian-motion/programs-and-licensing",
           "veridian-motion/patient-portal",
           "veridian-motion/provider-dashboard",
           "veridian-motion/admin-analytics",
@@ -59,9 +61,16 @@
           "veridian-motion/messaging",
           "veridian-motion/roles-and-access",
           "veridian-motion/role-permissions",
+          "veridian-motion/deployment-and-kiosk",
+          "veridian-motion/design-system"
+        ]
+      },
+      {
+        "group": "Reference",
+        "icon": "book",
+        "pages": [
           "veridian-motion/ai-and-clinical-safety",
-          "veridian-motion/data-model-privacy",
-          "veridian-motion/deployment-and-kiosk"
+          "veridian-motion/data-model-privacy"
         ]
       },
       {
